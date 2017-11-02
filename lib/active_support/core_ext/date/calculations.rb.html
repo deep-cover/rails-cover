@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/date/calculations.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext/date</a> calculations.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.06% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>77/81</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>22/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>71/71</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">696x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2055x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1942x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-yes">2392x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1216x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1214x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "date"
+require "active_support/duration"
+require "active_support/core_ext/object/acts_like"
+require "active_support/core_ext/date/zones"
+require "active_support/core_ext/time/zones"
+require "active_support/core_ext/date_and_time/calculations"
+&nbsp;
+class Date
+  include DateAndTime::Calculations
+&nbsp;
+  class &lt;&lt; self
+    attr_accessor :beginning_of_week_default
+&nbsp;
+    # Returns the week start (e.g. :monday) for the current request, if this has been set (via Date.beginning_of_week=).
+    # If &lt;tt&gt;Date.beginning_of_week&lt;/tt&gt; has not been set for the current request, returns the week start specified in &lt;tt&gt;config.beginning_of_week&lt;/tt&gt;.
+    # If no config.beginning_of_week was specified, returns :monday.
+    def beginning_of_week
+      Thread.current[:beginning_of_week] || beginning_of_week_default || :monday
+    end
+&nbsp;
+    # Sets &lt;tt&gt;Date.beginning_of_week&lt;/tt&gt; to a week start (e.g. :monday) for current request/thread.
+    #
+    # This method accepts any of the following day symbols:
+    # :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday
+    def beginning_of_week=(week_start)
+      Thread.current[:beginning_of_week] = find_beginning_of_week!(week_start)
+    end
+&nbsp;
+    # Returns week start day symbol (e.g. :monday), or raises an +ArgumentError+ for invalid day symbol.
+    def find_beginning_of_week!(week_start)
+<span class="cstat-no" title="statement not covered" >      raise <span class="cstat-no" title="statement not covered" >ArgumentError</span>, <span class="cstat-no" title="statement not covered" >"Invalid beginning of week: #{<span class="cstat-no" title="statement not covered" >week_start</span>}"</span></span> unless ::Date::DAYS_INTO_WEEK.key?(week_start)
+      week_start
+    end
+&nbsp;
+    # Returns a new Date representing the date 1 day ago (i.e. yesterday's date).
+    def yesterday
+      ::Date.current.yesterday
+    end
+&nbsp;
+    # Returns a new Date representing the date 1 day after today (i.e. tomorrow's date).
+    def tomorrow
+      ::Date.current.tomorrow
+    end
+&nbsp;
+    # Returns Time.zone.today when &lt;tt&gt;Time.zone&lt;/tt&gt; or &lt;tt&gt;config.time_zone&lt;/tt&gt; are set, otherwise just returns Date.today.
+    def current
+      ::Time.zone ? ::Time.zone.today : ::Date.today
+    end
+  end
+&nbsp;
+  # Converts Date to a Time (or DateTime if necessary) with the time portion set to the beginning of the day (0:00)
+  # and then subtracts the specified number of seconds.
+  def ago(seconds)
+    in_time_zone.since(-seconds)
+  end
+&nbsp;
+  # Converts Date to a Time (or DateTime if necessary) with the time portion set to the beginning of the day (0:00)
+  # and then adds the specified number of seconds
+  def since(seconds)
+    in_time_zone.since(seconds)
+  end
+  alias :in :since
+&nbsp;
+  # Converts Date to a Time (or DateTime if necessary) with the time portion set to the beginning of the day (0:00)
+  def beginning_of_day
+    in_time_zone
+  end
+  alias :midnight :beginning_of_day
+  alias :at_midnight :beginning_of_day
+  alias :at_beginning_of_day :beginning_of_day
+&nbsp;
+  # Converts Date to a Time (or DateTime if necessary) with the time portion set to the middle of the day (12:00)
+  def middle_of_day
+    in_time_zone.middle_of_day
+  end
+  alias :midday :middle_of_day
+  alias :noon :middle_of_day
+  alias :at_midday :middle_of_day
+  alias :at_noon :middle_of_day
+  alias :at_middle_of_day :middle_of_day
+&nbsp;
+  # Converts Date to a Time (or DateTime if necessary) with the time portion set to the end of the day (23:59:59)
+  def end_of_day
+    in_time_zone.end_of_day
+  end
+  alias :at_end_of_day :end_of_day
+&nbsp;
+  def plus_with_duration(other) #:nodoc:
+    if ActiveSupport::Duration === other
+      other.since(self)
+    else
+      plus_without_duration(other)
+    end
+  end
+  alias_method :plus_without_duration, :+
+  alias_method :+, :plus_with_duration
+&nbsp;
+  def minus_with_duration(other) #:nodoc:
+    if ActiveSupport::Duration === other
+      plus_with_duration(-other)
+    else
+      minus_without_duration(other)
+    end
+  end
+  alias_method :minus_without_duration, :-
+  alias_method :-, :minus_with_duration
+&nbsp;
+  # Provides precise Date calculations for years, months, and days. The +options+ parameter takes a hash with
+  # any of these keys: &lt;tt&gt;:years&lt;/tt&gt;, &lt;tt&gt;:months&lt;/tt&gt;, &lt;tt&gt;:weeks&lt;/tt&gt;, &lt;tt&gt;:days&lt;/tt&gt;.
+  def advance(options)
+    options = options.dup
+    d = self
+    d = d &gt;&gt; options.delete(:years) * 12 if options[:years]
+    d = d &gt;&gt; options.delete(:months)     if options[:months]
+    d = d +  options.delete(:weeks) * 7  if options[:weeks]
+    d = d +  options.delete(:days)       if options[:days]
+    d
+  end
+&nbsp;
+  # Returns a new Date where one or more of the elements have been changed according to the +options+ parameter.
+  # The +options+ parameter is a hash with a combination of these keys: &lt;tt&gt;:year&lt;/tt&gt;, &lt;tt&gt;:month&lt;/tt&gt;, &lt;tt&gt;:day&lt;/tt&gt;.
+  #
+  #   Date.new(2007, 5, 12).change(day: 1)               # =&gt; Date.new(2007, 5, 1)
+  #   Date.new(2007, 5, 12).change(year: 2005, month: 1) # =&gt; Date.new(2005, 1, 12)
+  def change(options)
+    ::Date.new(
+      options.fetch(:year, year),
+      options.fetch(:month, month),
+      options.fetch(:day, day)
+    )
+  end
+&nbsp;
+  # Allow Date to be compared with Time by converting to DateTime and relying on the &lt;=&gt; from there.
+  def compare_with_coercion(other)
+    if other.is_a?(Time)
+      to_datetime &lt;=&gt; other
+    else
+      compare_without_coercion(other)
+    end
+  end
+  alias_method :compare_without_coercion, :&lt;=&gt;
+  alias_method :&lt;=&gt;, :compare_with_coercion
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

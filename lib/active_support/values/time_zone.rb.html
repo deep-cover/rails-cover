@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/values/time_zone.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/values</a> time_zone.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>148/149</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.12% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>48/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>37/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.21% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>125/126</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-yes">593x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1556x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1441x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">4986x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">302x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">407x</span>
+<span class="cline-any cline-yes">407x</span>
+<span class="cline-any cline-yes">381x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10039x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10039x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2449x</span>
+<span class="cline-any cline-yes">2441x</span>
+<span class="cline-any cline-yes">2441x</span>
+<span class="cline-any cline-yes">2441x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">545x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">431x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">274x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">133x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">127x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">127x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "tzinfo"
+require "concurrent/map"
+require "active_support/core_ext/object/blank"
+&nbsp;
+module ActiveSupport
+  # The TimeZone class serves as a wrapper around TZInfo::Timezone instances.
+  # It allows us to do the following:
+  #
+  # * Limit the set of zones provided by TZInfo to a meaningful subset of 134
+  #   zones.
+  # * Retrieve and display zones with a friendlier name
+  #   (e.g., "Eastern Time (US &amp; Canada)" instead of "America/New_York").
+  # * Lazily load TZInfo::Timezone instances only when they're needed.
+  # * Create ActiveSupport::TimeWithZone instances via TimeZone's +local+,
+  #   +parse+, +at+ and +now+ methods.
+  #
+  # If you set &lt;tt&gt;config.time_zone&lt;/tt&gt; in the Rails Application, you can
+  # access this TimeZone object via &lt;tt&gt;Time.zone&lt;/tt&gt;:
+  #
+  #   # application.rb:
+  #   class Application &lt; Rails::Application
+  #     config.time_zone = 'Eastern Time (US &amp; Canada)'
+  #   end
+  #
+  #   Time.zone      # =&gt; #&lt;ActiveSupport::TimeZone:0x514834...&gt;
+  #   Time.zone.name # =&gt; "Eastern Time (US &amp; Canada)"
+  #   Time.zone.now  # =&gt; Sun, 18 May 2008 14:30:44 EDT -04:00
+  class TimeZone
+    # Keys are Rails TimeZone names, values are TZInfo identifiers.
+    MAPPING = {
+      "International Date Line West" =&gt; "Pacific/Midway",
+      "Midway Island"                =&gt; "Pacific/Midway",
+      "American Samoa"               =&gt; "Pacific/Pago_Pago",
+      "Hawaii"                       =&gt; "Pacific/Honolulu",
+      "Alaska"                       =&gt; "America/Juneau",
+      "Pacific Time (US &amp; Canada)"   =&gt; "America/Los_Angeles",
+      "Tijuana"                      =&gt; "America/Tijuana",
+      "Mountain Time (US &amp; Canada)"  =&gt; "America/Denver",
+      "Arizona"                      =&gt; "America/Phoenix",
+      "Chihuahua"                    =&gt; "America/Chihuahua",
+      "Mazatlan"                     =&gt; "America/Mazatlan",
+      "Central Time (US &amp; Canada)"   =&gt; "America/Chicago",
+      "Saskatchewan"                 =&gt; "America/Regina",
+      "Guadalajara"                  =&gt; "America/Mexico_City",
+      "Mexico City"                  =&gt; "America/Mexico_City",
+      "Monterrey"                    =&gt; "America/Monterrey",
+      "Central America"              =&gt; "America/Guatemala",
+      "Eastern Time (US &amp; Canada)"   =&gt; "America/New_York",
+      "Indiana (East)"               =&gt; "America/Indiana/Indianapolis",
+      "Bogota"                       =&gt; "America/Bogota",
+      "Lima"                         =&gt; "America/Lima",
+      "Quito"                        =&gt; "America/Lima",
+      "Atlantic Time (Canada)"       =&gt; "America/Halifax",
+      "Caracas"                      =&gt; "America/Caracas",
+      "La Paz"                       =&gt; "America/La_Paz",
+      "Santiago"                     =&gt; "America/Santiago",
+      "Newfoundland"                 =&gt; "America/St_Johns",
+      "Brasilia"                     =&gt; "America/Sao_Paulo",
+      "Buenos Aires"                 =&gt; "America/Argentina/Buenos_Aires",
+      "Montevideo"                   =&gt; "America/Montevideo",
+      "Georgetown"                   =&gt; "America/Guyana",
+      "Puerto Rico"                  =&gt; "America/Puerto_Rico",
+      "Greenland"                    =&gt; "America/Godthab",
+      "Mid-Atlantic"                 =&gt; "Atlantic/South_Georgia",
+      "Azores"                       =&gt; "Atlantic/Azores",
+      "Cape Verde Is."               =&gt; "Atlantic/Cape_Verde",
+      "Dublin"                       =&gt; "Europe/Dublin",
+      "Edinburgh"                    =&gt; "Europe/London",
+      "Lisbon"                       =&gt; "Europe/Lisbon",
+      "London"                       =&gt; "Europe/London",
+      "Casablanca"                   =&gt; "Africa/Casablanca",
+      "Monrovia"                     =&gt; "Africa/Monrovia",
+      "UTC"                          =&gt; "Etc/UTC",
+      "Belgrade"                     =&gt; "Europe/Belgrade",
+      "Bratislava"                   =&gt; "Europe/Bratislava",
+      "Budapest"                     =&gt; "Europe/Budapest",
+      "Ljubljana"                    =&gt; "Europe/Ljubljana",
+      "Prague"                       =&gt; "Europe/Prague",
+      "Sarajevo"                     =&gt; "Europe/Sarajevo",
+      "Skopje"                       =&gt; "Europe/Skopje",
+      "Warsaw"                       =&gt; "Europe/Warsaw",
+      "Zagreb"                       =&gt; "Europe/Zagreb",
+      "Brussels"                     =&gt; "Europe/Brussels",
+      "Copenhagen"                   =&gt; "Europe/Copenhagen",
+      "Madrid"                       =&gt; "Europe/Madrid",
+      "Paris"                        =&gt; "Europe/Paris",
+      "Amsterdam"                    =&gt; "Europe/Amsterdam",
+      "Berlin"                       =&gt; "Europe/Berlin",
+      "Bern"                         =&gt; "Europe/Zurich",
+      "Zurich"                       =&gt; "Europe/Zurich",
+      "Rome"                         =&gt; "Europe/Rome",
+      "Stockholm"                    =&gt; "Europe/Stockholm",
+      "Vienna"                       =&gt; "Europe/Vienna",
+      "West Central Africa"          =&gt; "Africa/Algiers",
+      "Bucharest"                    =&gt; "Europe/Bucharest",
+      "Cairo"                        =&gt; "Africa/Cairo",
+      "Helsinki"                     =&gt; "Europe/Helsinki",
+      "Kyiv"                         =&gt; "Europe/Kiev",
+      "Riga"                         =&gt; "Europe/Riga",
+      "Sofia"                        =&gt; "Europe/Sofia",
+      "Tallinn"                      =&gt; "Europe/Tallinn",
+      "Vilnius"                      =&gt; "Europe/Vilnius",
+      "Athens"                       =&gt; "Europe/Athens",
+      "Istanbul"                     =&gt; "Europe/Istanbul",
+      "Minsk"                        =&gt; "Europe/Minsk",
+      "Jerusalem"                    =&gt; "Asia/Jerusalem",
+      "Harare"                       =&gt; "Africa/Harare",
+      "Pretoria"                     =&gt; "Africa/Johannesburg",
+      "Kaliningrad"                  =&gt; "Europe/Kaliningrad",
+      "Moscow"                       =&gt; "Europe/Moscow",
+      "St. Petersburg"               =&gt; "Europe/Moscow",
+      "Volgograd"                    =&gt; "Europe/Volgograd",
+      "Samara"                       =&gt; "Europe/Samara",
+      "Kuwait"                       =&gt; "Asia/Kuwait",
+      "Riyadh"                       =&gt; "Asia/Riyadh",
+      "Nairobi"                      =&gt; "Africa/Nairobi",
+      "Baghdad"                      =&gt; "Asia/Baghdad",
+      "Tehran"                       =&gt; "Asia/Tehran",
+      "Abu Dhabi"                    =&gt; "Asia/Muscat",
+      "Muscat"                       =&gt; "Asia/Muscat",
+      "Baku"                         =&gt; "Asia/Baku",
+      "Tbilisi"                      =&gt; "Asia/Tbilisi",
+      "Yerevan"                      =&gt; "Asia/Yerevan",
+      "Kabul"                        =&gt; "Asia/Kabul",
+      "Ekaterinburg"                 =&gt; "Asia/Yekaterinburg",
+      "Islamabad"                    =&gt; "Asia/Karachi",
+      "Karachi"                      =&gt; "Asia/Karachi",
+      "Tashkent"                     =&gt; "Asia/Tashkent",
+      "Chennai"                      =&gt; "Asia/Kolkata",
+      "Kolkata"                      =&gt; "Asia/Kolkata",
+      "Mumbai"                       =&gt; "Asia/Kolkata",
+      "New Delhi"                    =&gt; "Asia/Kolkata",
+      "Kathmandu"                    =&gt; "Asia/Kathmandu",
+      "Astana"                       =&gt; "Asia/Dhaka",
+      "Dhaka"                        =&gt; "Asia/Dhaka",
+      "Sri Jayawardenepura"          =&gt; "Asia/Colombo",
+      "Almaty"                       =&gt; "Asia/Almaty",
+      "Novosibirsk"                  =&gt; "Asia/Novosibirsk",
+      "Rangoon"                      =&gt; "Asia/Rangoon",
+      "Bangkok"                      =&gt; "Asia/Bangkok",
+      "Hanoi"                        =&gt; "Asia/Bangkok",
+      "Jakarta"                      =&gt; "Asia/Jakarta",
+      "Krasnoyarsk"                  =&gt; "Asia/Krasnoyarsk",
+      "Beijing"                      =&gt; "Asia/Shanghai",
+      "Chongqing"                    =&gt; "Asia/Chongqing",
+      "Hong Kong"                    =&gt; "Asia/Hong_Kong",
+      "Urumqi"                       =&gt; "Asia/Urumqi",
+      "Kuala Lumpur"                 =&gt; "Asia/Kuala_Lumpur",
+      "Singapore"                    =&gt; "Asia/Singapore",
+      "Taipei"                       =&gt; "Asia/Taipei",
+      "Perth"                        =&gt; "Australia/Perth",
+      "Irkutsk"                      =&gt; "Asia/Irkutsk",
+      "Ulaanbaatar"                  =&gt; "Asia/Ulaanbaatar",
+      "Seoul"                        =&gt; "Asia/Seoul",
+      "Osaka"                        =&gt; "Asia/Tokyo",
+      "Sapporo"                      =&gt; "Asia/Tokyo",
+      "Tokyo"                        =&gt; "Asia/Tokyo",
+      "Yakutsk"                      =&gt; "Asia/Yakutsk",
+      "Darwin"                       =&gt; "Australia/Darwin",
+      "Adelaide"                     =&gt; "Australia/Adelaide",
+      "Canberra"                     =&gt; "Australia/Melbourne",
+      "Melbourne"                    =&gt; "Australia/Melbourne",
+      "Sydney"                       =&gt; "Australia/Sydney",
+      "Brisbane"                     =&gt; "Australia/Brisbane",
+      "Hobart"                       =&gt; "Australia/Hobart",
+      "Vladivostok"                  =&gt; "Asia/Vladivostok",
+      "Guam"                         =&gt; "Pacific/Guam",
+      "Port Moresby"                 =&gt; "Pacific/Port_Moresby",
+      "Magadan"                      =&gt; "Asia/Magadan",
+      "Srednekolymsk"                =&gt; "Asia/Srednekolymsk",
+      "Solomon Is."                  =&gt; "Pacific/Guadalcanal",
+      "New Caledonia"                =&gt; "Pacific/Noumea",
+      "Fiji"                         =&gt; "Pacific/Fiji",
+      "Kamchatka"                    =&gt; "Asia/Kamchatka",
+      "Marshall Is."                 =&gt; "Pacific/Majuro",
+      "Auckland"                     =&gt; "Pacific/Auckland",
+      "Wellington"                   =&gt; "Pacific/Auckland",
+      "Nuku'alofa"                   =&gt; "Pacific/Tongatapu",
+      "Tokelau Is."                  =&gt; "Pacific/Fakaofo",
+      "Chatham Is."                  =&gt; "Pacific/Chatham",
+      "Samoa"                        =&gt; "Pacific/Apia"
+    }
+&nbsp;
+    UTC_OFFSET_WITH_COLON = "%s%02d:%02d"
+    UTC_OFFSET_WITHOUT_COLON = UTC_OFFSET_WITH_COLON.tr(":", "")
+&nbsp;
+    @lazy_zones_map = Concurrent::Map.new
+    @country_zones  = Concurrent::Map.new
+&nbsp;
+    class &lt;&lt; self
+      # Assumes self represents an offset from UTC in seconds (as returned from
+      # Time#utc_offset) and turns this into an +HH:MM formatted string.
+      #
+      #   ActiveSupport::TimeZone.seconds_to_utc_offset(-21_600) # =&gt; "-06:00"
+      def seconds_to_utc_offset(seconds, colon = true)
+        format = colon ? UTC_OFFSET_WITH_COLON : UTC_OFFSET_WITHOUT_COLON
+        sign = (seconds &lt; 0 ? "-" : "+")
+        hours = seconds.abs / 3600
+        minutes = (seconds.abs % 3600) / 60
+        format % [sign, hours, minutes]
+      end
+&nbsp;
+      def find_tzinfo(name)
+        TZInfo::Timezone.new(MAPPING[name] || name)
+      end
+&nbsp;
+      alias_method :create, :new
+&nbsp;
+      # Returns a TimeZone instance with the given name, or +nil+ if no
+      # such TimeZone instance exists. (This exists to support the use of
+      # this class with the +composed_of+ macro.)
+      def new(name)
+        self[name]
+      end
+&nbsp;
+      # Returns an array of all TimeZone objects. There are multiple
+      # TimeZone objects per time zone, in many cases, to make it easier
+      # for users to find their own time zone.
+      def all
+        @zones ||= zones_map.values.sort
+      end
+&nbsp;
+      # Locate a specific time zone object. If the argument is a string, it
+      # is interpreted to mean the name of the timezone to locate. If it is a
+      # numeric value it is either the hour offset, or the second offset, of the
+      # timezone to find. (The first one with that offset will be returned.)
+      # Returns +nil+ if no such time zone is known to the system.
+      def [](arg)
+        case arg
+        when String
+          begin
+            @lazy_zones_map[arg] ||= create(arg)
+          rescue TZInfo::InvalidTimezoneIdentifier
+            nil
+          end
+        when Numeric, ActiveSupport::Duration
+          arg *= 3600 if arg.abs &lt;= 13
+          all.find { |z| z.utc_offset == arg.to_i }
+          else
+          raise ArgumentError, "invalid argument to TimeZone[]: #{arg.inspect}"
+        end
+      end
+&nbsp;
+      # A convenience method for returning a collection of TimeZone objects
+      # for time zones in the USA.
+      def us_zones
+        country_zones(:us)
+      end
+&nbsp;
+      # A convenience method for returning a collection of TimeZone objects
+      # for time zones in the country specified by its ISO 3166-1 Alpha2 code.
+      def country_zones(country_code)
+        code = country_code.to_s.upcase
+        @country_zones[code] ||= load_country_zones(code)
+      end
+&nbsp;
+      private
+        def load_country_zones(code)
+          country = TZInfo::Country.get(code)
+          country.zone_identifiers.map do |tz_id|
+            if MAPPING.value?(tz_id)
+              self[MAPPING.key(tz_id)]
+            else
+              create(tz_id, nil, TZInfo::Timezone.new(tz_id))
+            end
+          end.sort!
+        end
+&nbsp;
+        def zones_map
+          @zones_map ||= begin
+            MAPPING.each_key { |place| self[place] } # load all the zones
+            @lazy_zones_map
+          end
+        end
+    end
+&nbsp;
+    include Comparable
+    attr_reader :name
+    attr_reader :tzinfo
+&nbsp;
+    # Create a new TimeZone object with the given name and offset. The
+    # offset is the number of seconds that this time zone is offset from UTC
+    # (GMT). Seconds were chosen as the offset unit because that is the unit
+    # that Ruby uses to represent time zone offsets (see Time#utc_offset).
+    def initialize(name, utc_offset = nil, tzinfo = nil)
+      @name = name
+      @utc_offset = utc_offset
+      @tzinfo = tzinfo || TimeZone.find_tzinfo(name)
+    end
+&nbsp;
+    # Returns the offset of this time zone from UTC in seconds.
+    def utc_offset
+      if @utc_offset
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>@utc_offset</span>
+      else
+        <span class="missing-if-branch" title="else path not taken" >E</span>tzinfo.current_period.utc_offset if <span class="branch-1 cbranch-no" title="branch not covered" >tzinfo &amp;&amp; tzinfo.current_period</span>
+      end
+    end
+&nbsp;
+    # Returns a formatted string of the offset from UTC, or an alternative
+    # string if the time zone is already UTC.
+    #
+    #   zone = ActiveSupport::TimeZone['Central Time (US &amp; Canada)']
+    #   zone.formatted_offset        # =&gt; "-06:00"
+    #   zone.formatted_offset(false) # =&gt; "-0600"
+    def formatted_offset(colon = true, alternate_utc_string = nil)
+      utc_offset == 0 &amp;&amp; alternate_utc_string || self.class.seconds_to_utc_offset(utc_offset, colon)
+    end
+&nbsp;
+    # Compare this time zone to the parameter. The two are compared first on
+    # their offsets, and then by name.
+    def &lt;=&gt;(zone)
+      return unless zone.respond_to? :utc_offset
+      result = (utc_offset &lt;=&gt; zone.utc_offset)
+      result = (name &lt;=&gt; zone.name) if result == 0
+      result
+    end
+&nbsp;
+    # Compare #name and TZInfo identifier to a supplied regexp, returning +true+
+    # if a match is found.
+    def =~(re)
+      re === name || re === MAPPING[name]
+    end
+&nbsp;
+    # Returns a textual representation of this time zone.
+    def to_s
+      "(GMT#{formatted_offset}) #{name}"
+    end
+&nbsp;
+    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+    # of +self+ from given values.
+    #
+    #   Time.zone = 'Hawaii'                    # =&gt; "Hawaii"
+    #   Time.zone.local(2007, 2, 1, 15, 30, 45) # =&gt; Thu, 01 Feb 2007 15:30:45 HST -10:00
+    def local(*args)
+      time = Time.utc(*args)
+      ActiveSupport::TimeWithZone.new(nil, self, time)
+    end
+&nbsp;
+    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+    # of +self+ from number of seconds since the Unix epoch.
+    #
+    #   Time.zone = 'Hawaii'        # =&gt; "Hawaii"
+    #   Time.utc(2000).to_f         # =&gt; 946684800.0
+    #   Time.zone.at(946684800.0)   # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    def at(secs)
+      Time.at(secs).utc.in_time_zone(self)
+    end
+&nbsp;
+    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+    # of +self+ from an ISO 8601 string.
+    #
+    #   Time.zone = 'Hawaii'                     # =&gt; "Hawaii"
+    #   Time.zone.iso8601('1999-12-31T14:00:00') # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #
+    # If the time components are missing then they will be set to zero.
+    #
+    #   Time.zone = 'Hawaii'            # =&gt; "Hawaii"
+    #   Time.zone.iso8601('1999-12-31') # =&gt; Fri, 31 Dec 1999 00:00:00 HST -10:00
+    #
+    # If the string is invalid then an +ArgumentError+ will be raised unlike +parse+
+    # which usually returns +nil+ when given an invalid date string.
+    def iso8601(str)
+      parts = Date._iso8601(str)
+&nbsp;
+      raise ArgumentError, "invalid date" if parts.empty?
+&nbsp;
+      time = Time.new(
+        parts.fetch(:year),
+        parts.fetch(:mon),
+        parts.fetch(:mday),
+        parts.fetch(:hour, 0),
+        parts.fetch(:min, 0),
+        parts.fetch(:sec, 0) + parts.fetch(:sec_fraction, 0),
+        parts.fetch(:offset, 0)
+      )
+&nbsp;
+      if parts[:offset]
+        TimeWithZone.new(time.utc, self)
+      else
+        TimeWithZone.new(nil, self, time)
+      end
+    end
+&nbsp;
+    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+    # of +self+ from parsed string.
+    #
+    #   Time.zone = 'Hawaii'                   # =&gt; "Hawaii"
+    #   Time.zone.parse('1999-12-31 14:00:00') # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #
+    # If upper components are missing from the string, they are supplied from
+    # TimeZone#now:
+    #
+    #   Time.zone.now               # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #   Time.zone.parse('22:30:00') # =&gt; Fri, 31 Dec 1999 22:30:00 HST -10:00
+    #
+    # However, if the date component is not provided, but any other upper
+    # components are supplied, then the day of the month defaults to 1:
+    #
+    #   Time.zone.parse('Mar 2000') # =&gt; Wed, 01 Mar 2000 00:00:00 HST -10:00
+    #
+    # If the string is invalid then an +ArgumentError+ could be raised.
+    def parse(str, now = now())
+      parts_to_time(Date._parse(str, false), now)
+    end
+&nbsp;
+    # Method for creating new ActiveSupport::TimeWithZone instance in time zone
+    # of +self+ from an RFC 3339 string.
+    #
+    #   Time.zone = 'Hawaii'                     # =&gt; "Hawaii"
+    #   Time.zone.rfc3339('2000-01-01T00:00:00Z') # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #
+    # If the time or zone components are missing then an +ArgumentError+ will
+    # be raised. This is much stricter than either +parse+ or +iso8601+ which
+    # allow for missing components.
+    #
+    #   Time.zone = 'Hawaii'            # =&gt; "Hawaii"
+    #   Time.zone.rfc3339('1999-12-31') # =&gt; ArgumentError: invalid date
+    def rfc3339(str)
+      parts = Date._rfc3339(str)
+&nbsp;
+      raise ArgumentError, "invalid date" if parts.empty?
+&nbsp;
+      time = Time.new(
+        parts.fetch(:year),
+        parts.fetch(:mon),
+        parts.fetch(:mday),
+        parts.fetch(:hour),
+        parts.fetch(:min),
+        parts.fetch(:sec) + parts.fetch(:sec_fraction, 0),
+        parts.fetch(:offset)
+      )
+&nbsp;
+      TimeWithZone.new(time.utc, self)
+    end
+&nbsp;
+    # Parses +str+ according to +format+ and returns an ActiveSupport::TimeWithZone.
+    #
+    # Assumes that +str+ is a time in the time zone +self+,
+    # unless +format+ includes an explicit time zone.
+    # (This is the same behavior as +parse+.)
+    # In either case, the returned TimeWithZone has the timezone of +self+.
+    #
+    #   Time.zone = 'Hawaii'                   # =&gt; "Hawaii"
+    #   Time.zone.strptime('1999-12-31 14:00:00', '%Y-%m-%d %H:%M:%S') # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #
+    # If upper components are missing from the string, they are supplied from
+    # TimeZone#now:
+    #
+    #   Time.zone.now                              # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+    #   Time.zone.strptime('22:30:00', '%H:%M:%S') # =&gt; Fri, 31 Dec 1999 22:30:00 HST -10:00
+    #
+    # However, if the date component is not provided, but any other upper
+    # components are supplied, then the day of the month defaults to 1:
+    #
+    #   Time.zone.strptime('Mar 2000', '%b %Y') # =&gt; Wed, 01 Mar 2000 00:00:00 HST -10:00
+    def strptime(str, format, now = now())
+      parts_to_time(DateTime._strptime(str, format), now)
+    end
+&nbsp;
+    # Returns an ActiveSupport::TimeWithZone instance representing the current
+    # time in the time zone represented by +self+.
+    #
+    #   Time.zone = 'Hawaii'  # =&gt; "Hawaii"
+    #   Time.zone.now         # =&gt; Wed, 23 Jan 2008 20:24:27 HST -10:00
+    def now
+      time_now.utc.in_time_zone(self)
+    end
+&nbsp;
+    # Returns the current date in this time zone.
+    def today
+      tzinfo.now.to_date
+    end
+&nbsp;
+    # Returns the next date in this time zone.
+    def tomorrow
+      today + 1
+    end
+&nbsp;
+    # Returns the previous date in this time zone.
+    def yesterday
+      today - 1
+    end
+&nbsp;
+    # Adjust the given time to the simultaneous time in the time zone
+    # represented by +self+. Returns a Time.utc() instance -- if you want an
+    # ActiveSupport::TimeWithZone instance, use Time#in_time_zone() instead.
+    def utc_to_local(time)
+      tzinfo.utc_to_local(time)
+    end
+&nbsp;
+    # Adjust the given time to the simultaneous time in UTC. Returns a
+    # Time.utc() instance.
+    def local_to_utc(time, dst = true)
+      tzinfo.local_to_utc(time, dst)
+    end
+&nbsp;
+    # Available so that TimeZone instances respond like TZInfo::Timezone
+    # instances.
+    def period_for_utc(time)
+      tzinfo.period_for_utc(time)
+    end
+&nbsp;
+    # Available so that TimeZone instances respond like TZInfo::Timezone
+    # instances.
+    def period_for_local(time, dst = true)
+      tzinfo.period_for_local(time, dst)
+    end
+&nbsp;
+    def periods_for_local(time) #:nodoc:
+      tzinfo.periods_for_local(time)
+    end
+&nbsp;
+    def init_with(coder) #:nodoc:
+      initialize(coder["name"])
+    end
+&nbsp;
+    def encode_with(coder) #:nodoc:
+      coder.tag = "!ruby/object:#{self.class}"
+      coder.map = { "name" =&gt; tzinfo.name }
+    end
+&nbsp;
+    private
+      def parts_to_time(parts, now)
+        raise ArgumentError, "invalid date" if parts.nil?
+        return if parts.empty?
+&nbsp;
+        if parts[:seconds]
+          time = Time.at(parts[:seconds])
+        else
+          time = Time.new(
+            parts.fetch(:year, now.year),
+            parts.fetch(:mon, now.month),
+            parts.fetch(:mday, parts[:year] || parts[:mon] ? 1 : now.day),
+            parts.fetch(:hour, 0),
+            parts.fetch(:min, 0),
+            parts.fetch(:sec, 0) + parts.fetch(:sec_fraction, 0),
+            parts.fetch(:offset, 0)
+          )
+        end
+&nbsp;
+        if parts[:offset] || parts[:seconds]
+          TimeWithZone.new(time.utc, self)
+        else
+          TimeWithZone.new(nil, self, time)
+        end
+      end
+&nbsp;
+      def time_now
+        Time.now
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

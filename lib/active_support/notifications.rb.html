@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/notifications.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_support</a> notifications.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.06% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>33/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>6/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.89% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>8/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>29/30</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1141x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1085x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/notifications/instrumenter"
+require "active_support/notifications/fanout"
+require "active_support/per_thread_registry"
+&nbsp;
+module ActiveSupport
+  # = Notifications
+  #
+  # &lt;tt&gt;ActiveSupport::Notifications&lt;/tt&gt; provides an instrumentation API for
+  # Ruby.
+  #
+  # == Instrumenters
+  #
+  # To instrument an event you just need to do:
+  #
+  #   ActiveSupport::Notifications.instrument('render', extra: :information) do
+  #     render plain: 'Foo'
+  #   end
+  #
+  # That first executes the block and then notifies all subscribers once done.
+  #
+  # In the example above +render+ is the name of the event, and the rest is called
+  # the _payload_. The payload is a mechanism that allows instrumenters to pass
+  # extra information to subscribers. Payloads consist of a hash whose contents
+  # are arbitrary and generally depend on the event.
+  #
+  # == Subscribers
+  #
+  # You can consume those events and the information they provide by registering
+  # a subscriber.
+  #
+  #   ActiveSupport::Notifications.subscribe('render') do |name, start, finish, id, payload|
+  #     name    # =&gt; String, name of the event (such as 'render' from above)
+  #     start   # =&gt; Time, when the instrumented block started execution
+  #     finish  # =&gt; Time, when the instrumented block ended execution
+  #     id      # =&gt; String, unique ID for this notification
+  #     payload # =&gt; Hash, the payload
+  #   end
+  #
+  # For instance, let's store all "render" events in an array:
+  #
+  #   events = []
+  #
+  #   ActiveSupport::Notifications.subscribe('render') do |*args|
+  #     events &lt;&lt; ActiveSupport::Notifications::Event.new(*args)
+  #   end
+  #
+  # That code returns right away, you are just subscribing to "render" events.
+  # The block is saved and will be called whenever someone instruments "render":
+  #
+  #   ActiveSupport::Notifications.instrument('render', extra: :information) do
+  #     render plain: 'Foo'
+  #   end
+  #
+  #   event = events.first
+  #   event.name      # =&gt; "render"
+  #   event.duration  # =&gt; 10 (in milliseconds)
+  #   event.payload   # =&gt; { extra: :information }
+  #
+  # The block in the &lt;tt&gt;subscribe&lt;/tt&gt; call gets the name of the event, start
+  # timestamp, end timestamp, a string with a unique identifier for that event
+  # (something like "535801666f04d0298cd6"), and a hash with the payload, in
+  # that order.
+  #
+  # If an exception happens during that particular instrumentation the payload will
+  # have a key &lt;tt&gt;:exception&lt;/tt&gt; with an array of two elements as value: a string with
+  # the name of the exception class, and the exception message.
+  # The &lt;tt&gt;:exception_object&lt;/tt&gt; key of the payload will have the exception
+  # itself as the value.
+  #
+  # As the previous example depicts, the class &lt;tt&gt;ActiveSupport::Notifications::Event&lt;/tt&gt;
+  # is able to take the arguments as they come and provide an object-oriented
+  # interface to that data.
+  #
+  # It is also possible to pass an object which responds to &lt;tt&gt;call&lt;/tt&gt; method
+  # as the second parameter to the &lt;tt&gt;subscribe&lt;/tt&gt; method instead of a block:
+  #
+  #   module ActionController
+  #     class PageRequest
+  #       def call(name, started, finished, unique_id, payload)
+  #         Rails.logger.debug ['notification:', name, started, finished, unique_id, payload].join(' ')
+  #       end
+  #     end
+  #   end
+  #
+  #   ActiveSupport::Notifications.subscribe('process_action.action_controller', ActionController::PageRequest.new)
+  #
+  # resulting in the following output within the logs including a hash with the payload:
+  #
+  #   notification: process_action.action_controller 2012-04-13 01:08:35 +0300 2012-04-13 01:08:35 +0300 af358ed7fab884532ec7 {
+  #      controller: "Devise::SessionsController",
+  #      action: "new",
+  #      params: {"action"=&gt;"new", "controller"=&gt;"devise/sessions"},
+  #      format: :html,
+  #      method: "GET",
+  #      path: "/login/sign_in",
+  #      status: 200,
+  #      view_runtime: 279.3080806732178,
+  #      db_runtime: 40.053
+  #    }
+  #
+  # You can also subscribe to all events whose name matches a certain regexp:
+  #
+  #   ActiveSupport::Notifications.subscribe(/render/) do |*args|
+  #     ...
+  #   end
+  #
+  # and even pass no argument to &lt;tt&gt;subscribe&lt;/tt&gt;, in which case you are subscribing
+  # to all events.
+  #
+  # == Temporary Subscriptions
+  #
+  # Sometimes you do not want to subscribe to an event for the entire life of
+  # the application. There are two ways to unsubscribe.
+  #
+  # WARNING: The instrumentation framework is designed for long-running subscribers,
+  # use this feature sparingly because it wipes some internal caches and that has
+  # a negative impact on performance.
+  #
+  # === Subscribe While a Block Runs
+  #
+  # You can subscribe to some event temporarily while some block runs. For
+  # example, in
+  #
+  #   callback = lambda {|*args| ... }
+  #   ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
+  #     ...
+  #   end
+  #
+  # the callback will be called for all "sql.active_record" events instrumented
+  # during the execution of the block. The callback is unsubscribed automatically
+  # after that.
+  #
+  # === Manual Unsubscription
+  #
+  # The +subscribe+ method returns a subscriber object:
+  #
+  #   subscriber = ActiveSupport::Notifications.subscribe("render") do |*args|
+  #     ...
+  #   end
+  #
+  # To prevent that block from being called anymore, just unsubscribe passing
+  # that reference:
+  #
+  #   ActiveSupport::Notifications.unsubscribe(subscriber)
+  #
+  # You can also unsubscribe by passing the name of the subscriber object. Note
+  # that this will unsubscribe all subscriptions with the given name:
+  #
+  #   ActiveSupport::Notifications.unsubscribe("render")
+  #
+  # == Default Queue
+  #
+  # Notifications ships with a queue implementation that consumes and publishes events
+  # to all log subscribers. You can use any queue implementation you want.
+  #
+  module Notifications
+    class &lt;&lt; self
+      attr_accessor :notifier
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def publish(name, *args)</span>
+<span class="cstat-no" title="statement not covered" >        notifier.publish(name, *args)</span>
+      end
+&nbsp;
+      def instrument(name, payload = {})
+        if notifier.listening?(name)
+          instrumenter.instrument(name, payload) { yield payload if block_given? }
+        else
+          yield payload if block_given?
+        end
+      end
+&nbsp;
+      def subscribe(*args, &amp;block)
+        notifier.subscribe(*args, &amp;block)
+      end
+&nbsp;
+      def subscribed(callback, *args, &amp;block)
+        subscriber = subscribe(*args, &amp;callback)
+        yield
+      ensure
+        unsubscribe(subscriber)
+      end
+&nbsp;
+      def unsubscribe(subscriber_or_name)
+        notifier.unsubscribe(subscriber_or_name)
+      end
+&nbsp;
+      def instrumenter
+        InstrumentationRegistry.instance.instrumenter_for(notifier)
+      end
+    end
+&nbsp;
+    # This class is a registry which holds all of the +Instrumenter+ objects
+    # in a particular thread local. To access the +Instrumenter+ object for a
+    # particular +notifier+, you can call the following method:
+    #
+    #   InstrumentationRegistry.instrumenter_for(notifier)
+    #
+    # The instrumenters for multiple notifiers are held in a single instance of
+    # this class.
+    class InstrumentationRegistry # :nodoc:
+      extend ActiveSupport::PerThreadRegistry
+&nbsp;
+      def initialize
+        @registry = {}
+      end
+&nbsp;
+      def instrumenter_for(notifier)
+        @registry[notifier] ||= Instrumenter.new(notifier)
+      end
+    end
+&nbsp;
+    self.notifier = Fanout.new
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/module/attribute_accessors.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext/module</a> attribute_accessors.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>51/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>24/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>35/35</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">360x</span>
+<span class="cline-any cline-yes">366x</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-yes">310x</span>
+<span class="cline-any cline-yes">310x</span>
+<span class="cline-any cline-yes">310x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">328x</span>
+<span class="cline-any cline-yes">334x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/array/extract_options"
+require "active_support/core_ext/regexp"
+&nbsp;
+# Extends the module object with class/module and instance accessors for
+# class/module attributes, just like the native attr* accessors for instance
+# attributes.
+class Module
+  # Defines a class attribute and creates a class and instance reader methods.
+  # The underlying class variable is set to +nil+, if it is not previously
+  # defined. All class and instance methods created will be public, even if
+  # this method is called with a private or protected access modifier.
+  #
+  #   module HairColors
+  #     mattr_reader :hair_colors
+  #   end
+  #
+  #   HairColors.hair_colors # =&gt; nil
+  #   HairColors.class_variable_set("@@hair_colors", [:brown, :black])
+  #   HairColors.hair_colors # =&gt; [:brown, :black]
+  #
+  # The attribute name must be a valid method name in Ruby.
+  #
+  #   module Foo
+  #     mattr_reader :"1_Badname"
+  #   end
+  #   # =&gt; NameError: invalid attribute name: 1_Badname
+  #
+  # If you want to opt out the creation on the instance reader method, pass
+  # &lt;tt&gt;instance_reader: false&lt;/tt&gt; or &lt;tt&gt;instance_accessor: false&lt;/tt&gt;.
+  #
+  #   module HairColors
+  #     mattr_reader :hair_colors, instance_reader: false
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.new.hair_colors # =&gt; NoMethodError
+  #
+  # You can set a default value for the attribute.
+  #
+  #   module HairColors
+  #     mattr_reader :hair_colors, default: [:brown, :black, :blonde, :red]
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.new.hair_colors # =&gt; [:brown, :black, :blonde, :red]
+  def mattr_reader(*syms, instance_reader: true, instance_accessor: true, default: nil)
+    syms.each do |sym|
+      raise NameError.new("invalid attribute name: #{sym}") unless /\A[_A-Za-z]\w*\z/.match?(sym)
+      class_eval(&lt;&lt;-EOS, __FILE__, __LINE__ + 1)
+        @@#{sym} = nil unless defined? @@#{sym}
+&nbsp;
+        def self.#{sym}
+          @@#{sym}
+        end
+      EOS
+&nbsp;
+      if instance_reader &amp;&amp; instance_accessor
+        class_eval(&lt;&lt;-EOS, __FILE__, __LINE__ + 1)
+          def #{sym}
+            @@#{sym}
+          end
+        EOS
+      end
+&nbsp;
+      sym_default_value = (block_given? &amp;&amp; default.nil?) ? yield : default
+      class_variable_set("@@#{sym}", sym_default_value) unless sym_default_value.nil?
+    end
+  end
+  alias :cattr_reader :mattr_reader
+&nbsp;
+  # Defines a class attribute and creates a class and instance writer methods to
+  # allow assignment to the attribute. All class and instance methods created
+  # will be public, even if this method is called with a private or protected
+  # access modifier.
+  #
+  #   module HairColors
+  #     mattr_writer :hair_colors
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   HairColors.hair_colors = [:brown, :black]
+  #   Person.class_variable_get("@@hair_colors") # =&gt; [:brown, :black]
+  #   Person.new.hair_colors = [:blonde, :red]
+  #   HairColors.class_variable_get("@@hair_colors") # =&gt; [:blonde, :red]
+  #
+  # If you want to opt out the instance writer method, pass
+  # &lt;tt&gt;instance_writer: false&lt;/tt&gt; or &lt;tt&gt;instance_accessor: false&lt;/tt&gt;.
+  #
+  #   module HairColors
+  #     mattr_writer :hair_colors, instance_writer: false
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.new.hair_colors = [:blonde, :red] # =&gt; NoMethodError
+  #
+  # You can set a default value for the attribute.
+  #
+  #   module HairColors
+  #     mattr_writer :hair_colors, default: [:brown, :black, :blonde, :red]
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.class_variable_get("@@hair_colors") # =&gt; [:brown, :black, :blonde, :red]
+  def mattr_writer(*syms, instance_writer: true, instance_accessor: true, default: nil)
+    syms.each do |sym|
+      raise NameError.new("invalid attribute name: #{sym}") unless /\A[_A-Za-z]\w*\z/.match?(sym)
+      class_eval(&lt;&lt;-EOS, __FILE__, __LINE__ + 1)
+        @@#{sym} = nil unless defined? @@#{sym}
+&nbsp;
+        def self.#{sym}=(obj)
+          @@#{sym} = obj
+        end
+      EOS
+&nbsp;
+      if instance_writer &amp;&amp; instance_accessor
+        class_eval(&lt;&lt;-EOS, __FILE__, __LINE__ + 1)
+          def #{sym}=(obj)
+            @@#{sym} = obj
+          end
+        EOS
+      end
+&nbsp;
+      sym_default_value = (block_given? &amp;&amp; default.nil?) ? yield : default
+      send("#{sym}=", sym_default_value) unless sym_default_value.nil?
+    end
+  end
+  alias :cattr_writer :mattr_writer
+&nbsp;
+  # Defines both class and instance accessors for class attributes.
+  # All class and instance methods created will be public, even if
+  # this method is called with a private or protected access modifier.
+  #
+  #   module HairColors
+  #     mattr_accessor :hair_colors
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   HairColors.hair_colors = [:brown, :black, :blonde, :red]
+  #   HairColors.hair_colors # =&gt; [:brown, :black, :blonde, :red]
+  #   Person.new.hair_colors # =&gt; [:brown, :black, :blonde, :red]
+  #
+  # If a subclass changes the value then that would also change the value for
+  # parent class. Similarly if parent class changes the value then that would
+  # change the value of subclasses too.
+  #
+  #   class Male &lt; Person
+  #   end
+  #
+  #   Male.new.hair_colors &lt;&lt; :blue
+  #   Person.new.hair_colors # =&gt; [:brown, :black, :blonde, :red, :blue]
+  #
+  # To opt out of the instance writer method, pass &lt;tt&gt;instance_writer: false&lt;/tt&gt;.
+  # To opt out of the instance reader method, pass &lt;tt&gt;instance_reader: false&lt;/tt&gt;.
+  #
+  #   module HairColors
+  #     mattr_accessor :hair_colors, instance_writer: false, instance_reader: false
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.new.hair_colors = [:brown]  # =&gt; NoMethodError
+  #   Person.new.hair_colors             # =&gt; NoMethodError
+  #
+  # Or pass &lt;tt&gt;instance_accessor: false&lt;/tt&gt;, to opt out both instance methods.
+  #
+  #   module HairColors
+  #     mattr_accessor :hair_colors, instance_accessor: false
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.new.hair_colors = [:brown]  # =&gt; NoMethodError
+  #   Person.new.hair_colors             # =&gt; NoMethodError
+  #
+  # You can set a default value for the attribute.
+  #
+  #   module HairColors
+  #     mattr_accessor :hair_colors, default: [:brown, :black, :blonde, :red]
+  #   end
+  #
+  #   class Person
+  #     include HairColors
+  #   end
+  #
+  #   Person.class_variable_get("@@hair_colors") # =&gt; [:brown, :black, :blonde, :red]
+  def mattr_accessor(*syms, instance_reader: true, instance_writer: true, instance_accessor: true, default: nil, &amp;blk)
+    mattr_reader(*syms, instance_reader: instance_reader, instance_accessor: instance_accessor, default: default, &amp;blk)
+    mattr_writer(*syms, instance_writer: instance_writer, instance_accessor: instance_accessor, default: default)
+  end
+  alias :cattr_accessor :mattr_accessor
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/deprecation/behaviors.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/deprecation</a> behaviors.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.41% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.31% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">328x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">318x</span>
+<span class="cline-any cline-yes">152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">166x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/notifications"
+&nbsp;
+module ActiveSupport
+  # Raised when &lt;tt&gt;ActiveSupport::Deprecation::Behavior#behavior&lt;/tt&gt; is set with &lt;tt&gt;:raise&lt;/tt&gt;.
+  # You would set &lt;tt&gt;:raise&lt;/tt&gt;, as a behavior to raise errors and proactively report exceptions from deprecations.
+  class DeprecationException &lt; StandardError
+  end
+&nbsp;
+  class Deprecation
+    # Default warning behaviors per Rails.env.
+    DEFAULT_BEHAVIORS = {
+      raise: -&gt;(message, callstack, deprecation_horizon, gem_name) {
+        e = DeprecationException.new(message)
+        e.set_backtrace(callstack.map(&amp;:to_s))
+        raise e
+      },
+&nbsp;
+      stderr: -&gt;(message, callstack, deprecation_horizon, gem_name) {
+        $stderr.puts(message)
+        <span class="missing-if-branch" title="else path not taken" >E</span>$stderr.puts callstack.join("\n  ") if debug
+      },
+&nbsp;
+      log: -&gt;<span class="fstat-no" title="function not covered" >(message, callstack, deprecation_horizon, gem_name) {</span>
+<span class="cstat-no" title="statement not covered" >        logger =</span>
+            if defined?(Rails.logger) &amp;&amp; Rails.logger
+<span class="cstat-no" title="statement not covered" >              Rails.logger</span>
+            else
+<span class="cstat-no" title="statement not covered" >              require "active_support/logger"</span>
+<span class="cstat-no" title="statement not covered" >              ActiveSupport::Logger.new($stderr)</span>
+            end
+<span class="cstat-no" title="statement not covered" >        logger.warn message</span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >        logger.debug callstack.join("\n  ")</span> if debug</span>
+      },
+&nbsp;
+      notify: -&gt;(message, callstack, deprecation_horizon, gem_name) {
+        notification_name = "deprecation.#{gem_name.underscore.tr('/', '_')}"
+        ActiveSupport::Notifications.instrument(notification_name,
+                                                message: message,
+                                                callstack: callstack,
+                                                gem_name: gem_name,
+                                                deprecation_horizon: deprecation_horizon)
+      },
+&nbsp;
+      silence: -&gt;(message, callstack, deprecation_horizon, gem_name) {},
+    }
+&nbsp;
+    # Behavior module allows to determine how to display deprecation messages.
+    # You can create a custom behavior or set any from the +DEFAULT_BEHAVIORS+
+    # constant. Available behaviors are:
+    #
+    # [+raise+]   Raise &lt;tt&gt;ActiveSupport::DeprecationException&lt;/tt&gt;.
+    # [+stderr+]  Log all deprecation warnings to +$stderr+.
+    # [+log+]     Log all deprecation warnings to +Rails.logger+.
+    # [+notify+]  Use +ActiveSupport::Notifications+ to notify +deprecation.rails+.
+    # [+silence+] Do nothing.
+    #
+    # Setting behaviors only affects deprecations that happen after boot time.
+    # For more information you can read the documentation of the +behavior=+ method.
+    module Behavior
+      # Whether to print a backtrace along with the warning.
+      attr_accessor :debug
+&nbsp;
+      # Returns the current behavior or if one isn't set, defaults to +:stderr+.
+      def behavior
+        @behavior ||= [DEFAULT_BEHAVIORS[:stderr]]
+      end
+&nbsp;
+      # Sets the behavior to the specified value. Can be a single value, array,
+      # or an object that responds to +call+.
+      #
+      # Available behaviors:
+      #
+      # [+raise+]   Raise &lt;tt&gt;ActiveSupport::DeprecationException&lt;/tt&gt;.
+      # [+stderr+]  Log all deprecation warnings to +$stderr+.
+      # [+log+]     Log all deprecation warnings to +Rails.logger+.
+      # [+notify+]  Use +ActiveSupport::Notifications+ to notify +deprecation.rails+.
+      # [+silence+] Do nothing.
+      #
+      # Setting behaviors only affects deprecations that happen after boot time.
+      # Deprecation warnings raised by gems are not affected by this setting
+      # because they happen before Rails boots up.
+      #
+      #   ActiveSupport::Deprecation.behavior = :stderr
+      #   ActiveSupport::Deprecation.behavior = [:stderr, :log]
+      #   ActiveSupport::Deprecation.behavior = MyCustomHandler
+      #   ActiveSupport::Deprecation.behavior = -&gt;(message, callstack) {
+      #     # custom stuff
+      #   }
+      def behavior=(behavior)
+        @behavior = Array(behavior).map { |b| DEFAULT_BEHAVIORS[b] || arity_coerce(b) }
+      end
+&nbsp;
+      private
+        def arity_coerce(behavior)
+          if behavior.arity == 4 || behavior.arity == -1
+            behavior
+          else
+            -&gt; message, callstack, _, _ { behavior.call(message, callstack) }
+          end
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

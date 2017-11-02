@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/time/zones.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext/time</a> zones.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>30/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>27/27</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">517x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">456x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1046x</span>
+<span class="cline-any cline-yes">742x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">304x</span>
+<span class="cline-any cline-yes">237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239x</span>
+<span class="cline-any cline-yes">237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/time_with_zone"
+require "active_support/core_ext/time/acts_like"
+require "active_support/core_ext/date_and_time/zones"
+&nbsp;
+class Time
+  include DateAndTime::Zones
+  class &lt;&lt; self
+    attr_accessor :zone_default
+&nbsp;
+    # Returns the TimeZone for the current request, if this has been set (via Time.zone=).
+    # If &lt;tt&gt;Time.zone&lt;/tt&gt; has not been set for the current request, returns the TimeZone specified in &lt;tt&gt;config.time_zone&lt;/tt&gt;.
+    def zone
+      Thread.current[:time_zone] || zone_default
+    end
+&nbsp;
+    # Sets &lt;tt&gt;Time.zone&lt;/tt&gt; to a TimeZone object for the current request/thread.
+    #
+    # This method accepts any of the following:
+    #
+    # * A Rails TimeZone object.
+    # * An identifier for a Rails TimeZone object (e.g., "Eastern Time (US &amp; Canada)", &lt;tt&gt;-5.hours&lt;/tt&gt;).
+    # * A TZInfo::Timezone object.
+    # * An identifier for a TZInfo::Timezone object (e.g., "America/New_York").
+    #
+    # Here's an example of how you might set &lt;tt&gt;Time.zone&lt;/tt&gt; on a per request basis and reset it when the request is done.
+    # &lt;tt&gt;current_user.time_zone&lt;/tt&gt; just needs to return a string identifying the user's preferred time zone:
+    #
+    #   class ApplicationController &lt; ActionController::Base
+    #     around_action :set_time_zone
+    #
+    #     def set_time_zone
+    #       if logged_in?
+    #         Time.use_zone(current_user.time_zone) { yield }
+    #       else
+    #         yield
+    #       end
+    #     end
+    #   end
+    def zone=(time_zone)
+      Thread.current[:time_zone] = find_zone!(time_zone)
+    end
+&nbsp;
+    # Allows override of &lt;tt&gt;Time.zone&lt;/tt&gt; locally inside supplied block;
+    # resets &lt;tt&gt;Time.zone&lt;/tt&gt; to existing value when done.
+    #
+    #   class ApplicationController &lt; ActionController::Base
+    #     around_action :set_time_zone
+    #
+    #     private
+    #
+    #     def set_time_zone
+    #       Time.use_zone(current_user.timezone) { yield }
+    #     end
+    #   end
+    #
+    # NOTE: This won't affect any &lt;tt&gt;ActiveSupport::TimeWithZone&lt;/tt&gt;
+    # objects that have already been created, e.g. any model timestamp
+    # attributes that have been read before the block will remain in
+    # the application's default timezone.
+    def use_zone(time_zone)
+      new_zone = find_zone!(time_zone)
+      begin
+        old_zone, ::Time.zone = ::Time.zone, new_zone
+        yield
+      ensure
+        ::Time.zone = old_zone
+      end
+    end
+&nbsp;
+    # Returns a TimeZone instance matching the time zone provided.
+    # Accepts the time zone in any format supported by &lt;tt&gt;Time.zone=&lt;/tt&gt;.
+    # Raises an +ArgumentError+ for invalid time zones.
+    #
+    #   Time.find_zone! "America/New_York" # =&gt; #&lt;ActiveSupport::TimeZone @name="America/New_York" ...&gt;
+    #   Time.find_zone! "EST"              # =&gt; #&lt;ActiveSupport::TimeZone @name="EST" ...&gt;
+    #   Time.find_zone! -5.hours           # =&gt; #&lt;ActiveSupport::TimeZone @name="Bogota" ...&gt;
+    #   Time.find_zone! nil                # =&gt; nil
+    #   Time.find_zone! false              # =&gt; false
+    #   Time.find_zone! "NOT-A-TIMEZONE"   # =&gt; ArgumentError: Invalid Timezone: NOT-A-TIMEZONE
+    def find_zone!(time_zone)
+      if !time_zone || time_zone.is_a?(ActiveSupport::TimeZone)
+        time_zone
+      else
+        # Look up the timezone based on the identifier (unless we've been
+        # passed a TZInfo::Timezone)
+        unless time_zone.respond_to?(:period_for_local)
+          time_zone = ActiveSupport::TimeZone[time_zone] || TZInfo::Timezone.get(time_zone)
+        end
+&nbsp;
+        # Return if a TimeZone instance, or wrap in a TimeZone instance if a TZInfo::Timezone
+        if time_zone.is_a?(ActiveSupport::TimeZone)
+          time_zone
+        else
+          ActiveSupport::TimeZone.create(time_zone.name, nil, time_zone)
+        end
+      end
+    rescue TZInfo::InvalidTimezoneIdentifier
+      raise ArgumentError, "Invalid Timezone: #{time_zone}"
+    end
+&nbsp;
+    # Returns a TimeZone instance matching the time zone provided.
+    # Accepts the time zone in any format supported by &lt;tt&gt;Time.zone=&lt;/tt&gt;.
+    # Returns +nil+ for invalid time zones.
+    #
+    #   Time.find_zone "America/New_York" # =&gt; #&lt;ActiveSupport::TimeZone @name="America/New_York" ...&gt;
+    #   Time.find_zone "NOT-A-TIMEZONE"   # =&gt; nil
+    def find_zone(time_zone)
+      find_zone!(time_zone) rescue nil
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

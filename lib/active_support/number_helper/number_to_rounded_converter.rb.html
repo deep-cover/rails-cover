@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/number_helper/number_to_rounded_converter.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/number_helper</a> number_to_rounded_converter.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.05% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>37/43</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.29% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>33/35</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">787x</span>
+<span class="cline-any cline-yes">502x</span>
+<span class="cline-any cline-yes">502x</span>
+<span class="cline-any cline-yes">502x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">787x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">578x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">411x</span>
+<span class="cline-any cline-yes">411x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">388x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveSupport
+  module NumberHelper
+    class NumberToRoundedConverter &lt; NumberConverter # :nodoc:
+      self.namespace      = :precision
+      self.validate_float = true
+&nbsp;
+      def convert
+        helper = RoundingHelper.new(options)
+        rounded_number = helper.round(number)
+&nbsp;
+        if precision = options[:precision]
+          if options[:significant] &amp;&amp; precision &gt; 0
+            digits = helper.digit_count(rounded_number)
+            precision -= digits
+            precision = 0 if precision &lt; 0 # don't let it be negative
+          end
+&nbsp;
+          formatted_string =
+            if BigDecimal === rounded_number &amp;&amp; rounded_number.finite?
+              s = rounded_number.to_s("F")
+              s &lt;&lt; "0".freeze * precision
+              a, b = s.split(".".freeze, 2)
+              a &lt;&lt; ".".freeze
+              a &lt;&lt; b[0, precision]
+            else
+              "%00.#{precision}f" % rounded_number
+            end
+        else
+          formatted_string = rounded_number
+        end
+&nbsp;
+        delimited_number = NumberToDelimitedConverter.convert(formatted_string, options)
+        format_number(delimited_number)
+      end
+&nbsp;
+      private
+&nbsp;
+<span class="fstat-no" title="function not covered" >        def calculate_rounded_number(multiplier)</span>
+<span class="cstat-no" title="statement not covered" >          (<span class="cstat-no" title="statement not covered" >number / BigDecimal.new(multiplier.to_f.to_s)</span>).round * multiplier</span>
+        end
+&nbsp;
+<span class="fstat-no" title="function not covered" >        def digit_count(number)</span>
+<span class="cstat-no" title="statement not covered" >          number.zero? ? <span class="cstat-no" title="statement not covered" >1</span> : <span class="cstat-no" title="statement not covered" >(<span class="cstat-no" title="statement not covered" >Math.log10(absolute_number(number)) + 1</span>).floor</span></span>
+        end
+&nbsp;
+        def strip_insignificant_zeros
+          options[:strip_insignificant_zeros]
+        end
+&nbsp;
+        def format_number(number)
+          if strip_insignificant_zeros
+            escaped_separator = Regexp.escape(options[:separator])
+            number.sub(/(#{escaped_separator})(\d*[1-9])?0+\z/, '\1\2').sub(/#{escaped_separator}\z/, "")
+          else
+            number
+          end
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
