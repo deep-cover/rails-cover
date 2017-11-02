@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/rails/configuration.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/rails</a> configuration.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>63/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72.22% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.19% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>59/64</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">2142x</span>
+<span class="cline-any cline-yes">2142x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">294x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-yes">341x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">947x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">1652x</span>
+<span class="cline-any cline-yes">1652x</span>
+<span class="cline-any cline-yes">1652x</span>
+<span class="cline-any cline-yes">1652x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">369x</span>
+<span class="cline-any cline-yes">1546x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1546x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1476x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1476x</span>
+<span class="cline-any cline-yes">1476x</span>
+<span class="cline-any cline-yes">1476x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1476x</span>
+<span class="cline-any cline-yes">631x</span>
+<span class="cline-any cline-yes">631x</span>
+<span class="cline-any cline-yes">631x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/ordered_options"
+require "active_support/core_ext/object"
+require "rails/paths"
+require "rails/rack"
+&nbsp;
+module Rails
+  module Configuration
+    # MiddlewareStackProxy is a proxy for the Rails middleware stack that allows
+    # you to configure middlewares in your application. It works basically as a
+    # command recorder, saving each command to be applied after initialization
+    # over the default middleware stack, so you can add, swap, or remove any
+    # middleware in Rails.
+    #
+    # You can add your own middlewares by using the +config.middleware.use+ method:
+    #
+    #     config.middleware.use Magical::Unicorns
+    #
+    # This will put the &lt;tt&gt;Magical::Unicorns&lt;/tt&gt; middleware on the end of the stack.
+    # You can use +insert_before+ if you wish to add a middleware before another:
+    #
+    #     config.middleware.insert_before Rack::Head, Magical::Unicorns
+    #
+    # There's also +insert_after+ which will insert a middleware after another:
+    #
+    #     config.middleware.insert_after Rack::Head, Magical::Unicorns
+    #
+    # Middlewares can also be completely swapped out and replaced with others:
+    #
+    #     config.middleware.swap ActionDispatch::Flash, Magical::Unicorns
+    #
+    # And finally they can also be removed from the stack completely:
+    #
+    #     config.middleware.delete ActionDispatch::Flash
+    #
+    class MiddlewareStackProxy
+      def initialize(operations = [], delete_operations = [])
+        @operations = operations
+        @delete_operations = delete_operations
+      end
+&nbsp;
+      def insert_before(*args, &amp;block)
+        @operations &lt;&lt; [__method__, args, block]
+      end
+&nbsp;
+      alias :insert :insert_before
+&nbsp;
+      def insert_after(*args, &amp;block)
+        @operations &lt;&lt; [__method__, args, block]
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def swap(*args, &amp;block)</span>
+<span class="cstat-no" title="statement not covered" >        @operations &lt;&lt; [__method__, args, block]</span>
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def use(*args, &amp;block)</span>
+<span class="cstat-no" title="statement not covered" >        @operations &lt;&lt; [__method__, args, block]</span>
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def delete(*args, &amp;block)</span>
+<span class="cstat-no" title="statement not covered" >        @delete_operations &lt;&lt; [__method__, args, block]</span>
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def unshift(*args, &amp;block)</span>
+<span class="cstat-no" title="statement not covered" >        @operations &lt;&lt; [__method__, args, block]</span>
+      end
+&nbsp;
+      def merge_into(other) #:nodoc:
+        (@operations + @delete_operations).each do |operation, args, block|
+          other.send(operation, *args, &amp;block)
+        end
+&nbsp;
+        other
+      end
+&nbsp;
+      def +(other) # :nodoc:
+        MiddlewareStackProxy.new(@operations + other.operations, @delete_operations + other.delete_operations)
+      end
+&nbsp;
+      protected
+        def operations
+          @operations
+        end
+&nbsp;
+        def delete_operations
+          @delete_operations
+        end
+    end
+&nbsp;
+    class Generators #:nodoc:
+      attr_accessor :aliases, :options, :templates, :fallbacks, :colorize_logging, :api_only
+      attr_reader :hidden_namespaces
+&nbsp;
+      def initialize
+        @aliases = Hash.new <span class="fstat-no" title="function not covered" >{ |h, k|</span> <span class="cstat-no" title="statement not covered" >h[k] = {}</span> }
+        @options = Hash.new { |h, k| h[k] = {} }
+        @fallbacks = {}
+        @templates = []
+        @colorize_logging = true
+        @api_only = false
+        @hidden_namespaces = []
+      end
+&nbsp;
+      def initialize_copy(source)
+        @aliases = @aliases.deep_dup
+        @options = @options.deep_dup
+        @fallbacks = @fallbacks.deep_dup
+        @templates = @templates.dup
+      end
+&nbsp;
+      def hide_namespace(namespace)
+        @hidden_namespaces &lt;&lt; namespace
+      end
+&nbsp;
+      def method_missing(method, *args)
+        method = method.to_s.sub(/=$/, "").to_sym
+&nbsp;
+        return @options[method] if args.empty?
+&nbsp;
+        if <span class="branch-1 cbranch-no" title="branch not covered" >method == :rails || args.first.is_a?(Hash)</span>
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>namespace, configuration = method, args.shift</span>
+        else
+          namespace, configuration = args.shift, args.shift
+          namespace = namespace.to_sym if namespace.respond_to?(:to_sym)
+          @options[:rails][method] = namespace
+        end
+&nbsp;
+        if configuration
+          aliases = configuration.delete(:aliases)
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>@aliases[namespace].merge!(aliases)</span> if aliases
+          @options[namespace].merge!(configuration)
+        end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 03:42:58 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

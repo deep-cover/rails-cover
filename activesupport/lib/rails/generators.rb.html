@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/rails/generators.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/rails</a> generators.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.76% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>179/185</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>34/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>31/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.69% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>151/153</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">444x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">4722x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">4976x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">399x</span>
+<span class="cline-any cline-yes">399x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">1058x</span>
+<span class="cline-any cline-yes">1058x</span>
+<span class="cline-any cline-yes">1058x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1058x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1058x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13002x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-yes">1853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">216x</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">4266x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">2656x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-yes">1596x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+activesupport_path = File.expand_path("../../../activesupport/lib", __dir__)
+<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>$:.unshift(activesupport_path)</span> if <span class="branch-1 cbranch-no" title="branch not covered" >File.directory?(activesupport_path) &amp;&amp; !$:.include?(activesupport_path)</span>
+&nbsp;
+require "thor/group"
+require "rails/command"
+&nbsp;
+require "active_support"
+require "active_support/core_ext/object/blank"
+require "active_support/core_ext/kernel/singleton_class"
+require "active_support/core_ext/array/extract_options"
+require "active_support/core_ext/hash/deep_merge"
+require "active_support/core_ext/module/attribute_accessors"
+require "active_support/core_ext/string/indent"
+require "active_support/core_ext/string/inflections"
+&nbsp;
+module Rails
+  module Generators
+    include Rails::Command::Behavior
+&nbsp;
+    autoload :Actions,         "rails/generators/actions"
+    autoload :ActiveModel,     "rails/generators/active_model"
+    autoload :Base,            "rails/generators/base"
+    autoload :Migration,       "rails/generators/migration"
+    autoload :NamedBase,       "rails/generators/named_base"
+    autoload :ResourceHelpers, "rails/generators/resource_helpers"
+    autoload :TestCase,        "rails/generators/test_case"
+&nbsp;
+    mattr_accessor :namespace
+&nbsp;
+    DEFAULT_ALIASES = {
+      rails: {
+        actions: "-a",
+        orm: "-o",
+        javascripts: "-j",
+        javascript_engine: "-je",
+        resource_controller: "-c",
+        scaffold_controller: "-c",
+        stylesheets: "-y",
+        stylesheet_engine: "-se",
+        scaffold_stylesheet: "-ss",
+        template_engine: "-e",
+        test_framework: "-t"
+      },
+&nbsp;
+      test_unit: {
+        fixture_replacement: "-r",
+      }
+    }
+&nbsp;
+    DEFAULT_OPTIONS = {
+      rails: {
+        api: false,
+        assets: true,
+        force_plural: false,
+        helper: true,
+        integration_tool: nil,
+        javascripts: true,
+        javascript_engine: :js,
+        orm: false,
+        resource_controller: :controller,
+        resource_route: true,
+        scaffold_controller: :scaffold_controller,
+        stylesheets: true,
+        stylesheet_engine: :css,
+        scaffold_stylesheet: true,
+        system_tests: nil,
+        test_framework: nil,
+        template_engine: :erb
+      }
+    }
+&nbsp;
+    class &lt;&lt; self
+      def configure!(config) #:nodoc:
+        api_only! if config.api_only
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="else path not taken" >E</span>no_color!</span> unless config.colorize_logging
+        aliases.deep_merge! config.aliases
+        options.deep_merge! config.options
+        fallbacks.merge! config.fallbacks
+        templates_path.concat config.templates
+        templates_path.uniq!
+        hide_namespaces(*config.hidden_namespaces)
+      end
+&nbsp;
+      def templates_path #:nodoc:
+        @templates_path ||= []
+      end
+&nbsp;
+      def aliases #:nodoc:
+        @aliases ||= DEFAULT_ALIASES.dup
+      end
+&nbsp;
+      def options #:nodoc:
+        @options ||= DEFAULT_OPTIONS.dup
+      end
+&nbsp;
+      # Hold configured generators fallbacks. If a plugin developer wants a
+      # generator group to fallback to another group in case of missing generators,
+      # they can add a fallback.
+      #
+      # For example, shoulda is considered a test_framework and is an extension
+      # of test_unit. However, most part of shoulda generators are similar to
+      # test_unit ones.
+      #
+      # Shoulda then can tell generators to search for test_unit generators when
+      # some of them are not available by adding a fallback:
+      #
+      #   Rails::Generators.fallbacks[:shoulda] = :test_unit
+      def fallbacks
+        @fallbacks ||= {}
+      end
+&nbsp;
+      # Configure generators for API only applications. It basically hides
+      # everything that is usually browser related, such as assets and session
+      # migration generators, and completely disable helpers and assets
+      # so generators such as scaffold won't create them.
+      def api_only!
+        hide_namespaces "assets", "helper", "css", "js"
+&nbsp;
+        options[:rails].merge!(
+          api: true,
+          assets: false,
+          helper: false,
+          template_engine: nil
+        )
+&nbsp;
+        if ARGV.first == "mailer"
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>options[:rails].merge!(template_engine: :erb)</span>
+        end
+      end
+&nbsp;
+      # Remove the color from output.
+      def no_color!
+        Thor::Base.shell = Thor::Shell::Basic
+      end
+&nbsp;
+      # Returns an array of generator namespaces that are hidden.
+      # Generator namespaces may be hidden for a variety of reasons.
+      # Some are aliased such as "rails:migration" and can be
+      # invoked with the shorter "migration", others are private to other generators
+      # such as "css:scaffold".
+      def hidden_namespaces
+        @hidden_namespaces ||= begin
+          orm      = options[:rails][:orm]
+          test     = options[:rails][:test_framework]
+          template = options[:rails][:template_engine]
+          css      = options[:rails][:stylesheet_engine]
+&nbsp;
+          [
+            "rails",
+            "resource_route",
+            "#{orm}:migration",
+            "#{orm}:model",
+            "#{test}:controller",
+            "#{test}:helper",
+            "#{test}:integration",
+            "#{test}:system",
+            "#{test}:mailer",
+            "#{test}:model",
+            "#{test}:scaffold",
+            "#{test}:view",
+            "#{test}:job",
+            "#{template}:controller",
+            "#{template}:scaffold",
+            "#{template}:mailer",
+            "#{css}:scaffold",
+            "#{css}:assets",
+            "css:assets",
+            "css:scaffold"
+          ]
+        end
+      end
+&nbsp;
+      def hide_namespaces(*namespaces)
+        hidden_namespaces.concat(namespaces)
+      end
+      alias hide_namespace hide_namespaces
+&nbsp;
+      # Show help message with available generators.
+      def help(command = "generate")
+        puts "Usage: rails #{command} GENERATOR [args] [options]"
+        puts
+        puts "General options:"
+        puts "  -h, [--help]     # Print generator's options and usage"
+        puts "  -p, [--pretend]  # Run but do not make any changes"
+        puts "  -f, [--force]    # Overwrite files that already exist"
+        puts "  -s, [--skip]     # Skip files that already exist"
+        puts "  -q, [--quiet]    # Suppress status output"
+        puts
+        puts "Please choose a generator below."
+        puts
+&nbsp;
+        print_generators
+      end
+&nbsp;
+      def public_namespaces
+        lookup!
+        subclasses.map(&amp;:namespace)
+      end
+&nbsp;
+      def print_generators
+        sorted_groups.each { |b, n| print_list(b, n) }
+      end
+&nbsp;
+      def sorted_groups
+        namespaces = public_namespaces
+        namespaces.sort!
+&nbsp;
+        groups = Hash.new { |h, k| h[k] = [] }
+        namespaces.each do |namespace|
+          base = namespace.split(":").first
+          groups[base] &lt;&lt; namespace
+        end
+&nbsp;
+        rails = groups.delete("rails")
+        rails.map! { |n| n.sub(/^rails:/, "") }
+        rails.delete("app")
+        rails.delete("plugin")
+        rails.delete("encrypted_secrets")
+&nbsp;
+        hidden_namespaces.each { |n| groups.delete(n.to_s) }
+&nbsp;
+        [[ "rails", rails ]] + groups.sort.to_a
+      end
+&nbsp;
+      # Rails finds namespaces similar to Thor, it only adds one rule:
+      #
+      # Generators names must end with "_generator.rb". This is required because Rails
+      # looks in load paths and loads the generator just before it's going to be used.
+      #
+      #   find_by_namespace :webrat, :rails, :integration
+      #
+      # Will search for the following generators:
+      #
+      #   "rails:webrat", "webrat:integration", "webrat"
+      #
+      # Notice that "rails:generators:webrat" could be loaded as well, what
+      # Rails looks for is the first and last parts of the namespace.
+      def find_by_namespace(name, base = nil, context = nil) #:nodoc:
+        lookups = []
+        lookups &lt;&lt; "#{base}:#{name}"    if base
+        lookups &lt;&lt; "#{name}:#{context}" if context
+&nbsp;
+        unless base || context
+          unless name.to_s.include?(?:)
+            lookups &lt;&lt; "#{name}:#{name}"
+            lookups &lt;&lt; "rails:#{name}"
+          end
+          lookups &lt;&lt; "#{name}"
+        end
+&nbsp;
+        lookup(lookups)
+&nbsp;
+        namespaces = Hash[subclasses.map { |klass| [klass.namespace, klass] }]
+        lookups.each do |namespace|
+&nbsp;
+          klass = namespaces[namespace]
+          return klass if klass
+        end
+&nbsp;
+        invoke_fallbacks_for(name, base) || invoke_fallbacks_for(context, name)
+      end
+&nbsp;
+      # Receives a namespace, arguments and the behavior to invoke the generator.
+      # It's used as the default entry point for generate, destroy and update
+      # commands.
+      def invoke(namespace, args = ARGV, config = {})
+        names = namespace.to_s.split(":")
+        if klass = find_by_namespace(names.pop, names.any? &amp;&amp; names.join(":"))
+          args &lt;&lt; "--help" if args.empty? &amp;&amp; klass.arguments.any?(&amp;:required?)
+          klass.start(args, config)
+        else
+          options     = sorted_groups.flat_map(&amp;:last)
+          suggestions = options.sort_by { |suggested| levenshtein_distance(namespace.to_s, suggested) }.first(3)
+          msg =  "Could not find generator '#{namespace}'. ".dup
+          msg &lt;&lt; "Maybe you meant #{ suggestions.map { |s| "'#{s}'" }.to_sentence(last_word_connector: " or ", locale: :en) }\n"
+          msg &lt;&lt; "Run `rails generate --help` for more options."
+          puts msg
+        end
+      end
+&nbsp;
+      private
+&nbsp;
+        def print_list(base, namespaces) # :doc:
+          namespaces = namespaces.reject { |n| hidden_namespaces.include?(n) }
+          super
+        end
+&nbsp;
+        # Try fallbacks for the given base.
+        def invoke_fallbacks_for(name, base)
+          return nil unless base &amp;&amp; fallbacks[base.to_sym]
+          invoked_fallbacks = []
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          Array(fallbacks[base.to_sym]).each do |fallback|</span>
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>next</span> if invoked_fallbacks.include?(fallback)
+            invoked_fallbacks &lt;&lt; fallback
+&nbsp;
+            klass = find_by_namespace(name, fallback)
+            <span class="missing-if-branch" title="else path not taken" >E</span>return klass if klass
+          end
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          nil</span>
+        end
+&nbsp;
+        def command_type # :doc:
+          @command_type ||= "generator"
+        end
+&nbsp;
+        def lookup_paths # :doc:
+          @lookup_paths ||= %w( rails/generators generators )
+        end
+&nbsp;
+        def file_lookup_paths # :doc:
+          @file_lookup_paths ||= [ "{#{lookup_paths.join(',')}}", "**", "*_generator.rb" ]
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 03:42:58 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

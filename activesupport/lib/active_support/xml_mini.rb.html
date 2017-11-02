@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/xml_mini.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_support</a> xml_mini.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.85% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>129/136</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.86% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>58/70</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>28/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.4% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>107/111</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">567x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-yes">384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">217x</span>
+<span class="cline-any cline-yes">217x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">217x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">213x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-yes">276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">257x</span>
+<span class="cline-any cline-yes">257x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">296x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">682x</span>
+<span class="cline-any cline-yes">361x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">321x</span>
+<span class="cline-any cline-yes">321x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "time"
+require "base64"
+require "bigdecimal"
+require "active_support/core_ext/module/delegation"
+require "active_support/core_ext/string/inflections"
+require "active_support/core_ext/date_time/calculations"
+&nbsp;
+module ActiveSupport
+  # = XmlMini
+  #
+  # To use the much faster libxml parser:
+  #   gem 'libxml-ruby', '=0.9.7'
+  #   XmlMini.backend = 'LibXML'
+  module XmlMini
+    extend self
+&nbsp;
+    # This module decorates files deserialized using Hash.from_xml with
+    # the &lt;tt&gt;original_filename&lt;/tt&gt; and &lt;tt&gt;content_type&lt;/tt&gt; methods.
+    module FileLike #:nodoc:
+      attr_writer :original_filename, :content_type
+&nbsp;
+      def original_filename
+        @original_filename || "untitled"
+      end
+&nbsp;
+      def content_type
+        @content_type || "application/octet-stream"
+      end
+    end
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>DEFAULT_ENCODINGS = {
+      "binary" =&gt; "base64"
+    } unless defined?(DEFAULT_ENCODINGS)
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>unless defined?(TYPE_NAMES)
+      TYPE_NAMES = {
+        "Symbol"     =&gt; "symbol",
+        "Integer"    =&gt; "integer",
+        "BigDecimal" =&gt; "decimal",
+        "Float"      =&gt; "float",
+        "TrueClass"  =&gt; "boolean",
+        "FalseClass" =&gt; "boolean",
+        "Date"       =&gt; "date",
+        "DateTime"   =&gt; "dateTime",
+        "Time"       =&gt; "dateTime",
+        "Array"      =&gt; "array",
+        "Hash"       =&gt; "hash"
+      }
+&nbsp;
+      # No need to map these on Ruby 2.4+
+      <span class="missing-if-branch" title="if path not taken" >I</span>TYPE_NAMES["Fixnum"] = "integer" unless 0.class == Integer
+      <span class="missing-if-branch" title="if path not taken" >I</span>TYPE_NAMES["Bignum"] = "integer" unless 0.class == Integer
+    end
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>FORMATTING = {
+      "symbol"   =&gt; Proc.new { |symbol| symbol.to_s },
+      "date"     =&gt; Proc.new { |date| date.to_s(:db) },
+      "dateTime" =&gt; Proc.new { |time| time.xmlschema },
+      "binary"   =&gt; Proc.new <span class="fstat-no" title="function not covered" >{ |binary|</span> <span class="cstat-no" title="statement not covered" >::Base64.encode64(binary)</span> },
+      "yaml"     =&gt; Proc.new <span class="fstat-no" title="function not covered" >{ |yaml|</span> <span class="cstat-no" title="statement not covered" >yaml.to_yaml</span> }
+    } unless defined?(FORMATTING)
+&nbsp;
+    # TODO use regexp instead of Date.parse
+    <span class="missing-if-branch" title="if path not taken" >I</span>unless defined?(PARSING)
+      PARSING = {
+        "symbol"       =&gt; Proc.new { |symbol|  symbol.to_s.to_sym },
+        "date"         =&gt; Proc.new { |date|    ::Date.parse(date) },
+        "datetime"     =&gt; Proc.new { |time|    Time.xmlschema(time).utc rescue ::DateTime.parse(time).utc },
+        "integer"      =&gt; Proc.new { |integer| integer.to_i },
+        "float"        =&gt; Proc.new { |float|   float.to_f },
+        "decimal"      =&gt; Proc.new do |number|
+          if String === number
+            begin
+              BigDecimal(number)
+            rescue <span class="cstat-no" title="statement not covered" >ArgumentError</span>
+<span class="cstat-no" title="statement not covered" >              BigDecimal("0")</span>
+            end
+          else
+            BigDecimal(number)
+          end
+        end,
+        "boolean"      =&gt; Proc.new { |boolean| %w(1 true).include?(boolean.to_s.strip) },
+        "string"       =&gt; Proc.new { |string|  string.to_s },
+        "yaml"         =&gt; Proc.new { |yaml|    YAML::load(yaml) rescue yaml },
+        "base64Binary" =&gt; Proc.new { |bin|     ::Base64.decode64(bin) },
+        "binary"       =&gt; Proc.new { |bin, entity| _parse_binary(bin, entity) },
+        "file"         =&gt; Proc.new { |file, entity| _parse_file(file, entity) }
+      }
+&nbsp;
+      PARSING.update(
+        "double"   =&gt; PARSING["float"],
+        "dateTime" =&gt; PARSING["datetime"]
+      )
+    end
+&nbsp;
+    attr_accessor :depth
+    self.depth = 100
+&nbsp;
+    delegate :parse, to: :backend
+&nbsp;
+    def backend
+      current_thread_backend || @backend
+    end
+&nbsp;
+    def backend=(name)
+      backend = <span class="branch-1 cbranch-no" title="branch not covered" >name &amp;&amp; cast_backend_name_to_module(name)</span>
+      self.current_thread_backend = backend if current_thread_backend
+      @backend = backend
+    end
+&nbsp;
+    def with_backend(name)
+      old_backend = current_thread_backend
+      self.current_thread_backend = <span class="branch-1 cbranch-no" title="branch not covered" >name &amp;&amp; cast_backend_name_to_module(name)</span>
+      yield
+    ensure
+      self.current_thread_backend = old_backend
+    end
+&nbsp;
+    def to_tag(key, value, options)
+      type_name = options.delete(:type)
+      merged_options = options.merge(root: key, skip_instruct: true)
+&nbsp;
+      if <span class="branch-1 cbranch-no" title="branch not covered" >value.is_a?(::Method) || value.is_a?(::Proc)</span>
+        if value.arity == 1
+          value.call(merged_options)
+        else
+          value.call(merged_options, key.to_s.singularize)
+        end
+      elsif value.respond_to?(:to_xml)
+        value.to_xml(merged_options)
+      else
+        type_name ||= TYPE_NAMES[value.class.name]
+        type_name ||= <span class="cstat-no" title="statement not covered" >value.class.name</span> if value &amp;&amp; !value.respond_to?(:to_str)
+        type_name   = type_name.to_s   if type_name
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>type_name   = "dateTime"</span> if type_name == "datetime"
+&nbsp;
+        key = rename_key(key.to_s, options)
+&nbsp;
+        attributes = options[:skip_types] || type_name.nil? ? {} : { type: type_name }
+        attributes[:nil] = true if value.nil?
+&nbsp;
+        encoding = <span class="branch-1 cbranch-no" title="branch not covered" >options[:encoding] || DEFAULT_ENCODINGS[type_name]</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>attributes[:encoding] = encoding</span> if encoding
+&nbsp;
+        formatted_value = FORMATTING[type_name] &amp;&amp; !value.nil? ?
+          FORMATTING[type_name].call(value) : value
+&nbsp;
+        options[:builder].tag!(key, formatted_value, attributes)
+      end
+    end
+&nbsp;
+    def rename_key(key, options = {})
+      camelize  = options[:camelize]
+      dasherize = !options.has_key?(:dasherize) || options[:dasherize]
+      if camelize
+        key = true == camelize ? key.camelize : key.camelize(camelize)
+      end
+      key = _dasherize(key) if dasherize
+      key
+    end
+&nbsp;
+    private
+&nbsp;
+      def _dasherize(key)
+        # $2 must be a non-greedy regex for this to work
+        left, middle, right = /\A(_*)(.*?)(_*)\Z/.match(key.strip)[1, 3]
+        "#{left}#{middle.tr('_ ', '--')}#{right}"
+      end
+&nbsp;
+      # TODO: Add support for other encodings
+      def _parse_binary(bin, entity)
+        case entity["encoding"]
+        when "base64"
+          ::Base64.decode64(bin)
+        else
+          bin
+        end
+      end
+&nbsp;
+      def _parse_file(file, entity)
+        f = StringIO.new(::Base64.decode64(file))
+        f.extend(FileLike)
+        f.original_filename = entity["name"]
+        f.content_type = entity["content_type"]
+        f
+      end
+&nbsp;
+      def current_thread_backend
+        Thread.current[:xml_mini_backend]
+      end
+&nbsp;
+      def current_thread_backend=(name)
+        Thread.current[:xml_mini_backend] = name &amp;&amp; cast_backend_name_to_module(name)
+      end
+&nbsp;
+      def cast_backend_name_to_module(name)
+        if name.is_a?(Module)
+          name
+        else
+          require "active_support/xml_mini/#{name.downcase}"
+          ActiveSupport.const_get("XmlMini_#{name}")
+        end
+      end
+  end
+&nbsp;
+  XmlMini.backend = "REXML"
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/hash_with_indifferent_access.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_support</a> hash_with_indifferent_access.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>148/150</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.09% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>37/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>51/51</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>121/121</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">140x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">619x</span>
+<span class="cline-any cline-yes">198x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">421x</span>
+<span class="cline-any cline-yes">501x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">501x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">421x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">526x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">326x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1214x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1089x</span>
+<span class="cline-any cline-yes">262x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">827x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">813x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">486x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">476x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/hash/reverse_merge"
+&nbsp;
+module ActiveSupport
+  # Implements a hash where keys &lt;tt&gt;:foo&lt;/tt&gt; and &lt;tt&gt;"foo"&lt;/tt&gt; are considered
+  # to be the same.
+  #
+  #   rgb = ActiveSupport::HashWithIndifferentAccess.new
+  #
+  #   rgb[:black] = '#000000'
+  #   rgb[:black]  # =&gt; '#000000'
+  #   rgb['black'] # =&gt; '#000000'
+  #
+  #   rgb['white'] = '#FFFFFF'
+  #   rgb[:white]  # =&gt; '#FFFFFF'
+  #   rgb['white'] # =&gt; '#FFFFFF'
+  #
+  # Internally symbols are mapped to strings when used as keys in the entire
+  # writing interface (calling &lt;tt&gt;[]=&lt;/tt&gt;, &lt;tt&gt;merge&lt;/tt&gt;, etc). This
+  # mapping belongs to the public interface. For example, given:
+  #
+  #   hash = ActiveSupport::HashWithIndifferentAccess.new(a: 1)
+  #
+  # You are guaranteed that the key is returned as a string:
+  #
+  #   hash.keys # =&gt; ["a"]
+  #
+  # Technically other types of keys are accepted:
+  #
+  #   hash = ActiveSupport::HashWithIndifferentAccess.new(a: 1)
+  #   hash[0] = 0
+  #   hash # =&gt; {"a"=&gt;1, 0=&gt;0}
+  #
+  # but this class is intended for use cases where strings or symbols are the
+  # expected keys and it is convenient to understand both as the same. For
+  # example the +params+ hash in Ruby on Rails.
+  #
+  # Note that core extensions define &lt;tt&gt;Hash#with_indifferent_access&lt;/tt&gt;:
+  #
+  #   rgb = { black: '#000000', white: '#FFFFFF' }.with_indifferent_access
+  #
+  # which may be handy.
+  #
+  # To access this class outside of Rails, require the core extension with:
+  #
+  #   require "active_support/core_ext/hash/indifferent_access"
+  #
+  # which will, in turn, require this file.
+  class HashWithIndifferentAccess &lt; Hash
+    # Returns +true+ so that &lt;tt&gt;Array#extract_options!&lt;/tt&gt; finds members of
+    # this class.
+    def extractable_options?
+      true
+    end
+&nbsp;
+    def with_indifferent_access
+      dup
+    end
+&nbsp;
+    def nested_under_indifferent_access
+      self
+    end
+&nbsp;
+    def initialize(constructor = {})
+      if constructor.respond_to?(:to_hash)
+        super()
+        update(constructor)
+&nbsp;
+        hash = constructor.to_hash
+        self.default = hash.default if hash.default
+        self.default_proc = hash.default_proc if hash.default_proc
+      else
+        super(constructor)
+      end
+    end
+&nbsp;
+    def self.[](*args)
+      new.merge!(Hash[*args])
+    end
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>alias_method :regular_writer, :[]= unless method_defined?(:regular_writer)
+    <span class="missing-if-branch" title="if path not taken" >I</span>alias_method :regular_update, :update unless method_defined?(:regular_update)
+&nbsp;
+    # Assigns a new value to the hash:
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash[:key] = 'value'
+    #
+    # This value can be later fetched using either +:key+ or &lt;tt&gt;'key'&lt;/tt&gt;.
+    def []=(key, value)
+      regular_writer(convert_key(key), convert_value(value, for: :assignment))
+    end
+&nbsp;
+    alias_method :store, :[]=
+&nbsp;
+    # Updates the receiver in-place, merging in the hash passed as argument:
+    #
+    #   hash_1 = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash_1[:key] = 'value'
+    #
+    #   hash_2 = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash_2[:key] = 'New Value!'
+    #
+    #   hash_1.update(hash_2) # =&gt; {"key"=&gt;"New Value!"}
+    #
+    # The argument can be either an
+    # &lt;tt&gt;ActiveSupport::HashWithIndifferentAccess&lt;/tt&gt; or a regular +Hash+.
+    # In either case the merge respects the semantics of indifferent access.
+    #
+    # If the argument is a regular hash with keys +:key+ and +"key"+ only one
+    # of the values end up in the receiver, but which one is unspecified.
+    #
+    # When given a block, the value for duplicated keys will be determined
+    # by the result of invoking the block with the duplicated key, the value
+    # in the receiver, and the value in +other_hash+. The rules for duplicated
+    # keys follow the semantics of indifferent access:
+    #
+    #   hash_1[:key] = 10
+    #   hash_2['key'] = 12
+    #   hash_1.update(hash_2) { |key, old, new| old + new } # =&gt; {"key"=&gt;22}
+    def update(other_hash)
+      if other_hash.is_a? HashWithIndifferentAccess
+        super(other_hash)
+      else
+        other_hash.to_hash.each_pair do |key, value|
+          if block_given? &amp;&amp; key?(key)
+            value = yield(convert_key(key), self[key], value)
+          end
+          regular_writer(convert_key(key), convert_value(value))
+        end
+        self
+      end
+    end
+&nbsp;
+    alias_method :merge!, :update
+&nbsp;
+    # Checks the hash for a key matching the argument passed in:
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash['key'] = 'value'
+    #   hash.key?(:key)  # =&gt; true
+    #   hash.key?('key') # =&gt; true
+    def key?(key)
+      super(convert_key(key))
+    end
+&nbsp;
+    alias_method :include?, :key?
+    alias_method :has_key?, :key?
+    alias_method :member?, :key?
+&nbsp;
+    # Same as &lt;tt&gt;Hash#[]&lt;/tt&gt; where the key passed as argument can be
+    # either a string or a symbol:
+    #
+    #   counters = ActiveSupport::HashWithIndifferentAccess.new
+    #   counters[:foo] = 1
+    #
+    #   counters['foo'] # =&gt; 1
+    #   counters[:foo]  # =&gt; 1
+    #   counters[:zoo]  # =&gt; nil
+    def [](key)
+      super(convert_key(key))
+    end
+&nbsp;
+    # Same as &lt;tt&gt;Hash#fetch&lt;/tt&gt; where the key passed as argument can be
+    # either a string or a symbol:
+    #
+    #   counters = ActiveSupport::HashWithIndifferentAccess.new
+    #   counters[:foo] = 1
+    #
+    #   counters.fetch('foo')          # =&gt; 1
+    #   counters.fetch(:bar, 0)        # =&gt; 0
+    #   counters.fetch(:bar) { |key| 0 } # =&gt; 0
+    #   counters.fetch(:zoo)           # =&gt; KeyError: key not found: "zoo"
+    def fetch(key, *extras)
+      super(convert_key(key), *extras)
+    end
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if Hash.new.respond_to?(:dig)
+      # Same as &lt;tt&gt;Hash#dig&lt;/tt&gt; where the key passed as argument can be
+      # either a string or a symbol:
+      #
+      #   counters = ActiveSupport::HashWithIndifferentAccess.new
+      #   counters[:foo] = { bar: 1 }
+      #
+      #   counters.dig('foo', 'bar')     # =&gt; 1
+      #   counters.dig(:foo, :bar)       # =&gt; 1
+      #   counters.dig(:zoo)             # =&gt; nil
+      def dig(*args)
+        <span class="missing-if-branch" title="else path not taken" >E</span>args[0] = convert_key(args[0]) if args.size &gt; 0
+        super(*args)
+      end
+    end
+&nbsp;
+    # Same as &lt;tt&gt;Hash#default&lt;/tt&gt; where the key passed as argument can be
+    # either a string or a symbol:
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new(1)
+    #   hash.default                   # =&gt; 1
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new { |hash, key| key }
+    #   hash.default                   # =&gt; nil
+    #   hash.default('foo')            # =&gt; 'foo'
+    #   hash.default(:foo)             # =&gt; 'foo'
+    def default(*args)
+      super(*args.map { |arg| convert_key(arg) })
+    end
+&nbsp;
+    # Returns an array of the values at the specified indices:
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash[:a] = 'x'
+    #   hash[:b] = 'y'
+    #   hash.values_at('a', 'b') # =&gt; ["x", "y"]
+    def values_at(*indices)
+      indices.collect { |key| self[convert_key(key)] }
+    end
+&nbsp;
+    # Returns an array of the values at the specified indices, but also
+    # raises an exception when one of the keys can't be found.
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash[:a] = 'x'
+    #   hash[:b] = 'y'
+    #   hash.fetch_values('a', 'b') # =&gt; ["x", "y"]
+    #   hash.fetch_values('a', 'c') { |key| 'z' } # =&gt; ["x", "z"]
+    #   hash.fetch_values('a', 'c') # =&gt; KeyError: key not found: "c"
+    <span class="missing-if-branch" title="else path not taken" >E</span>def fetch_values(*indices, &amp;block)
+      indices.collect { |key| fetch(key, &amp;block) }
+    end if Hash.method_defined?(:fetch_values)
+&nbsp;
+    # Returns a shallow copy of the hash.
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new({ a: { b: 'b' } })
+    #   dup  = hash.dup
+    #   dup[:a][:c] = 'c'
+    #
+    #   hash[:a][:c] # =&gt; "c"
+    #   dup[:a][:c]  # =&gt; "c"
+    def dup
+      self.class.new(self).tap do |new_hash|
+        set_defaults(new_hash)
+      end
+    end
+&nbsp;
+    # This method has the same semantics of +update+, except it does not
+    # modify the receiver but rather returns a new hash with indifferent
+    # access with the result of the merge.
+    def merge(hash, &amp;block)
+      dup.update(hash, &amp;block)
+    end
+&nbsp;
+    # Like +merge+ but the other way around: Merges the receiver into the
+    # argument and returns a new hash with indifferent access as result:
+    #
+    #   hash = ActiveSupport::HashWithIndifferentAccess.new
+    #   hash['a'] = nil
+    #   hash.reverse_merge(a: 0, b: 1) # =&gt; {"a"=&gt;nil, "b"=&gt;1}
+    def reverse_merge(other_hash)
+      super(self.class.new(other_hash))
+    end
+    alias_method :with_defaults, :reverse_merge
+&nbsp;
+    # Same semantics as +reverse_merge+ but modifies the receiver in-place.
+    def reverse_merge!(other_hash)
+      super(self.class.new(other_hash))
+    end
+    alias_method :with_defaults!, :reverse_merge!
+&nbsp;
+    # Replaces the contents of this hash with other_hash.
+    #
+    #   h = { "a" =&gt; 100, "b" =&gt; 200 }
+    #   h.replace({ "c" =&gt; 300, "d" =&gt; 400 }) # =&gt; {"c"=&gt;300, "d"=&gt;400}
+    def replace(other_hash)
+      super(self.class.new(other_hash))
+    end
+&nbsp;
+    # Removes the specified key from the hash.
+    def delete(key)
+      super(convert_key(key))
+    end
+&nbsp;
+    def stringify_keys!; self end
+    def deep_stringify_keys!; self end
+    def stringify_keys; dup end
+    def deep_stringify_keys; dup end
+    undef :symbolize_keys!
+    undef :deep_symbolize_keys!
+    def symbolize_keys; to_hash.symbolize_keys! end
+    def deep_symbolize_keys; to_hash.deep_symbolize_keys! end
+    def to_options!; self end
+&nbsp;
+    def select(*args, &amp;block)
+      return to_enum(:select) unless block_given?
+      dup.tap { |hash| hash.select!(*args, &amp;block) }
+    end
+&nbsp;
+    def reject(*args, &amp;block)
+      return to_enum(:reject) unless block_given?
+      dup.tap { |hash| hash.reject!(*args, &amp;block) }
+    end
+&nbsp;
+    def transform_values(*args, &amp;block)
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="else path not taken" >E</span>return to_enum(:transform_values)</span> unless block_given?
+      dup.tap { |hash| hash.transform_values!(*args, &amp;block) }
+    end
+&nbsp;
+    def transform_keys(*args, &amp;block)
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="else path not taken" >E</span>return to_enum(:transform_keys)</span> unless block_given?
+      dup.tap { |hash| hash.transform_keys!(*args, &amp;block) }
+    end
+&nbsp;
+    def slice(*keys)
+      keys.map! { |key| convert_key(key) }
+      self.class.new(super)
+    end
+&nbsp;
+    def slice!(*keys)
+      keys.map! { |key| convert_key(key) }
+      super
+    end
+&nbsp;
+    def compact
+      dup.tap(&amp;:compact!)
+    end
+&nbsp;
+    # Convert to a regular hash with string keys.
+    def to_hash
+      _new_hash = Hash.new
+      set_defaults(_new_hash)
+&nbsp;
+      each do |key, value|
+        _new_hash[key] = convert_value(value, for: :to_hash)
+      end
+      _new_hash
+    end
+&nbsp;
+    private
+      def convert_key(key) # :doc:
+        key.kind_of?(Symbol) ? key.to_s : key
+      end
+&nbsp;
+      def convert_value(value, options = {}) # :doc:
+        if value.is_a? Hash
+          if options[:for] == :to_hash
+            value.to_hash
+          else
+            value.nested_under_indifferent_access
+          end
+        elsif value.is_a?(Array)
+          if options[:for] != :assignment || value.frozen?
+            value = value.dup
+          end
+          value.map! { |e| convert_value(e, options) }
+        else
+          value
+        end
+      end
+&nbsp;
+      def set_defaults(target) # :doc:
+        if default_proc
+          target.default_proc = default_proc.dup
+        else
+          target.default = default
+        end
+      end
+  end
+end
+&nbsp;
+# :stopdoc:
+&nbsp;
+HashWithIndifferentAccess = ActiveSupport::HashWithIndifferentAccess
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

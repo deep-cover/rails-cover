@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/enumerable.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext</a> enumerable.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>55/79</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">72% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>36/50</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.95% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>15/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">69.09% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module Enumerable
+  # Enumerable#sum was added in Ruby 2.4, but it only works with Numeric elements
+  # when we omit an identity.
+  #
+  # We tried shimming it to attempt the fast native method, rescue TypeError,
+  # and fall back to the compatible implementation, but that's much slower than
+  # just calling the compat method in the first place.
+  if Enumerable.instance_methods(false).include?(:sum) &amp;&amp; <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >!(<span class="cstat-no" title="statement not covered" >(<span class="cstat-no" title="statement not covered" >?a..?b</span>).sum</span> rescue <span class="cstat-no" title="statement not covered" >false</span>)</span></span>
+    # We can't use Refinements here because Refinements with Module which will be prepended
+    # doesn't work well https://bugs.ruby-lang.org/issues/13446
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>alias :_original_sum_with_required_identity :sum</span>
+<span class="cstat-no" title="statement not covered" >    private :_original_sum_with_required_identity</span>
+    # Calculates a sum from the elements.
+    #
+    #  payments.sum { |p| p.price * p.tax_rate }
+    #  payments.sum(&amp;:price)
+    #
+    # The latter is a shortcut for:
+    #
+    #  payments.inject(0) { |sum, p| sum + p.price }
+    #
+    # It can also calculate the sum without the use of a block.
+    #
+    #  [5, 15, 10].sum # =&gt; 30
+    #  ['foo', 'bar'].sum # =&gt; "foobar"
+    #  [[1, 2], [3, 1, 5]].sum # =&gt; [1, 2, 3, 1, 5]
+    #
+    # The default sum of an empty list is zero. You can override this default:
+    #
+    #  [].sum(Payment.new(0)) { |i| i.amount } # =&gt; Payment.new(0)
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >    def sum(identity = nil, &amp;block)</span></span>
+<span class="cstat-no" title="statement not covered" >      if identity</span>
+<span class="cstat-no" title="statement not covered" >        _original_sum_with_required_identity(identity, &amp;block)</span>
+<span class="cstat-no" title="statement not covered" >      elsif block_given?</span>
+<span class="cstat-no" title="statement not covered" >        map(&amp;block).sum(identity)</span>
+      else
+<span class="cstat-no" title="statement not covered" >        inject(:+) || 0</span>
+      end
+    end
+  else
+    def sum(identity = nil, &amp;block)
+      if block_given?
+        map(&amp;block).sum(identity)
+      else
+        sum = identity ? inject(identity, :+) : inject(:+)
+        sum || identity || 0
+      end
+    end
+  end
+&nbsp;
+  # Convert an enumerable to a hash.
+  #
+  #   people.index_by(&amp;:login)
+  #   # =&gt; { "nextangle" =&gt; &lt;Person ...&gt;, "chade-" =&gt; &lt;Person ...&gt;, ...}
+  #   people.index_by { |person| "#{person.first_name} #{person.last_name}" }
+  #   # =&gt; { "Chade- Fowlersburg-e" =&gt; &lt;Person ...&gt;, "David Heinemeier Hansson" =&gt; &lt;Person ...&gt;, ...}
+  def index_by
+    if block_given?
+      result = {}
+      each { |elem| result[yield(elem)] = elem }
+      result
+    else
+      to_enum(:index_by) { size if respond_to?(:size) }
+    end
+  end
+&nbsp;
+  # Returns +true+ if the enumerable has more than 1 element. Functionally
+  # equivalent to &lt;tt&gt;enum.to_a.size &gt; 1&lt;/tt&gt;. Can be called with a block too,
+  # much like any?, so &lt;tt&gt;people.many? { |p| p.age &gt; 26 }&lt;/tt&gt; returns +true+
+  # if more than one person is over 26.
+  def many?
+    cnt = 0
+    if block_given?
+      any? do |element|
+        cnt += 1 if yield element
+        cnt &gt; 1
+      end
+    else
+      any? { (cnt += 1) &gt; 1 }
+    end
+  end
+&nbsp;
+  # The negative of the &lt;tt&gt;Enumerable#include?&lt;/tt&gt;. Returns +true+ if the
+  # collection does not include the object.
+  def exclude?(object)
+    !include?(object)
+  end
+&nbsp;
+  # Returns a copy of the enumerable without the specified elements.
+  #
+  #   ["David", "Rafael", "Aaron", "Todd"].without "Aaron", "Todd"
+  #   # =&gt; ["David", "Rafael"]
+  #
+  #   {foo: 1, bar: 2, baz: 3}.without :bar
+  #   # =&gt; {foo: 1, baz: 3}
+  def without(*elements)
+    reject { |element| elements.include?(element) }
+  end
+&nbsp;
+  # Convert an enumerable to an array based on the given key.
+  #
+  #   [{ name: "David" }, { name: "Rafael" }, { name: "Aaron" }].pluck(:name)
+  #   # =&gt; ["David", "Rafael", "Aaron"]
+  #
+  #   [{ id: 1, name: "David" }, { id: 2, name: "Rafael" }].pluck(:id, :name)
+  #   # =&gt; [[1, "David"], [2, "Rafael"]]
+  def pluck(*keys)
+    if keys.many?
+      map { |element| keys.map { |key| element[key] } }
+    else
+      map { |element| element[keys.first] }
+    end
+  end
+end
+&nbsp;
+class Range #:nodoc:
+  # Optimize range sum to use arithmetic progression if a block is not given and
+  # we have a range of numeric values.
+  def sum(identity = nil)
+    if block_given? || !(first.is_a?(Integer) &amp;&amp; last.is_a?(Integer))
+      super
+    else
+      actual_last = exclude_end? ? (last - 1) : last
+      if actual_last &gt;= first
+        sum = identity || 0
+        sum + (actual_last - first + 1) * (actual_last + first) / 2
+      else
+        identity || 0
+      end
+    end
+  end
+end
+&nbsp;
+# Array#sum was added in Ruby 2.4 but it only works with Numeric elements.
+#
+# We tried shimming it to attempt the fast native method, rescue TypeError,
+# and fall back to the compatible implementation, but that's much slower than
+# just calling the compat method in the first place.
+if Array.instance_methods(false).include?(:sum) &amp;&amp; <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >!(<span class="cstat-no" title="statement not covered" >%w[a].sum</span> rescue <span class="cstat-no" title="statement not covered" >false</span>)</span></span>
+  # Using Refinements here in order not to expose our internal method
+<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>using Module.new <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >    refine Array <span class="fstat-no" title="function not covered" >do</span></span>
+<span class="cstat-no" title="statement not covered" >      alias :orig_sum :sum</span>
+    end
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  class Array</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >    def sum(init = nil, &amp;block)</span> #:nodoc:</span>
+<span class="cstat-no" title="statement not covered" >      if init.is_a?(Numeric) || first.is_a?(Numeric)</span>
+<span class="cstat-no" title="statement not covered" >        init ||= 0</span>
+<span class="cstat-no" title="statement not covered" >        orig_sum(init, &amp;block)</span>
+      else
+<span class="cstat-no" title="statement not covered" >        super</span>
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

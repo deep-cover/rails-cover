@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/rails/application/configuration.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/rails/application</a> configuration.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">78.79% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>130/165</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.04% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>29/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">85.81% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>127/148</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">792x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-yes">242x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-yes">264x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">7206x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">330x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">735x</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-yes">263x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">472x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">472x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">245x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">316x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/kernel/reporting"
+require "active_support/file_update_checker"
+require "rails/engine/configuration"
+require "rails/source_annotation_extractor"
+&nbsp;
+module Rails
+  class Application
+    class Configuration &lt; ::Rails::Engine::Configuration
+      attr_accessor :allow_concurrency, :asset_host, :autoflush_log,
+                    :cache_classes, :cache_store, :consider_all_requests_local, :console,
+                    :eager_load, :exceptions_app, :file_watcher, :filter_parameters,
+                    :force_ssl, :helpers_paths, :logger, :log_formatter, :log_tags,
+                    :railties_order, :relative_url_root, :secret_key_base, :secret_token,
+                    :ssl_options, :public_file_server,
+                    :session_options, :time_zone, :reload_classes_only_on_change,
+                    :beginning_of_week, :filter_redirect, :x, :enable_dependency_loading,
+                    :read_encrypted_secrets, :log_level
+&nbsp;
+      attr_reader :encoding, :api_only
+&nbsp;
+      def initialize(*)
+        super
+        self.encoding                    = Encoding::UTF_8
+        @allow_concurrency               = nil
+        @consider_all_requests_local     = false
+        @filter_parameters               = []
+        @filter_redirect                 = []
+        @helpers_paths                   = []
+        @public_file_server              = ActiveSupport::OrderedOptions.new
+        @public_file_server.enabled      = true
+        @public_file_server.index_name   = "index"
+        @force_ssl                       = false
+        @ssl_options                     = {}
+        @session_store                   = nil
+        @time_zone                       = "UTC"
+        @beginning_of_week               = :monday
+        @log_level                       = :debug
+        @generators                      = app_generators
+        @cache_store                     = [ :file_store, "#{root}/tmp/cache/" ]
+        @railties_order                  = [:all]
+        @relative_url_root               = ENV["RAILS_RELATIVE_URL_ROOT"]
+        @reload_classes_only_on_change   = true
+        @file_watcher                    = ActiveSupport::FileUpdateChecker
+        @exceptions_app                  = nil
+        @autoflush_log                   = true
+        @log_formatter                   = ActiveSupport::Logger::SimpleFormatter.new
+        @eager_load                      = nil
+        @secret_token                    = nil
+        @secret_key_base                 = nil
+        @api_only                        = false
+        @debug_exception_response_format = nil
+        @x                               = Custom.new
+        @enable_dependency_loading       = false
+        @read_encrypted_secrets          = false
+      end
+&nbsp;
+      def load_defaults(target_version)
+        case target_version.to_s
+        when "5.0"
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:action_controller)
+            action_controller.per_form_csrf_tokens = true
+            action_controller.forgery_protection_origin_check = true
+          end
+&nbsp;
+          ActiveSupport.to_time_preserves_timezone = true
+&nbsp;
+          if respond_to?(:active_record)
+            active_record.belongs_to_required_by_default = true
+          end
+&nbsp;
+          self.ssl_options = { hsts: { subdomains: true } }
+&nbsp;
+        when "5.1"
+          load_defaults "5.0"
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:assets)
+            assets.unknown_asset_fallback = false
+          end
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:action_view)
+            action_view.form_with_generates_remote_forms = true
+          end
+&nbsp;
+        when "5.2"
+          load_defaults "5.1"
+&nbsp;
+          if respond_to?(:active_record)
+            active_record.cache_versioning = true
+            # Remove the temporary load hook from SQLite3Adapter when this is removed
+            ActiveSupport.on_load(:active_record_sqlite3adapter) do
+              ActiveRecord::ConnectionAdapters::SQLite3Adapter.represent_boolean_as_integer = true
+            end
+          end
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:action_dispatch)
+            action_dispatch.use_authenticated_cookie_encryption = true
+          end
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:active_support)
+            active_support.use_authenticated_message_encryption = true
+          end
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if respond_to?(:action_controller)
+            action_controller.default_protect_from_forgery = true
+          end
+&nbsp;
+        else
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >"Unknown version #{<span class="cstat-no" title="statement not covered" >target_version.to_s.inspect</span>}"</span></span>
+        end
+      end
+&nbsp;
+      def encoding=(value)
+        @encoding = value
+        silence_warnings do
+          Encoding.default_external = value
+          Encoding.default_internal = value
+        end
+      end
+&nbsp;
+      def api_only=(value)
+        @api_only = value
+        generators.api_only = value
+&nbsp;
+        @debug_exception_response_format ||= :api
+      end
+&nbsp;
+      def debug_exception_response_format
+        @debug_exception_response_format || :default
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def debug_exception_response_format=(value)</span>
+<span class="cstat-no" title="statement not covered" >        @debug_exception_response_format = value</span>
+      end
+&nbsp;
+      def paths
+        @paths ||= begin
+          paths = super
+          paths.add "config/database",    with: "config/database.yml"
+          paths.add "config/secrets",     with: "config", glob: "secrets.yml{,.enc}"
+          paths.add "config/environment", with: "config/environment.rb"
+          paths.add "lib/templates"
+          paths.add "log",                with: "log/#{Rails.env}.log"
+          paths.add "public"
+          paths.add "public/javascripts"
+          paths.add "public/stylesheets"
+          paths.add "tmp"
+          paths
+        end
+      end
+&nbsp;
+      # Loads and returns the entire raw configuration of database from
+      # values stored in &lt;tt&gt;config/database.yml&lt;/tt&gt;.
+      def database_configuration
+        path = paths["config/database"].existent.first
+        <span class="missing-if-branch" title="else path not taken" >E</span>yaml = Pathname.new(path) if path
+&nbsp;
+        config = if <span class="branch-1 cbranch-no" title="branch not covered" >yaml &amp;&amp; yaml.exist?</span>
+          require "yaml"
+          require "erb"
+          loaded_yaml = YAML.load(ERB.new(yaml.read).result) || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >{}</span></span>
+          shared = loaded_yaml.delete("shared")
+          if shared
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>loaded_yaml.each <span class="fstat-no" title="function not covered" >do |_k, values|</span></span>
+<span class="cstat-no" title="statement not covered" >              values.reverse_merge!(shared)</span>
+            end
+          end
+          Hash.new(shared).merge(loaded_yaml)
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="else path not taken" >E</span>elsif ENV["DATABASE_URL"]</span>
+          # Value from ENV['DATABASE_URL'] is set to default database connection
+          # by Active Record.
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>{}</span>
+        else
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >"Could not load database configuration. No such file - #{<span class="cstat-no" title="statement not covered" >paths["config/database"].instance_variable_get(:@paths)</span>}"</span></span>
+        end
+&nbsp;
+        config
+      rescue <span class="cstat-no" title="statement not covered" >Psych::SyntaxError</span> =&gt; <span class="cstat-no" title="statement not covered" >e</span>
+<span class="cstat-no" title="statement not covered" >        raise <span class="cstat-no" title="statement not covered" >"YAML syntax error occurred while parsing #{<span class="cstat-no" title="statement not covered" >paths["config/database"].first</span>}. " \</span></span>
+              "Please note that YAML must be consistently indented using spaces. Tabs are not allowed. " \
+              "Error: #{<span class="cstat-no" title="statement not covered" >e.message</span>}"
+      rescue =&gt; <span class="cstat-no" title="statement not covered" >e</span>
+<span class="cstat-no" title="statement not covered" >        raise <span class="cstat-no" title="statement not covered" >e</span>, <span class="cstat-no" title="statement not covered" >"Cannot load `Rails.application.database_configuration`:\n#{<span class="cstat-no" title="statement not covered" >e.message</span>}"</span>, <span class="cstat-no" title="statement not covered" >e.backtrace</span></span>
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def colorize_logging</span>
+<span class="cstat-no" title="statement not covered" >        ActiveSupport::LogSubscriber.colorize_logging</span>
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def colorize_logging=(val)</span>
+<span class="cstat-no" title="statement not covered" >        ActiveSupport::LogSubscriber.colorize_logging = val</span>
+<span class="cstat-no" title="statement not covered" >        generators.colorize_logging = val</span>
+      end
+&nbsp;
+      def session_store(new_session_store = nil, **options)
+        if new_session_store
+          if new_session_store == :active_record_store
+            <span class="missing-if-branch" title="if path not taken" >I</span>begin
+<span class="cstat-no" title="statement not covered" >              ActionDispatch::Session::ActiveRecordStore</span>
+            rescue <span class="cstat-no" title="statement not covered" >NameError</span>
+<span class="cstat-no" title="statement not covered" >              raise <span class="cstat-no" title="statement not covered" >"`ActiveRecord::SessionStore` is extracted out of Rails into a gem. " \</span></span>
+                "Please add `activerecord-session_store` to your Gemfile to use it."
+            end
+          end
+&nbsp;
+          @session_store = new_session_store
+          @session_options = options || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >{}</span></span>
+        else
+          case @session_store
+          when :disabled
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >            nil</span></span>
+          when :active_record_store
+<span class="cstat-no" title="statement not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >            ActionDispatch::Session::ActiveRecordStore</span></span>
+          when Symbol
+            ActionDispatch::Session.const_get(@session_store.to_s.camelize)
+          else
+<span class="cstat-no" title="statement not covered" ><span class="branch-3 cbranch-no" title="branch not covered" >            @session_store</span></span>
+          end
+        end
+      end
+&nbsp;
+      def session_store? #:nodoc:
+        @session_store
+      end
+&nbsp;
+      def annotations
+        SourceAnnotationExtractor::Annotation
+      end
+&nbsp;
+      class Custom #:nodoc:
+        def initialize
+          @configurations = Hash.new
+        end
+&nbsp;
+        def method_missing(method, *args)
+          if method =~ /=$/
+            @configurations[$`.to_sym] = args.first
+          else
+            @configurations.fetch(method) {
+              @configurations[method] = ActiveSupport::OrderedOptions.new
+            }
+          end
+        end
+&nbsp;
+        def respond_to_missing?(symbol, *)
+          true
+        end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 03:42:58 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/testing/isolation.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/testing</a> isolation.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.26% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/61</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">41.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">46.43% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>26/56</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveSupport
+  module Testing
+    module Isolation
+      require "thread"
+&nbsp;
+      def self.included(klass) #:nodoc:
+        klass.class_eval do
+          parallelize_me!
+        end
+      end
+&nbsp;
+      def self.forking_env?
+<span class="branch-1 cbranch-no" title="branch not covered" >        !ENV["NO_FORK"] &amp;&amp; Process.respond_to?(:fork)</span>
+      end
+&nbsp;
+      def run
+        serialized = run_in_isolation <span class="fstat-no" title="function not covered" >do</span>
+<span class="cstat-no" title="statement not covered" >          super</span>
+        end
+&nbsp;
+        Marshal.load(serialized)
+      end
+&nbsp;
+      module Forking
+        def run_in_isolation(&amp;blk)
+          read, write = IO.pipe
+          read.binmode
+          write.binmode
+&nbsp;
+          pid = fork <span class="fstat-no" title="function not covered" >do</span>
+<span class="cstat-no" title="statement not covered" >            read.close</span>
+<span class="cstat-no" title="statement not covered" >            yield</span>
+            begin
+<span class="cstat-no" title="statement not covered" >              if error?</span>
+<span class="cstat-no" title="statement not covered" >                failures.map! <span class="fstat-no" title="function not covered" >{ |e|</span></span>
+                  begin
+<span class="cstat-no" title="statement not covered" >                    Marshal.dump e</span>
+<span class="cstat-no" title="statement not covered" >                    e</span>
+                  rescue TypeError
+<span class="cstat-no" title="statement not covered" >                    ex = Exception.new e.message</span>
+<span class="cstat-no" title="statement not covered" >                    ex.set_backtrace e.backtrace</span>
+<span class="cstat-no" title="statement not covered" >                    Minitest::UnexpectedError.new ex</span>
+                  end
+                }
+              end
+<span class="cstat-no" title="statement not covered" >              result = Marshal.dump(dup)</span>
+            end
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            write.puts [result].pack("m")</span>
+<span class="cstat-no" title="statement not covered" >            exit!</span>
+          end
+&nbsp;
+          write.close
+          result = read.read
+          Process.wait2(pid)
+          result.unpack("m")[0]
+        end
+      end
+&nbsp;
+      module Subprocess
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="else path not taken" >E</span>ORIG_ARGV = ARGV.dup</span> unless defined?(ORIG_ARGV)
+&nbsp;
+        # Crazy H4X to get this working in windows / jruby with
+        # no forking.
+<span class="fstat-no" title="function not covered" >        def run_in_isolation(&amp;blk)</span>
+<span class="cstat-no" title="statement not covered" >          require "tempfile"</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          if ENV["ISOLATION_TEST"]</span>
+<span class="cstat-no" title="statement not covered" >            yield</span>
+<span class="cstat-no" title="statement not covered" >            File.open(ENV["ISOLATION_OUTPUT"], "w") <span class="fstat-no" title="function not covered" >do |file|</span></span>
+<span class="cstat-no" title="statement not covered" >              file.puts [Marshal.dump(dup)].pack("m")</span>
+            end
+<span class="cstat-no" title="statement not covered" >            exit!</span>
+          else
+<span class="cstat-no" title="statement not covered" >            Tempfile.open("isolation") <span class="fstat-no" title="function not covered" >do |tmpfile|</span></span>
+<span class="cstat-no" title="statement not covered" >              env = {</span>
+                "ISOLATION_TEST" =&gt; self.class.name,
+                "ISOLATION_OUTPUT" =&gt; tmpfile.path
+              }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              test_opts = "-n#{<span class="cstat-no" title="statement not covered" >self.class.name</span>}##{<span class="cstat-no" title="statement not covered" >name</span>}"</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              load_path_args = []</span>
+<span class="cstat-no" title="statement not covered" >              $-I.each <span class="fstat-no" title="function not covered" >do |p|</span></span>
+<span class="cstat-no" title="statement not covered" >                load_path_args &lt;&lt; "-I"</span>
+<span class="cstat-no" title="statement not covered" >                load_path_args &lt;&lt; File.expand_path(p)</span>
+              end
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              child = IO.popen([env, Gem.ruby, *load_path_args, $0, *ORIG_ARGV, test_opts])</span>
+&nbsp;
+              begin
+<span class="cstat-no" title="statement not covered" >                Process.wait(child.pid)</span>
+              rescue Errno::ECHILD # The child process may exit before we wait
+<span class="cstat-no" title="statement not covered" >                nil</span>
+              end
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              return tmpfile.read.unpack("m")[0]</span>
+            end
+          end
+        end
+      end
+&nbsp;
+      include forking_env? ? Forking : <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>Subprocess</span>
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

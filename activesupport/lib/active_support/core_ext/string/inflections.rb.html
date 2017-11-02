@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/string/inflections.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext/string</a> inflections.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>44/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>43/43</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">196x</span>
+<span class="cline-any cline-yes">196x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">192x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">207x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">172x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">853x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">836x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/inflector/methods"
+require "active_support/inflector/transliterate"
+&nbsp;
+# String inflections define new methods on the String class to transform names for different purposes.
+# For instance, you can figure out the name of a table from the name of a class.
+#
+#   'ScaleScore'.tableize # =&gt; "scale_scores"
+#
+class String
+  # Returns the plural form of the word in the string.
+  #
+  # If the optional parameter +count+ is specified,
+  # the singular form will be returned if &lt;tt&gt;count == 1&lt;/tt&gt;.
+  # For any other value of +count+ the plural will be returned.
+  #
+  # If the optional parameter +locale+ is specified,
+  # the word will be pluralized as a word of that language.
+  # By default, this parameter is set to &lt;tt&gt;:en&lt;/tt&gt;.
+  # You must define your own inflection rules for languages other than English.
+  #
+  #   'post'.pluralize             # =&gt; "posts"
+  #   'octopus'.pluralize          # =&gt; "octopi"
+  #   'sheep'.pluralize            # =&gt; "sheep"
+  #   'words'.pluralize            # =&gt; "words"
+  #   'the blue mailman'.pluralize # =&gt; "the blue mailmen"
+  #   'CamelOctopus'.pluralize     # =&gt; "CamelOctopi"
+  #   'apple'.pluralize(1)         # =&gt; "apple"
+  #   'apple'.pluralize(2)         # =&gt; "apples"
+  #   'ley'.pluralize(:es)         # =&gt; "leyes"
+  #   'ley'.pluralize(1, :es)      # =&gt; "ley"
+  def pluralize(count = nil, locale = :en)
+    locale = count if count.is_a?(Symbol)
+    if count == 1
+      dup
+    else
+      ActiveSupport::Inflector.pluralize(self, locale)
+    end
+  end
+&nbsp;
+  # The reverse of +pluralize+, returns the singular form of a word in a string.
+  #
+  # If the optional parameter +locale+ is specified,
+  # the word will be singularized as a word of that language.
+  # By default, this parameter is set to &lt;tt&gt;:en&lt;/tt&gt;.
+  # You must define your own inflection rules for languages other than English.
+  #
+  #   'posts'.singularize            # =&gt; "post"
+  #   'octopi'.singularize           # =&gt; "octopus"
+  #   'sheep'.singularize            # =&gt; "sheep"
+  #   'word'.singularize             # =&gt; "word"
+  #   'the blue mailmen'.singularize # =&gt; "the blue mailman"
+  #   'CamelOctopi'.singularize      # =&gt; "CamelOctopus"
+  #   'leyes'.singularize(:es)       # =&gt; "ley"
+  def singularize(locale = :en)
+    ActiveSupport::Inflector.singularize(self, locale)
+  end
+&nbsp;
+  # +constantize+ tries to find a declared constant with the name specified
+  # in the string. It raises a NameError when the name is not in CamelCase
+  # or is not initialized.  See ActiveSupport::Inflector.constantize
+  #
+  #   'Module'.constantize  # =&gt; Module
+  #   'Class'.constantize   # =&gt; Class
+  #   'blargle'.constantize # =&gt; NameError: wrong constant name blargle
+  def constantize
+    ActiveSupport::Inflector.constantize(self)
+  end
+&nbsp;
+  # +safe_constantize+ tries to find a declared constant with the name specified
+  # in the string. It returns +nil+ when the name is not in CamelCase
+  # or is not initialized.  See ActiveSupport::Inflector.safe_constantize
+  #
+  #   'Module'.safe_constantize  # =&gt; Module
+  #   'Class'.safe_constantize   # =&gt; Class
+  #   'blargle'.safe_constantize # =&gt; nil
+  def safe_constantize
+    ActiveSupport::Inflector.safe_constantize(self)
+  end
+&nbsp;
+  # By default, +camelize+ converts strings to UpperCamelCase. If the argument to camelize
+  # is set to &lt;tt&gt;:lower&lt;/tt&gt; then camelize produces lowerCamelCase.
+  #
+  # +camelize+ will also convert '/' to '::' which is useful for converting paths to namespaces.
+  #
+  #   'active_record'.camelize                # =&gt; "ActiveRecord"
+  #   'active_record'.camelize(:lower)        # =&gt; "activeRecord"
+  #   'active_record/errors'.camelize         # =&gt; "ActiveRecord::Errors"
+  #   'active_record/errors'.camelize(:lower) # =&gt; "activeRecord::Errors"
+  def camelize(first_letter = :upper)
+    case first_letter
+    when :upper
+      ActiveSupport::Inflector.camelize(self, true)
+    when :lower
+      ActiveSupport::Inflector.camelize(self, false)
+    else
+      raise ArgumentError, "Invalid option, use either :upper or :lower."
+    end
+  end
+  alias_method :camelcase, :camelize
+&nbsp;
+  # Capitalizes all the words and replaces some characters in the string to create
+  # a nicer looking title. +titleize+ is meant for creating pretty output. It is not
+  # used in the Rails internals.
+  #
+  # The trailing '_id','Id'.. can be kept and capitalized by setting the
+  # optional parameter +keep_id_suffix+ to true.
+  # By default, this parameter is false.
+  #
+  # +titleize+ is also aliased as +titlecase+.
+  #
+  #   'man from the boondocks'.titleize                       # =&gt; "Man From The Boondocks"
+  #   'x-men: the last stand'.titleize                        # =&gt; "X Men: The Last Stand"
+  #   'string_ending_with_id'.titleize(keep_id_suffix: true)  # =&gt; "String Ending With Id"
+  def titleize(keep_id_suffix: false)
+    ActiveSupport::Inflector.titleize(self, keep_id_suffix: keep_id_suffix)
+  end
+  alias_method :titlecase, :titleize
+&nbsp;
+  # The reverse of +camelize+. Makes an underscored, lowercase form from the expression in the string.
+  #
+  # +underscore+ will also change '::' to '/' to convert namespaces to paths.
+  #
+  #   'ActiveModel'.underscore         # =&gt; "active_model"
+  #   'ActiveModel::Errors'.underscore # =&gt; "active_model/errors"
+  def underscore
+    ActiveSupport::Inflector.underscore(self)
+  end
+&nbsp;
+  # Replaces underscores with dashes in the string.
+  #
+  #   'puni_puni'.dasherize # =&gt; "puni-puni"
+  def dasherize
+    ActiveSupport::Inflector.dasherize(self)
+  end
+&nbsp;
+  # Removes the module part from the constant expression in the string.
+  #
+  #   'ActiveSupport::Inflector::Inflections'.demodulize # =&gt; "Inflections"
+  #   'Inflections'.demodulize                           # =&gt; "Inflections"
+  #   '::Inflections'.demodulize                         # =&gt; "Inflections"
+  #   ''.demodulize                                      # =&gt; ''
+  #
+  # See also +deconstantize+.
+  def demodulize
+    ActiveSupport::Inflector.demodulize(self)
+  end
+&nbsp;
+  # Removes the rightmost segment from the constant expression in the string.
+  #
+  #   'Net::HTTP'.deconstantize   # =&gt; "Net"
+  #   '::Net::HTTP'.deconstantize # =&gt; "::Net"
+  #   'String'.deconstantize      # =&gt; ""
+  #   '::String'.deconstantize    # =&gt; ""
+  #   ''.deconstantize            # =&gt; ""
+  #
+  # See also +demodulize+.
+  def deconstantize
+    ActiveSupport::Inflector.deconstantize(self)
+  end
+&nbsp;
+  # Replaces special characters in a string so that it may be used as part of a 'pretty' URL.
+  #
+  #   class Person
+  #     def to_param
+  #       "#{id}-#{name.parameterize}"
+  #     end
+  #   end
+  #
+  #   @person = Person.find(1)
+  #   # =&gt; #&lt;Person id: 1, name: "Donald E. Knuth"&gt;
+  #
+  #   &lt;%= link_to(@person.name, person_path) %&gt;
+  #   # =&gt; &lt;a href="/person/1-donald-e-knuth"&gt;Donald E. Knuth&lt;/a&gt;
+  #
+  # To preserve the case of the characters in a string, use the `preserve_case` argument.
+  #
+  #   class Person
+  #     def to_param
+  #       "#{id}-#{name.parameterize(preserve_case: true)}"
+  #     end
+  #   end
+  #
+  #   @person = Person.find(1)
+  #   # =&gt; #&lt;Person id: 1, name: "Donald E. Knuth"&gt;
+  #
+  #   &lt;%= link_to(@person.name, person_path) %&gt;
+  #   # =&gt; &lt;a href="/person/1-Donald-E-Knuth"&gt;Donald E. Knuth&lt;/a&gt;
+  def parameterize(separator: "-", preserve_case: false)
+    ActiveSupport::Inflector.parameterize(self, separator: separator, preserve_case: preserve_case)
+  end
+&nbsp;
+  # Creates the name of a table like Rails does for models to table names. This method
+  # uses the +pluralize+ method on the last word in the string.
+  #
+  #   'RawScaledScorer'.tableize # =&gt; "raw_scaled_scorers"
+  #   'ham_and_egg'.tableize     # =&gt; "ham_and_eggs"
+  #   'fancyCategory'.tableize   # =&gt; "fancy_categories"
+  def tableize
+    ActiveSupport::Inflector.tableize(self)
+  end
+&nbsp;
+  # Creates a class name from a plural table name like Rails does for table names to models.
+  # Note that this returns a string and not a class. (To convert to an actual class
+  # follow +classify+ with +constantize+.)
+  #
+  #   'ham_and_eggs'.classify # =&gt; "HamAndEgg"
+  #   'posts'.classify        # =&gt; "Post"
+  def classify
+    ActiveSupport::Inflector.classify(self)
+  end
+&nbsp;
+  # Capitalizes the first word, turns underscores into spaces, and (by default)strips a
+  # trailing '_id' if present.
+  # Like +titleize+, this is meant for creating pretty output.
+  #
+  # The capitalization of the first word can be turned off by setting the
+  # optional parameter +capitalize+ to false.
+  # By default, this parameter is true.
+  #
+  # The trailing '_id' can be kept and capitalized by setting the
+  # optional parameter +keep_id_suffix+ to true.
+  # By default, this parameter is false.
+  #
+  #   'employee_salary'.humanize                    # =&gt; "Employee salary"
+  #   'author_id'.humanize                          # =&gt; "Author"
+  #   'author_id'.humanize(capitalize: false)       # =&gt; "author"
+  #   '_id'.humanize                                # =&gt; "Id"
+  #   'author_id'.humanize(keep_id_suffix: true)    # =&gt; "Author Id"
+  def humanize(capitalize: true, keep_id_suffix: false)
+    ActiveSupport::Inflector.humanize(self, capitalize: capitalize, keep_id_suffix: keep_id_suffix)
+  end
+&nbsp;
+  # Converts just the first character to uppercase.
+  #
+  #   'what a Lovely Day'.upcase_first # =&gt; "What a Lovely Day"
+  #   'w'.upcase_first                 # =&gt; "W"
+  #   ''.upcase_first                  # =&gt; ""
+  def upcase_first
+    ActiveSupport::Inflector.upcase_first(self)
+  end
+&nbsp;
+  # Creates a foreign key name from a class name.
+  # +separate_class_name_and_id_with_underscore+ sets whether
+  # the method should put '_' between the name and 'id'.
+  #
+  #   'Message'.foreign_key        # =&gt; "message_id"
+  #   'Message'.foreign_key(false) # =&gt; "messageid"
+  #   'Admin::Post'.foreign_key    # =&gt; "post_id"
+  def foreign_key(separate_class_name_and_id_with_underscore = true)
+    ActiveSupport::Inflector.foreign_key(self, separate_class_name_and_id_with_underscore)
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

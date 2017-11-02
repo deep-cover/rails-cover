@@ -1,0 +1,2600 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/callbacks.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_support</a> callbacks.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.84% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>369/385</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>86/100</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.12% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>96/102</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.24% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>333/346</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">13714x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13714x</span>
+<span class="cline-any cline-yes">12746x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">968x</span>
+<span class="cline-any cline-yes">968x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">968x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">968x</span>
+<span class="cline-any cline-yes">946x</span>
+<span class="cline-any cline-yes">936x</span>
+<span class="cline-any cline-yes">934x</span>
+<span class="cline-any cline-yes">934x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">375x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">121x</span>
+<span class="cline-any cline-yes">121x</span>
+<span class="cline-any cline-yes">121x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">375x</span>
+<span class="cline-any cline-yes">882x</span>
+<span class="cline-any cline-yes">882x</span>
+<span class="cline-any cline-yes">882x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">882x</span>
+<span class="cline-any cline-yes">871x</span>
+<span class="cline-any cline-yes">863x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">863x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">874x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">99x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">87x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">87x</span>
+<span class="cline-any cline-yes">321x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">321x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">581x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-yes">575x</span>
+<span class="cline-any cline-yes">573x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">718x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">519x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">995x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">401x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">594x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">182x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1154x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">579x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">202x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">377x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1576x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">464x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1576x</span>
+<span class="cline-any cline-yes">1576x</span>
+<span class="cline-any cline-yes">1576x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1576x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">597x</span>
+<span class="cline-any cline-yes">1519x</span>
+<span class="cline-any cline-yes">1519x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">646x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">205x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">261x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">257x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">127x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-yes">432x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1028x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1003x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">984x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">77x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">13714x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">610x</span>
+<span class="cline-any cline-yes">610x</span>
+<span class="cline-any cline-yes">610x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">968x</span>
+<span class="cline-any cline-yes">229x</span>
+<span class="cline-any cline-yes">229x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">610x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-yes">553x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-yes">995x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">932x</span>
+<span class="cline-any cline-yes">924x</span>
+<span class="cline-any cline-yes">932x</span>
+<span class="cline-any cline-yes">918x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">924x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">609x</span>
+<span class="cline-any cline-yes">609x</span>
+<span class="cline-any cline-yes">609x</span>
+<span class="cline-any cline-yes">609x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">601x</span>
+<span class="cline-any cline-yes">605x</span>
+<span class="cline-any cline-yes">605x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">543x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">543x</span>
+<span class="cline-any cline-yes">535x</span>
+<span class="cline-any cline-yes">561x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">535x</span>
+<span class="cline-any cline-yes">539x</span>
+<span class="cline-any cline-yes">539x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">686x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/concern"
+require "active_support/descendants_tracker"
+require "active_support/core_ext/array/extract_options"
+require "active_support/core_ext/class/attribute"
+require "active_support/core_ext/kernel/reporting"
+require "active_support/core_ext/kernel/singleton_class"
+require "active_support/core_ext/string/filters"
+require "active_support/deprecation"
+require "thread"
+&nbsp;
+module ActiveSupport
+  # Callbacks are code hooks that are run at key points in an object's life cycle.
+  # The typical use case is to have a base class define a set of callbacks
+  # relevant to the other functionality it supplies, so that subclasses can
+  # install callbacks that enhance or modify the base functionality without
+  # needing to override or redefine methods of the base class.
+  #
+  # Mixing in this module allows you to define the events in the object's
+  # life cycle that will support callbacks (via +ClassMethods.define_callbacks+),
+  # set the instance methods, procs, or callback objects to be called (via
+  # +ClassMethods.set_callback+), and run the installed callbacks at the
+  # appropriate times (via +run_callbacks+).
+  #
+  # Three kinds of callbacks are supported: before callbacks, run before a
+  # certain event; after callbacks, run after the event; and around callbacks,
+  # blocks that surround the event, triggering it when they yield. Callback code
+  # can be contained in instance methods, procs or lambdas, or callback objects
+  # that respond to certain predetermined methods. See +ClassMethods.set_callback+
+  # for details.
+  #
+  #   class Record
+  #     include ActiveSupport::Callbacks
+  #     define_callbacks :save
+  #
+  #     def save
+  #       run_callbacks :save do
+  #         puts "- save"
+  #       end
+  #     end
+  #   end
+  #
+  #   class PersonRecord &lt; Record
+  #     set_callback :save, :before, :saving_message
+  #     def saving_message
+  #       puts "saving..."
+  #     end
+  #
+  #     set_callback :save, :after do |object|
+  #       puts "saved"
+  #     end
+  #   end
+  #
+  #   person = PersonRecord.new
+  #   person.save
+  #
+  # Output:
+  #   saving...
+  #   - save
+  #   saved
+  module Callbacks
+    extend Concern
+&nbsp;
+    included do
+      extend ActiveSupport::DescendantsTracker
+      class_attribute :__callbacks, instance_writer: false, default: {}
+    end
+&nbsp;
+    CALLBACK_FILTER_TYPES = [:before, :after, :around]
+&nbsp;
+    # Runs the callbacks for the given event.
+    #
+    # Calls the before and around callbacks in the order they were set, yields
+    # the block (if given one), and then runs the after callbacks in reverse
+    # order.
+    #
+    # If the callback chain was halted, returns +false+. Otherwise returns the
+    # result of the block, +nil+ if no callbacks have been set, or +true+
+    # if callbacks have been set but no block is given.
+    #
+    #   run_callbacks :save do
+    #     save
+    #   end
+    #
+    #--
+    #
+    # As this method is used in many places, and often wraps large portions of
+    # user code, it has an additional design goal of minimizing its impact on
+    # the visible call stack. An exception from inside a :before or :after
+    # callback can be as noisy as it likes -- but when control has passed
+    # smoothly through and into the supplied block, we want as little evidence
+    # as possible that we were here.
+    def run_callbacks(kind)
+      callbacks = __callbacks[kind.to_sym]
+&nbsp;
+      if callbacks.empty?
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>yield</span> if block_given?
+      else
+        env = Filters::Environment.new(self, false, nil)
+        next_sequence = callbacks.compile
+&nbsp;
+        invoke_sequence = Proc.new do
+          skipped = nil
+          while true
+            current = next_sequence
+            current.invoke_before(env)
+            if current.final?
+              env.value = !env.halted &amp;&amp; (<span class="branch-1 cbranch-no" title="branch not covered" >!block_given? || yield</span>)
+            elsif current.skip?(env)
+              (skipped ||= []) &lt;&lt; current
+              next_sequence = next_sequence.nested
+              next
+            else
+              next_sequence = next_sequence.nested
+              begin
+                target, block, method, *arguments = current.expand_call_template(env, invoke_sequence)
+                target.send(method, *arguments, &amp;block)
+              ensure
+                next_sequence = current
+              end
+            end
+            current.invoke_after(env)
+            skipped.pop.invoke_after(env) while skipped &amp;&amp; skipped.first
+            break env.value
+          end
+        end
+&nbsp;
+        # Common case: no 'around' callbacks defined
+        if next_sequence.final?
+          next_sequence.invoke_before(env)
+          env.value = <span class="branch-1 cbranch-no" title="branch not covered" >!env.halted &amp;&amp; (!block_given? || yield)</span>
+          next_sequence.invoke_after(env)
+          env.value
+        else
+          invoke_sequence.call
+        end
+      end
+    end
+&nbsp;
+    private
+&nbsp;
+      # A hook invoked every time a before callback is halted.
+      # This can be overridden in ActiveSupport::Callbacks implementors in order
+      # to provide better debugging/logging.
+<span class="fstat-no" title="function not covered" >      def halted_callback_hook(filter)</span>
+      end
+&nbsp;
+      module Conditionals # :nodoc:
+        class Value
+<span class="fstat-no" title="function not covered" >          def initialize(&amp;block)</span>
+<span class="cstat-no" title="statement not covered" >            @block = block</span>
+          end
+<span class="fstat-no" title="function not covered" >          def call(target, value)</span>; <span class="cstat-no" title="statement not covered" >@block.call(value)</span>; end
+        end
+      end
+&nbsp;
+      module Filters
+        Environment = Struct.new(:target, :halted, :value)
+&nbsp;
+        class Before
+          def self.build(callback_sequence, user_callback, user_conditions, chain_config, filter)
+            halted_lambda = chain_config[:terminator]
+&nbsp;
+            if user_conditions.any?
+              halting_and_conditional(callback_sequence, user_callback, user_conditions, halted_lambda, filter)
+            else
+              halting(callback_sequence, user_callback, halted_lambda, filter)
+            end
+          end
+&nbsp;
+          def self.halting_and_conditional(callback_sequence, user_callback, user_conditions, halted_lambda, filter)
+            callback_sequence.before do |env|
+              target = env.target
+              value  = env.value
+              halted = env.halted
+&nbsp;
+              if <span class="branch-1 cbranch-no" title="branch not covered" >!halted &amp;&amp; user_conditions.all? { |c| c.call(target, value) }</span>
+                result_lambda = -&gt; { user_callback.call target, value }
+                env.halted = halted_lambda.call(target, result_lambda)
+                if env.halted
+<span class="cstat-no" title="statement not covered" >                  <span class="missing-if-branch" title="if path not taken" >I</span>target.send :halted_callback_hook, filter</span>
+                end
+              end
+&nbsp;
+              env
+            end
+          end
+          private_class_method :halting_and_conditional
+&nbsp;
+          def self.halting(callback_sequence, user_callback, halted_lambda, filter)
+            callback_sequence.before do |env|
+              target = env.target
+              value  = env.value
+              halted = env.halted
+&nbsp;
+              unless halted
+                result_lambda = -&gt; { user_callback.call target, value }
+                env.halted = halted_lambda.call(target, result_lambda)
+&nbsp;
+                if env.halted
+                  target.send :halted_callback_hook, filter
+                end
+              end
+&nbsp;
+              env
+            end
+          end
+          private_class_method :halting
+        end
+&nbsp;
+        class After
+          def self.build(callback_sequence, user_callback, user_conditions, chain_config)
+            if chain_config[:skip_after_callbacks_if_terminated]
+              if user_conditions.any?
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="if path not taken" >I</span>halting_and_conditional(callback_sequence, user_callback, user_conditions)</span>
+              else
+                halting(callback_sequence, user_callback)
+              end
+            else
+              if user_conditions.any?
+                conditional callback_sequence, user_callback, user_conditions
+              else
+                simple callback_sequence, user_callback
+              end
+            end
+          end
+&nbsp;
+<span class="fstat-no" title="function not covered" >          def self.halting_and_conditional(callback_sequence, user_callback, user_conditions)</span>
+<span class="cstat-no" title="statement not covered" >            callback_sequence.after <span class="fstat-no" title="function not covered" >do |env|</span></span>
+<span class="cstat-no" title="statement not covered" >              target = env.target</span>
+<span class="cstat-no" title="statement not covered" >              value  = env.value</span>
+<span class="cstat-no" title="statement not covered" >              halted = env.halted</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              if !halted &amp;&amp; user_conditions.all? <span class="fstat-no" title="function not covered" >{ |c|</span> <span class="cstat-no" title="statement not covered" >c.call(target, value)</span> }</span>
+<span class="cstat-no" title="statement not covered" >                user_callback.call target, value</span>
+              end
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              env</span>
+            end
+          end
+          private_class_method :halting_and_conditional
+&nbsp;
+          def self.halting(callback_sequence, user_callback)
+            callback_sequence.after do |env|
+              unless env.halted
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="else path not taken" >E</span>user_callback.call env.target, env.value</span>
+              end
+&nbsp;
+              env
+            end
+          end
+          private_class_method :halting
+&nbsp;
+          def self.conditional(callback_sequence, user_callback, user_conditions)
+            callback_sequence.after do |env|
+              target = env.target
+              value  = env.value
+&nbsp;
+              if user_conditions.all? { |c| c.call(target, value) }
+                user_callback.call target, value
+              end
+&nbsp;
+              env
+            end
+          end
+          private_class_method :conditional
+&nbsp;
+          def self.simple(callback_sequence, user_callback)
+            callback_sequence.after do |env|
+              user_callback.call env.target, env.value
+&nbsp;
+              env
+            end
+          end
+          private_class_method :simple
+        end
+      end
+&nbsp;
+      class Callback #:nodoc:#
+        def self.build(chain, filter, kind, options)
+          if filter.is_a?(String)
+            raise ArgumentError, &lt;&lt;-MSG.squish
+              Passing string to define a callback is not supported. See the `.set_callback`
+              documentation to see supported values.
+            MSG
+          end
+&nbsp;
+          new chain.name, filter, kind, options, chain.config
+        end
+&nbsp;
+        attr_accessor :kind, :name
+        attr_reader :chain_config
+&nbsp;
+        def initialize(name, filter, kind, options, chain_config)
+          @chain_config = chain_config
+          @name    = name
+          @kind    = kind
+          @filter  = filter
+          @key     = compute_identifier filter
+          @if      = check_conditionals(Array(options[:if]))
+          @unless  = check_conditionals(Array(options[:unless]))
+        end
+&nbsp;
+        def filter; @key; end
+        def raw_filter; @filter; end
+&nbsp;
+        def merge_conditional_options(chain, if_option:, unless_option:)
+          options = {
+            if: @if.dup,
+            unless: @unless.dup
+          }
+&nbsp;
+          options[:if].concat     Array(unless_option)
+          options[:unless].concat Array(if_option)
+&nbsp;
+          self.class.build chain, @filter, @kind, options
+        end
+&nbsp;
+        def matches?(_kind, _filter)
+          @kind == _kind &amp;&amp; filter == _filter
+        end
+&nbsp;
+        def duplicates?(other)
+          case @filter
+          when Symbol
+            matches?(other.kind, other.filter)
+          else
+            false
+          end
+        end
+&nbsp;
+        # Wraps code with filter
+        def apply(callback_sequence)
+          user_conditions = conditions_lambdas
+          user_callback = CallTemplate.build(@filter, self)
+&nbsp;
+          case kind
+          when :before
+            Filters::Before.build(callback_sequence, user_callback.make_lambda, user_conditions, chain_config, @filter)
+          when :after
+            Filters::After.build(callback_sequence, user_callback.make_lambda, user_conditions, chain_config)
+          when :around
+            callback_sequence.around(user_callback, user_conditions)
+          end
+        end
+&nbsp;
+        def current_scopes
+          Array(chain_config[:scope]).map { |s| public_send(s) }
+        end
+&nbsp;
+        private
+          def check_conditionals(conditionals)
+            if conditionals.any? { |c| c.is_a?(String) }
+              raise ArgumentError, &lt;&lt;-MSG.squish
+                Passing string to be evaluated in :if and :unless conditional
+                options is not supported. Pass a symbol for an instance method,
+                or a lambda, proc or block, instead.
+              MSG
+            end
+&nbsp;
+            conditionals
+          end
+&nbsp;
+          def compute_identifier(filter)
+            case filter
+            when ::Proc
+              filter.object_id
+            else
+              filter
+            end
+          end
+&nbsp;
+          def conditions_lambdas
+            @if.map { |c| CallTemplate.build(c, self).make_lambda } +
+              @unless.map { |c| CallTemplate.build(c, self).inverted_lambda }
+          end
+      end
+&nbsp;
+      # A future invocation of user-supplied code (either as a callback,
+      # or a condition filter).
+      class CallTemplate # :nodoc:
+        def initialize(target, method, arguments, block)
+          @override_target = target
+          @method_name = method
+          @arguments = arguments
+          @override_block = block
+        end
+&nbsp;
+        # Return the parts needed to make this call, with the given
+        # input values.
+        #
+        # Returns an array of the form:
+        #
+        #   [target, block, method, *arguments]
+        #
+        # This array can be used as such:
+        #
+        #   target.send(method, *arguments, &amp;block)
+        #
+        # The actual invocation is left up to the caller to minimize
+        # call stack pollution.
+        def expand(target, value, block)
+          result = @arguments.map { |arg|
+            case arg
+            when :value; <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >value</span></span>
+            when :target; target
+            when :block; <span class="branch-1 cbranch-no" title="branch not covered" >block || raise(ArgumentError)</span>
+            end
+          }
+&nbsp;
+          result.unshift @method_name
+          result.unshift @override_block || block
+          result.unshift @override_target || target
+&nbsp;
+          # target, block, method, *arguments = result
+          # target.send(method, *arguments, &amp;block)
+          result
+        end
+&nbsp;
+        # Return a lambda that will make this call when given the input
+        # values.
+        def make_lambda
+          lambda do |target, value, &amp;block|
+            target, block, method, *arguments = expand(target, value, block)
+            target.send(method, *arguments, &amp;block)
+          end
+        end
+&nbsp;
+        # Return a lambda that will make this call when given the input
+        # values, but then return the boolean inverse of that result.
+        def inverted_lambda
+          lambda do |target, value, &amp;block|
+            target, block, method, *arguments = expand(target, value, block)
+            ! target.send(method, *arguments, &amp;block)
+          end
+        end
+&nbsp;
+        # Filters support:
+        #
+        #   Symbols:: A method to call.
+        #   Procs::   A proc to call with the object.
+        #   Objects:: An object with a &lt;tt&gt;before_foo&lt;/tt&gt; method on it to call.
+        #
+        # All of these objects are converted into a CallTemplate and handled
+        # the same after this point.
+        def self.build(filter, callback)
+          case filter
+          when Symbol
+            new(nil, filter, [], nil)
+          when Conditionals::Value
+<span class="cstat-no" title="statement not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >            new(filter, :call, [:target, :value], nil)</span></span>
+          when ::Proc
+            if filter.arity &gt; 1
+              new(nil, :instance_exec, [:target, :block], filter)
+            elsif filter.arity &gt; 0
+              new(nil, :instance_exec, [:target], filter)
+            else
+              new(nil, :instance_exec, [], filter)
+            end
+          else
+            method_to_call = callback.current_scopes.join("_")
+&nbsp;
+            new(filter, method_to_call, [:target], nil)
+          end
+        end
+      end
+&nbsp;
+      # Execute before and after filters in a sequence instead of
+      # chaining them with nested lambda calls, see:
+      # https://github.com/rails/rails/issues/18011
+      class CallbackSequence # :nodoc:
+        def initialize(nested = nil, call_template = nil, user_conditions = nil)
+          @nested = nested
+          @call_template = call_template
+          @user_conditions = user_conditions
+&nbsp;
+          @before = []
+          @after = []
+        end
+&nbsp;
+        def before(&amp;before)
+          @before.unshift(before)
+          self
+        end
+&nbsp;
+        def after(&amp;after)
+          @after.push(after)
+          self
+        end
+&nbsp;
+        def around(call_template, user_conditions)
+          CallbackSequence.new(self, call_template, user_conditions)
+        end
+&nbsp;
+        def skip?(arg)
+          arg.halted || !@user_conditions.all? { |c| c.call(arg.target, arg.value) }
+        end
+&nbsp;
+        def nested
+          @nested
+        end
+&nbsp;
+        def final?
+          !@call_template
+        end
+&nbsp;
+        def expand_call_template(arg, block)
+          @call_template.expand(arg.target, arg.value, block)
+        end
+&nbsp;
+        def invoke_before(arg)
+          @before.each { |b| b.call(arg) }
+        end
+&nbsp;
+        def invoke_after(arg)
+          @after.each { |a| a.call(arg) }
+        end
+      end
+&nbsp;
+      class CallbackChain #:nodoc:#
+        include Enumerable
+&nbsp;
+        attr_reader :name, :config
+&nbsp;
+        def initialize(name, config)
+          @name = name
+          @config = {
+            scope: [:kind],
+            terminator: default_terminator
+          }.merge!(config)
+          @chain = []
+          @callbacks = nil
+          @mutex = Mutex.new
+        end
+&nbsp;
+        def each(&amp;block); @chain.each(&amp;block); end
+        def index(o);     @chain.index(o); end
+        def empty?;       @chain.empty?; end
+&nbsp;
+        def insert(index, o)
+          @callbacks = nil
+          @chain.insert(index, o)
+        end
+&nbsp;
+        def delete(o)
+          @callbacks = nil
+          @chain.delete(o)
+        end
+&nbsp;
+        def clear
+          @callbacks = nil
+          @chain.clear
+          self
+        end
+&nbsp;
+        def initialize_copy(other)
+          @callbacks = nil
+          @chain     = other.chain.dup
+          @mutex     = Mutex.new
+        end
+&nbsp;
+        def compile
+          @callbacks || @mutex.synchronize do
+            final_sequence = CallbackSequence.new
+            @callbacks ||= @chain.reverse.inject(final_sequence) do |callback_sequence, callback|
+              callback.apply callback_sequence
+            end
+          end
+        end
+&nbsp;
+        def append(*callbacks)
+          callbacks.each { |c| append_one(c) }
+        end
+&nbsp;
+        def prepend(*callbacks)
+          callbacks.each { |c| prepend_one(c) }
+        end
+&nbsp;
+        protected
+          def chain; @chain; end
+&nbsp;
+        private
+&nbsp;
+          def append_one(callback)
+            @callbacks = nil
+            remove_duplicates(callback)
+            @chain.push(callback)
+          end
+&nbsp;
+          def prepend_one(callback)
+            @callbacks = nil
+            remove_duplicates(callback)
+            @chain.unshift(callback)
+          end
+&nbsp;
+          def remove_duplicates(callback)
+            @callbacks = nil
+            @chain.delete_if { |c| callback.duplicates?(c) }
+          end
+&nbsp;
+          def default_terminator
+            Proc.new do |target, result_lambda|
+              terminate = true
+              catch(:abort) do
+                result_lambda.call
+                terminate = false
+              end
+              terminate
+            end
+          end
+      end
+&nbsp;
+      module ClassMethods
+        def normalize_callback_params(filters, block) # :nodoc:
+          type = CALLBACK_FILTER_TYPES.include?(filters.first) ? filters.shift : :before
+          options = filters.extract_options!
+          filters.unshift(block) if block
+          [type, filters, options.dup]
+        end
+&nbsp;
+        # This is used internally to append, prepend and skip callbacks to the
+        # CallbackChain.
+        def __update_callbacks(name) #:nodoc:
+          ([self] + ActiveSupport::DescendantsTracker.descendants(self)).reverse_each do |target|
+            chain = target.get_callbacks name
+            yield target, chain.dup
+          end
+        end
+&nbsp;
+        # Install a callback for the given event.
+        #
+        #   set_callback :save, :before, :before_method
+        #   set_callback :save, :after,  :after_method, if: :condition
+        #   set_callback :save, :around, -&gt;(r, block) { stuff; result = block.call; stuff }
+        #
+        # The second argument indicates whether the callback is to be run +:before+,
+        # +:after+, or +:around+ the event. If omitted, +:before+ is assumed. This
+        # means the first example above can also be written as:
+        #
+        #   set_callback :save, :before_method
+        #
+        # The callback can be specified as a symbol naming an instance method; as a
+        # proc, lambda, or block; or as an object that responds to a certain method
+        # determined by the &lt;tt&gt;:scope&lt;/tt&gt; argument to +define_callbacks+.
+        #
+        # If a proc, lambda, or block is given, its body is evaluated in the context
+        # of the current object. It can also optionally accept the current object as
+        # an argument.
+        #
+        # Before and around callbacks are called in the order that they are set;
+        # after callbacks are called in the reverse order.
+        #
+        # Around callbacks can access the return value from the event, if it
+        # wasn't halted, from the +yield+ call.
+        #
+        # ===== Options
+        #
+        # * &lt;tt&gt;:if&lt;/tt&gt; - A symbol or an array of symbols, each naming an instance
+        #   method or a proc; the callback will be called only when they all return
+        #   a true value.
+        # * &lt;tt&gt;:unless&lt;/tt&gt; - A symbol or an array of symbols, each naming an
+        #   instance method or a proc; the callback will be called only when they
+        #   all return a false value.
+        # * &lt;tt&gt;:prepend&lt;/tt&gt; - If +true+, the callback will be prepended to the
+        #   existing chain rather than appended.
+        def set_callback(name, *filter_list, &amp;block)
+          type, filters, options = normalize_callback_params(filter_list, block)
+&nbsp;
+          self_chain = get_callbacks name
+          mapped = filters.map do |filter|
+            Callback.build(self_chain, filter, type, options)
+          end
+&nbsp;
+          __update_callbacks(name) do |target, chain|
+            options[:prepend] ? chain.prepend(*mapped) : chain.append(*mapped)
+            target.set_callbacks name, chain
+          end
+        end
+&nbsp;
+        # Skip a previously set callback. Like +set_callback+, &lt;tt&gt;:if&lt;/tt&gt; or
+        # &lt;tt&gt;:unless&lt;/tt&gt; options may be passed in order to control when the
+        # callback is skipped.
+        #
+        #   class Writer &lt; Person
+        #      skip_callback :validate, :before, :check_membership, if: -&gt; { age &gt; 18 }
+        #   end
+        #
+        # An &lt;tt&gt;ArgumentError&lt;/tt&gt; will be raised if the callback has not
+        # already been set (unless the &lt;tt&gt;:raise&lt;/tt&gt; option is set to &lt;tt&gt;false&lt;/tt&gt;).
+        def skip_callback(name, *filter_list, &amp;block)
+          type, filters, options = normalize_callback_params(filter_list, block)
+&nbsp;
+          options[:raise] = true unless options.key?(:raise)
+&nbsp;
+          __update_callbacks(name) do |target, chain|
+            filters.each do |filter|
+              callback = chain.find { |c| c.matches?(type, filter) }
+&nbsp;
+              if !callback &amp;&amp; options[:raise]
+                raise ArgumentError, "#{type.to_s.capitalize} #{name} callback #{filter.inspect} has not been defined"
+              end
+&nbsp;
+              if callback &amp;&amp; (options.key?(:if) || options.key?(:unless))
+                new_callback = callback.merge_conditional_options(chain, if_option: options[:if], unless_option: options[:unless])
+                chain.insert(chain.index(callback), new_callback)
+              end
+&nbsp;
+              chain.delete(callback)
+            end
+            target.set_callbacks name, chain
+          end
+        end
+&nbsp;
+        # Remove all set callbacks for the given event.
+        def reset_callbacks(name)
+          callbacks = get_callbacks name
+&nbsp;
+          ActiveSupport::DescendantsTracker.descendants(self).each do |target|
+            chain = target.get_callbacks(name).dup
+            callbacks.each { |c| chain.delete(c) }
+            target.set_callbacks name, chain
+          end
+&nbsp;
+          set_callbacks(name, callbacks.dup.clear)
+        end
+&nbsp;
+        # Define sets of events in the object life cycle that support callbacks.
+        #
+        #   define_callbacks :validate
+        #   define_callbacks :initialize, :save, :destroy
+        #
+        # ===== Options
+        #
+        # * &lt;tt&gt;:terminator&lt;/tt&gt; - Determines when a before filter will halt the
+        #   callback chain, preventing following before and around callbacks from
+        #   being called and the event from being triggered.
+        #   This should be a lambda to be executed.
+        #   The current object and the result lambda of the callback will be provided
+        #   to the terminator lambda.
+        #
+        #     define_callbacks :validate, terminator: -&gt;(target, result_lambda) { result_lambda.call == false }
+        #
+        #   In this example, if any before validate callbacks returns +false+,
+        #   any successive before and around callback is not executed.
+        #
+        #   The default terminator halts the chain when a callback throws +:abort+.
+        #
+        # * &lt;tt&gt;:skip_after_callbacks_if_terminated&lt;/tt&gt; - Determines if after
+        #   callbacks should be terminated by the &lt;tt&gt;:terminator&lt;/tt&gt; option. By
+        #   default after callbacks are executed no matter if callback chain was
+        #   terminated or not. This option makes sense only when &lt;tt&gt;:terminator&lt;/tt&gt;
+        #   option is specified.
+        #
+        # * &lt;tt&gt;:scope&lt;/tt&gt; - Indicates which methods should be executed when an
+        #   object is used as a callback.
+        #
+        #     class Audit
+        #       def before(caller)
+        #         puts 'Audit: before is called'
+        #       end
+        #
+        #       def before_save(caller)
+        #         puts 'Audit: before_save is called'
+        #       end
+        #     end
+        #
+        #     class Account
+        #       include ActiveSupport::Callbacks
+        #
+        #       define_callbacks :save
+        #       set_callback :save, :before, Audit.new
+        #
+        #       def save
+        #         run_callbacks :save do
+        #           puts 'save in main'
+        #         end
+        #       end
+        #     end
+        #
+        #   In the above case whenever you save an account the method
+        #   &lt;tt&gt;Audit#before&lt;/tt&gt; will be called. On the other hand
+        #
+        #     define_callbacks :save, scope: [:kind, :name]
+        #
+        #   would trigger &lt;tt&gt;Audit#before_save&lt;/tt&gt; instead. That's constructed
+        #   by calling &lt;tt&gt;#{kind}_#{name}&lt;/tt&gt; on the given instance. In this
+        #   case "kind" is "before" and "name" is "save". In this context +:kind+
+        #   and +:name+ have special meanings: +:kind+ refers to the kind of
+        #   callback (before/after/around) and +:name+ refers to the method on
+        #   which callbacks are being defined.
+        #
+        #   A declaration like
+        #
+        #     define_callbacks :save, scope: [:name]
+        #
+        #   would call &lt;tt&gt;Audit#save&lt;/tt&gt;.
+        #
+        # ===== Notes
+        #
+        # +names+ passed to +define_callbacks+ must not end with
+        # &lt;tt&gt;!&lt;/tt&gt;, &lt;tt&gt;?&lt;/tt&gt; or &lt;tt&gt;=&lt;/tt&gt;.
+        #
+        # Calling +define_callbacks+ multiple times with the same +names+ will
+        # overwrite previous callbacks registered with +set_callback+.
+        def define_callbacks(*names)
+          options = names.extract_options!
+&nbsp;
+          names.each do |name|
+            name = name.to_sym
+&nbsp;
+            set_callbacks name, CallbackChain.new(name, options)
+&nbsp;
+            module_eval &lt;&lt;-RUBY, __FILE__, __LINE__ + 1
+              def _run_#{name}_callbacks(&amp;block)
+                run_callbacks #{name.inspect}, &amp;block
+              end
+&nbsp;
+              def self._#{name}_callbacks
+                get_callbacks(#{name.inspect})
+              end
+&nbsp;
+              def self._#{name}_callbacks=(value)
+                set_callbacks(#{name.inspect}, value)
+              end
+&nbsp;
+              def _#{name}_callbacks
+                __callbacks[#{name.inspect}]
+              end
+            RUBY
+          end
+        end
+&nbsp;
+        protected
+&nbsp;
+          def get_callbacks(name) # :nodoc:
+            __callbacks[name.to_sym]
+          end
+&nbsp;
+          def set_callbacks(name, callbacks) # :nodoc:
+            self.__callbacks = __callbacks.merge(name.to_sym =&gt; callbacks)
+          end
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

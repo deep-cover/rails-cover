@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/core_ext/string/conversions.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_support/core_ext/string</a> conversions.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>22/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>3/3</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>15/15</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">220x</span>
+<span class="cline-any cline-yes">220x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">124x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">220x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "date"
+require "active_support/core_ext/time/calculations"
+&nbsp;
+class String
+  # Converts a string to a Time value.
+  # The +form+ can be either :utc or :local (default :local).
+  #
+  # The time is parsed using Time.parse method.
+  # If +form+ is :local, then the time is in the system timezone.
+  # If the date part is missing then the current date is used and if
+  # the time part is missing then it is assumed to be 00:00:00.
+  #
+  #   "13-12-2012".to_time               # =&gt; 2012-12-13 00:00:00 +0100
+  #   "06:12".to_time                    # =&gt; 2012-12-13 06:12:00 +0100
+  #   "2012-12-13 06:12".to_time         # =&gt; 2012-12-13 06:12:00 +0100
+  #   "2012-12-13T06:12".to_time         # =&gt; 2012-12-13 06:12:00 +0100
+  #   "2012-12-13T06:12".to_time(:utc)   # =&gt; 2012-12-13 06:12:00 UTC
+  #   "12/13/2012".to_time               # =&gt; ArgumentError: argument out of range
+  def to_time(form = :local)
+    parts = Date._parse(self, false)
+    used_keys = %i(year mon mday hour min sec sec_fraction offset)
+    return if (parts.keys &amp; used_keys).empty?
+&nbsp;
+    now = Time.now
+    time = Time.new(
+      parts.fetch(:year, now.year),
+      parts.fetch(:mon, now.month),
+      parts.fetch(:mday, now.day),
+      parts.fetch(:hour, 0),
+      parts.fetch(:min, 0),
+      parts.fetch(:sec, 0) + parts.fetch(:sec_fraction, 0),
+      parts.fetch(:offset, form == :utc ? 0 : nil)
+    )
+&nbsp;
+    form == :utc ? time.utc : time.to_time
+  end
+&nbsp;
+  # Converts a string to a Date value.
+  #
+  #   "1-1-2012".to_date   # =&gt; Sun, 01 Jan 2012
+  #   "01/01/2012".to_date # =&gt; Sun, 01 Jan 2012
+  #   "2012-12-13".to_date # =&gt; Thu, 13 Dec 2012
+  #   "12/13/2012".to_date # =&gt; ArgumentError: invalid date
+  def to_date
+    ::Date.parse(self, false) unless blank?
+  end
+&nbsp;
+  # Converts a string to a DateTime value.
+  #
+  #   "1-1-2012".to_datetime            # =&gt; Sun, 01 Jan 2012 00:00:00 +0000
+  #   "01/01/2012 23:59:59".to_datetime # =&gt; Sun, 01 Jan 2012 23:59:59 +0000
+  #   "2012-12-13 12:50".to_datetime    # =&gt; Thu, 13 Dec 2012 12:50:00 +0000
+  #   "12/13/2012".to_datetime          # =&gt; ArgumentError: invalid date
+  def to_datetime
+    ::DateTime.parse(self, false) unless blank?
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_support/inflector/transliterate.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_support/inflector</a> transliterate.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>27/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>21/21</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">806x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">802x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/string/multibyte"
+require "active_support/i18n"
+&nbsp;
+module ActiveSupport
+  module Inflector
+    # Replaces non-ASCII characters with an ASCII approximation, or if none
+    # exists, a replacement character which defaults to "?".
+    #
+    #    transliterate('Ærøskøbing')
+    #    # =&gt; "AEroskobing"
+    #
+    # Default approximations are provided for Western/Latin characters,
+    # e.g, "ø", "ñ", "é", "ß", etc.
+    #
+    # This method is I18n aware, so you can set up custom approximations for a
+    # locale. This can be useful, for example, to transliterate German's "ü"
+    # and "ö" to "ue" and "oe", or to add support for transliterating Russian
+    # to ASCII.
+    #
+    # In order to make your custom transliterations available, you must set
+    # them as the &lt;tt&gt;i18n.transliterate.rule&lt;/tt&gt; i18n key:
+    #
+    #   # Store the transliterations in locales/de.yml
+    #   i18n:
+    #     transliterate:
+    #       rule:
+    #         ü: "ue"
+    #         ö: "oe"
+    #
+    #   # Or set them using Ruby
+    #   I18n.backend.store_translations(:de, i18n: {
+    #     transliterate: {
+    #       rule: {
+    #         'ü' =&gt; 'ue',
+    #         'ö' =&gt; 'oe'
+    #       }
+    #     }
+    #   })
+    #
+    # The value for &lt;tt&gt;i18n.transliterate.rule&lt;/tt&gt; can be a simple Hash that
+    # maps characters to ASCII approximations as shown above, or, for more
+    # complex requirements, a Proc:
+    #
+    #   I18n.backend.store_translations(:de, i18n: {
+    #     transliterate: {
+    #       rule: -&gt;(string) { MyTransliterator.transliterate(string) }
+    #     }
+    #   })
+    #
+    # Now you can have different transliterations for each locale:
+    #
+    #   I18n.locale = :en
+    #   transliterate('Jürgen')
+    #   # =&gt; "Jurgen"
+    #
+    #   I18n.locale = :de
+    #   transliterate('Jürgen')
+    #   # =&gt; "Juergen"
+    def transliterate(string, replacement = "?".freeze)
+      raise ArgumentError, "Can only transliterate strings. Received #{string.class.name}" unless string.is_a?(String)
+&nbsp;
+      I18n.transliterate(
+        ActiveSupport::Multibyte::Unicode.normalize(
+          ActiveSupport::Multibyte::Unicode.tidy_bytes(string), :c),
+        replacement: replacement)
+    end
+&nbsp;
+    # Replaces special characters in a string so that it may be used as part of
+    # a 'pretty' URL.
+    #
+    #   parameterize("Donald E. Knuth") # =&gt; "donald-e-knuth"
+    #   parameterize("^trés|Jolie-- ")  # =&gt; "tres-jolie"
+    #
+    # To use a custom separator, override the `separator` argument.
+    #
+    #  parameterize("Donald E. Knuth", separator: '_') # =&gt; "donald_e_knuth"
+    #  parameterize("^trés|Jolie-- ", separator: '_')  # =&gt; "tres_jolie"
+    #
+    # To preserve the case of the characters in a string, use the `preserve_case` argument.
+    #
+    #   parameterize("Donald E. Knuth", preserve_case: true) # =&gt; "Donald-E-Knuth"
+    #   parameterize("^trés|Jolie-- ", preserve_case: true) # =&gt; "tres-Jolie"
+    #
+    def parameterize(string, separator: "-", preserve_case: false)
+      # Replace accented chars with their ASCII equivalents.
+      parameterized_string = transliterate(string)
+&nbsp;
+      # Turn unwanted chars into the separator.
+      parameterized_string.gsub!(/[^a-z0-9\-_]+/i, separator)
+&nbsp;
+      unless <span class="branch-1 cbranch-no" title="branch not covered" >separator.nil? || separator.empty?</span>
+        if separator == "-".freeze
+          re_duplicate_separator        = /-{2,}/
+          re_leading_trailing_separator = /^-|-$/i
+        else
+          re_sep = Regexp.escape(separator)
+          re_duplicate_separator        = /#{re_sep}{2,}/
+          re_leading_trailing_separator = /^#{re_sep}|#{re_sep}$/i
+        end
+        # No more than one of the separator in a row.
+        parameterized_string.gsub!(re_duplicate_separator, separator)
+        # Remove leading/trailing separator.
+        parameterized_string.gsub!(re_leading_trailing_separator, "".freeze)
+      end
+&nbsp;
+      parameterized_string.downcase! unless preserve_case
+      parameterized_string
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 15:49:54 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
