@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/timestamp.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> timestamp.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>60/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>24/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>54/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">164x</span>
+<span class="cline-any cline-yes">164x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">33796x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">41476x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16890x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16898x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20738x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20076x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17400x</span>
+<span class="cline-any cline-yes">16713x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16706x</span>
+<span class="cline-any cline-yes">14701x</span>
+<span class="cline-any cline-yes">14598x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17393x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4788x</span>
+<span class="cline-any cline-yes">2343x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2343x</span>
+<span class="cline-any cline-yes">1623x</span>
+<span class="cline-any cline-yes">1612x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4788x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4783x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3792x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16890x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">19930x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-yes">189x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">169x</span>
+<span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-yes">278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  # = Active Record \Timestamp
+  #
+  # Active Record automatically timestamps create and update operations if the
+  # table has fields named &lt;tt&gt;created_at/created_on&lt;/tt&gt; or
+  # &lt;tt&gt;updated_at/updated_on&lt;/tt&gt;.
+  #
+  # Timestamping can be turned off by setting:
+  #
+  #   config.active_record.record_timestamps = false
+  #
+  # Timestamps are in UTC by default but you can use the local timezone by setting:
+  #
+  #   config.active_record.default_timezone = :local
+  #
+  # == Time Zone aware attributes
+  #
+  # Active Record keeps all the &lt;tt&gt;datetime&lt;/tt&gt; and &lt;tt&gt;time&lt;/tt&gt; columns
+  # timezone aware. By default, these values are stored in the database as UTC
+  # and converted back to the current &lt;tt&gt;Time.zone&lt;/tt&gt; when pulled from the database.
+  #
+  # This feature can be turned off completely by setting:
+  #
+  #   config.active_record.time_zone_aware_attributes = false
+  #
+  # You can also specify that only &lt;tt&gt;datetime&lt;/tt&gt; columns should be time-zone
+  # aware (while &lt;tt&gt;time&lt;/tt&gt; should not) by setting:
+  #
+  #   ActiveRecord::Base.time_zone_aware_types = [:datetime]
+  #
+  # You can also add database specific timezone aware types. For example, for PostgreSQL:
+  #
+  #   ActiveRecord::Base.time_zone_aware_types += [:tsrange, :tstzrange]
+  #
+  # Finally, you can indicate specific attributes of a model for which time zone
+  # conversion should not applied, for instance by setting:
+  #
+  #   class Topic &lt; ActiveRecord::Base
+  #     self.skip_time_zone_conversion_for_attributes = [:written_on]
+  #   end
+  module Timestamp
+    extend ActiveSupport::Concern
+&nbsp;
+    included do
+      class_attribute :record_timestamps, default: true
+    end
+&nbsp;
+    def initialize_dup(other) # :nodoc:
+      super
+      clear_timestamp_attributes
+    end
+&nbsp;
+    class_methods do
+      private
+        def timestamp_attributes_for_create_in_model
+          timestamp_attributes_for_create.select { |c| column_names.include?(c) }
+        end
+&nbsp;
+        def timestamp_attributes_for_update_in_model
+          timestamp_attributes_for_update.select { |c| column_names.include?(c) }
+        end
+&nbsp;
+        def all_timestamp_attributes_in_model
+          timestamp_attributes_for_create_in_model + timestamp_attributes_for_update_in_model
+        end
+&nbsp;
+        def timestamp_attributes_for_create
+          ["created_at", "created_on"]
+        end
+&nbsp;
+        def timestamp_attributes_for_update
+          ["updated_at", "updated_on"]
+        end
+&nbsp;
+        def current_time_from_proper_timezone
+          default_timezone == :utc ? Time.now.utc : Time.now
+        end
+    end
+&nbsp;
+  private
+&nbsp;
+    def _create_record
+      if record_timestamps
+        current_time = current_time_from_proper_timezone
+&nbsp;
+        all_timestamp_attributes_in_model.each do |column|
+          if !attribute_present?(column)
+            _write_attribute(column, current_time)
+          end
+        end
+      end
+&nbsp;
+      super
+    end
+&nbsp;
+    def _update_record(*args, touch: true, **options)
+      if touch &amp;&amp; should_record_timestamps?
+        current_time = current_time_from_proper_timezone
+&nbsp;
+        timestamp_attributes_for_update_in_model.each do |column|
+          next if will_save_change_to_attribute?(column)
+          _write_attribute(column, current_time)
+        end
+      end
+      super(*args)
+    end
+&nbsp;
+    def should_record_timestamps?
+      record_timestamps &amp;&amp; (!partial_writes? || has_changes_to_save?)
+    end
+&nbsp;
+    def timestamp_attributes_for_create_in_model
+      self.class.send(:timestamp_attributes_for_create_in_model)
+    end
+&nbsp;
+    def timestamp_attributes_for_update_in_model
+      self.class.send(:timestamp_attributes_for_update_in_model)
+    end
+&nbsp;
+    def all_timestamp_attributes_in_model
+      self.class.send(:all_timestamp_attributes_in_model)
+    end
+&nbsp;
+    def current_time_from_proper_timezone
+      self.class.send(:current_time_from_proper_timezone)
+    end
+&nbsp;
+    def max_updated_column_timestamp(timestamp_names = timestamp_attributes_for_update_in_model)
+      timestamp_names
+        .map { |attr| self[attr] }
+        .compact
+        .map(&amp;:to_time)
+        .max
+    end
+&nbsp;
+    # Clear attributes and changed_attributes
+    def clear_timestamp_attributes
+      all_timestamp_attributes_in_model.each do |attribute_name|
+        self[attribute_name] = nil
+        clear_attribute_changes([attribute_name])
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

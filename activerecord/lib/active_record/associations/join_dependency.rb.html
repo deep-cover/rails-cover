@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/associations/join_dependency.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/associations</a> join_dependency.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>168/172</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.06% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>33/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>52/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.32% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>147/148</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">865x</span>
+<span class="cline-any cline-yes">865x</span>
+<span class="cline-any cline-yes">2040x</span>
+<span class="cline-any cline-yes">16989x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">865x</span>
+<span class="cline-any cline-yes">2040x</span>
+<span class="cline-any cline-yes">16989x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">865x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3481x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4897x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2040x</span>
+<span class="cline-any cline-yes">16989x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10828x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2662x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7802x</span>
+<span class="cline-any cline-yes">2677x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">381x</span>
+<span class="cline-any cline-yes">381x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-yes">7770x</span>
+<span class="cline-any cline-yes">7734x</span>
+<span class="cline-any cline-yes">7734x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6581x</span>
+<span class="cline-any cline-yes">1265x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6581x</span>
+<span class="cline-any cline-yes">1549x</span>
+<span class="cline-any cline-yes">1503x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6192x</span>
+<span class="cline-any cline-yes">2040x</span>
+<span class="cline-any cline-yes">16989x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2040x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-yes">1656x</span>
+<span class="cline-any cline-yes">1776x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1848x</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-yes">3657x</span>
+<span class="cline-any cline-yes">3657x</span>
+<span class="cline-any cline-yes">3657x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">835x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1733x</span>
+<span class="cline-any cline-yes">1733x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3524x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5012x</span>
+<span class="cline-any cline-yes">6307x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2934x</span>
+<span class="cline-any cline-yes">2934x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6307x</span>
+<span class="cline-any cline-yes">6307x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1523x</span>
+<span class="cline-any cline-yes">1753x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1733x</span>
+<span class="cline-any cline-yes">1523x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2978x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10668x</span>
+<span class="cline-any cline-yes">2957x</span>
+<span class="cline-any cline-yes">2957x</span>
+<span class="cline-any cline-yes">2957x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2949x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2934x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7843x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7843x</span>
+<span class="cline-any cline-yes">4766x</span>
+<span class="cline-any cline-yes">3016x</span>
+<span class="cline-any cline-yes">3016x</span>
+<span class="cline-any cline-yes">1750x</span>
+<span class="cline-any cline-yes">704x</span>
+<span class="cline-any cline-yes">704x</span>
+<span class="cline-any cline-yes">704x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4062x</span>
+<span class="cline-any cline-yes">4062x</span>
+<span class="cline-any cline-yes">4062x</span>
+<span class="cline-any cline-yes">580x</span>
+<span class="cline-any cline-yes">580x</span>
+<span class="cline-any cline-yes">580x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3482x</span>
+<span class="cline-any cline-yes">555x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2646x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-yes">2142x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">785x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2927x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Associations
+    class JoinDependency # :nodoc:
+      autoload :JoinBase,        "active_record/associations/join_dependency/join_base"
+      autoload :JoinAssociation, "active_record/associations/join_dependency/join_association"
+&nbsp;
+      class Aliases # :nodoc:
+        def initialize(tables)
+          @tables = tables
+          @alias_cache = tables.each_with_object({}) { |table, h|
+            h[table.node] = table.columns.each_with_object({}) { |column, i|
+              i[column.name] = column.alias
+            }
+          }
+          @name_and_alias_cache = tables.each_with_object({}) { |table, h|
+            h[table.node] = table.columns.map { |column|
+              [column.name, column.alias]
+            }
+          }
+        end
+&nbsp;
+        def columns
+          @tables.flat_map(&amp;:column_aliases)
+        end
+&nbsp;
+        # An array of [column_name, alias] pairs for the table
+        def column_aliases(node)
+          @name_and_alias_cache[node]
+        end
+&nbsp;
+        def column_alias(node, column)
+          @alias_cache[node][column]
+        end
+&nbsp;
+        Table = Struct.new(:node, :columns) do # :nodoc:
+          def column_aliases
+            t = node.table
+            columns.map { |column| t[column.name].as Arel.sql column.alias }
+          end
+        end
+        Column = Struct.new(:name, :alias)
+      end
+&nbsp;
+      def self.make_tree(associations)
+        hash = {}
+        walk_tree associations, hash
+        hash
+      end
+&nbsp;
+      def self.walk_tree(associations, hash)
+        case associations
+        when Symbol, String
+          hash[associations.to_sym] ||= {}
+        when Array
+          associations.each do |assoc|
+            walk_tree assoc, hash
+          end
+        when Hash
+          associations.each do |k, v|
+            cache = hash[k] ||= {}
+            walk_tree v, cache
+          end
+        else
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >ConfigurationError</span>, <span class="cstat-no" title="statement not covered" >associations.inspect</span></span>
+        end
+      end
+&nbsp;
+      # base is the base class on which operation is taking place.
+      # associations is the list of associations which are joined using hash, symbol or array.
+      # joins is the list of all string join commands and arel nodes.
+      #
+      #  Example :
+      #
+      #  class Physician &lt; ActiveRecord::Base
+      #    has_many :appointments
+      #    has_many :patients, through: :appointments
+      #  end
+      #
+      #  If I execute `@physician.patients.to_a` then
+      #    base # =&gt; Physician
+      #    associations # =&gt; []
+      #    joins # =&gt;  [#&lt;Arel::Nodes::InnerJoin: ...]
+      #
+      #  However if I execute `Physician.joins(:appointments).to_a` then
+      #    base # =&gt; Physician
+      #    associations # =&gt; [:appointments]
+      #    joins # =&gt;  []
+      #
+      def initialize(base, table, associations, alias_tracker, eager_loading: true)
+        @alias_tracker = alias_tracker
+        @eager_loading = eager_loading
+        tree = self.class.make_tree associations
+        @join_root = JoinBase.new(base, table, build(tree, base))
+        @join_root.children.each { |child| construct_tables! @join_root, child }
+      end
+&nbsp;
+      def reflections
+        join_root.drop(1).map!(&amp;:reflection)
+      end
+&nbsp;
+      def join_constraints(joins_to_add, join_type)
+        joins = join_root.children.flat_map { |child|
+          make_join_constraints(join_root, child, join_type)
+        }
+&nbsp;
+        joins.concat joins_to_add.flat_map { |oj|
+          if join_root.match? oj.join_root
+            walk join_root, oj.join_root
+          else
+            oj.join_root.children.flat_map { |child|
+              make_join_constraints(oj.join_root, child, join_type)
+            }
+          end
+        }
+      end
+&nbsp;
+      def aliases
+        @aliases ||= Aliases.new join_root.each_with_index.map { |join_part, i|
+          columns = join_part.column_names.each_with_index.map { |column_name, j|
+            Aliases::Column.new column_name, "t#{i}_r#{j}"
+          }
+          Aliases::Table.new(join_part, columns)
+        }
+      end
+&nbsp;
+      def instantiate(result_set, &amp;block)
+        primary_key = aliases.column_alias(join_root, join_root.primary_key)
+&nbsp;
+        seen = Hash.new { |i, object_id|
+          i[object_id] = Hash.new { |j, child_class|
+            j[child_class] = {}
+          }
+        }
+&nbsp;
+        model_cache = Hash.new { |h, klass| h[klass] = {} }
+        parents = model_cache[join_root]
+        column_aliases = aliases.column_aliases join_root
+&nbsp;
+        message_bus = ActiveSupport::Notifications.instrumenter
+&nbsp;
+        payload = {
+          record_count: result_set.length,
+          class_name: join_root.base_klass.name
+        }
+&nbsp;
+        message_bus.instrument("instantiation.active_record", payload) do
+          result_set.each { |row_hash|
+            parent_key = primary_key ? row_hash[primary_key] : row_hash
+            parent = parents[parent_key] ||= join_root.instantiate(row_hash, column_aliases, &amp;block)
+            construct(parent, join_root, row_hash, result_set, seen, model_cache, aliases)
+          }
+        end
+&nbsp;
+        parents.values
+      end
+&nbsp;
+      protected
+        attr_reader :alias_tracker, :base_klass, :join_root
+&nbsp;
+      private
+&nbsp;
+        def make_constraints(parent, child, tables, join_type)
+          chain         = child.reflection.chain
+          foreign_table = parent.table
+          foreign_klass = parent.base_klass
+          child.join_constraints(foreign_table, foreign_klass, join_type, tables, chain)
+        end
+&nbsp;
+        def make_outer_joins(parent, child)
+          join_type = Arel::Nodes::OuterJoin
+          make_join_constraints(parent, child, join_type, true)
+        end
+&nbsp;
+        def make_join_constraints(parent, child, join_type, aliasing = false)
+          tables = aliasing ? table_aliases_for(parent, child) : child.tables
+          joins  = make_constraints(parent, child, tables, join_type)
+&nbsp;
+          joins.concat child.children.flat_map { |c| make_join_constraints(child, c, join_type, aliasing) }
+        end
+&nbsp;
+        def table_aliases_for(parent, node)
+          node.reflection.chain.map { |reflection|
+            alias_tracker.aliased_table_for(
+              reflection.table_name,
+              table_alias_for(reflection, parent, reflection != node.reflection),
+              reflection.klass.type_caster
+            )
+          }
+        end
+&nbsp;
+        def construct_tables!(parent, node)
+          node.tables = table_aliases_for(parent, node)
+          node.children.each { |child| construct_tables! node, child }
+        end
+&nbsp;
+        def table_alias_for(reflection, parent, join)
+          name = "#{reflection.plural_name}_#{parent.table_name}"
+          join ? "#{name}_join" : name
+        end
+&nbsp;
+        def walk(left, right)
+          intersection, missing = right.children.map { |node1|
+            [left.children.find { |node2| node1.match? node2 }, node1]
+          }.partition(&amp;:first)
+&nbsp;
+          ojs = missing.flat_map { |_, n| make_outer_joins left, n }
+          intersection.flat_map { |l, r| walk l, r }.concat ojs
+        end
+&nbsp;
+        def find_reflection(klass, name)
+          klass._reflect_on_association(name) ||
+            raise(ConfigurationError, "Can't join '#{klass.name}' to association named '#{name}'; perhaps you misspelled it?")
+        end
+&nbsp;
+        def build(associations, base_klass)
+          associations.map do |name, right|
+            reflection = find_reflection base_klass, name
+            reflection.check_validity!
+            reflection.check_eager_loadable!
+&nbsp;
+            if reflection.polymorphic?
+              next unless @eager_loading
+              raise EagerLoadPolymorphicError.new(reflection)
+            end
+&nbsp;
+            JoinAssociation.new(reflection, build(right, reflection.klass), alias_tracker)
+          end.compact
+        end
+&nbsp;
+        def construct(ar_parent, parent, row, rs, seen, model_cache, aliases)
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>return</span> if ar_parent.nil?
+&nbsp;
+          parent.children.each do |node|
+            if node.reflection.collection?
+              other = ar_parent.association(node.reflection.name)
+              other.loaded!
+            elsif ar_parent.association_cached?(node.reflection.name)
+              model = ar_parent.association(node.reflection.name).target
+              construct(model, node, row, rs, seen, model_cache, aliases)
+              next
+            end
+&nbsp;
+            key = aliases.column_alias(node, node.primary_key)
+            id = row[key]
+            if id.nil?
+              nil_association = ar_parent.association(node.reflection.name)
+              nil_association.loaded!
+              next
+            end
+&nbsp;
+            model = seen[ar_parent.object_id][node.base_klass][id]
+&nbsp;
+            if model
+              construct(model, node, row, rs, seen, model_cache, aliases)
+            else
+              model = construct_model(ar_parent, node, row, model_cache, id, aliases)
+&nbsp;
+              if node.reflection.scope &amp;&amp;
+                  node.reflection.scope_for(node.base_klass.unscoped).readonly_value
+                model.readonly!
+              end
+&nbsp;
+              seen[ar_parent.object_id][node.base_klass][id] = model
+              construct(model, node, row, rs, seen, model_cache, aliases)
+            end
+          end
+        end
+&nbsp;
+        def construct_model(record, node, row, model_cache, id, aliases)
+          other = record.association(node.reflection.name)
+&nbsp;
+          model = model_cache[node][id] ||=
+            node.instantiate(row, aliases.column_aliases(node)) do |m|
+              other.set_inverse_instance(m)
+            end
+&nbsp;
+          if node.reflection.collection?
+            other.target.push(model)
+          else
+            other.target = model
+          end
+&nbsp;
+          model
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

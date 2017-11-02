@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_handling.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> connection_handling.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>57/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.31% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>24/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>15/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>48/48</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">568x</span>
+<span class="cline-any cline-yes">568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">387x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">380084x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">780815x</span>
+<span class="cline-any cline-yes">398501x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">382314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">380172x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">484x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-yes">244x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">162x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionHandling
+    RAILS_ENV   = -&gt; { <span class="branch-1 cbranch-no" title="branch not covered" >(<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>Rails.env</span> if defined?(Rails.env)) || ENV["RAILS_ENV"].presence</span> || ENV["RACK_ENV"].presence }
+    DEFAULT_ENV = -&gt; { RAILS_ENV.call || "default_env" }
+&nbsp;
+    # Establishes the connection to the database. Accepts a hash as input where
+    # the &lt;tt&gt;:adapter&lt;/tt&gt; key must be specified with the name of a database adapter (in lower-case)
+    # example for regular databases (MySQL, PostgreSQL, etc):
+    #
+    #   ActiveRecord::Base.establish_connection(
+    #     adapter:  "mysql2",
+    #     host:     "localhost",
+    #     username: "myuser",
+    #     password: "mypass",
+    #     database: "somedatabase"
+    #   )
+    #
+    # Example for SQLite database:
+    #
+    #   ActiveRecord::Base.establish_connection(
+    #     adapter:  "sqlite3",
+    #     database: "path/to/dbfile"
+    #   )
+    #
+    # Also accepts keys as strings (for parsing from YAML for example):
+    #
+    #   ActiveRecord::Base.establish_connection(
+    #     "adapter"  =&gt; "sqlite3",
+    #     "database" =&gt; "path/to/dbfile"
+    #   )
+    #
+    # Or a URL:
+    #
+    #   ActiveRecord::Base.establish_connection(
+    #     "postgres://myuser:mypass@localhost/somedatabase"
+    #   )
+    #
+    # In case {ActiveRecord::Base.configurations}[rdoc-ref:Core.configurations]
+    # is set (Rails automatically loads the contents of config/database.yml into it),
+    # a symbol can also be given as argument, representing a key in the
+    # configuration hash:
+    #
+    #   ActiveRecord::Base.establish_connection(:production)
+    #
+    # The exceptions AdapterNotSpecified, AdapterNotFound and +ArgumentError+
+    # may be returned on an error.
+    def establish_connection(config = nil)
+      raise "Anonymous class is not allowed." unless name
+&nbsp;
+      config ||= <span class="cstat-no" title="statement not covered" >DEFAULT_ENV.call.to_sym</span>
+      spec_name = self == Base ? "primary" : name
+      self.connection_specification_name = spec_name
+&nbsp;
+      resolver = ConnectionAdapters::ConnectionSpecification::Resolver.new(Base.configurations)
+      spec = resolver.resolve(config).symbolize_keys
+      spec[:name] = spec_name
+&nbsp;
+      connection_handler.establish_connection(spec)
+    end
+&nbsp;
+    class MergeAndResolveDefaultUrlConfig # :nodoc:
+      def initialize(raw_configurations)
+        @raw_config = raw_configurations.dup
+        @env = DEFAULT_ENV.call.to_s
+      end
+&nbsp;
+      # Returns fully resolved connection hashes.
+      # Merges connection information from `ENV['DATABASE_URL']` if available.
+      def resolve
+        ConnectionAdapters::ConnectionSpecification::Resolver.new(config).resolve_all
+      end
+&nbsp;
+      private
+        def config
+          @raw_config.dup.tap do |cfg|
+            if url = ENV["DATABASE_URL"]
+              cfg[@env] ||= {}
+              cfg[@env]["url"] ||= url
+            end
+          end
+        end
+    end
+&nbsp;
+    # Returns the connection currently associated with the class. This can
+    # also be used to "borrow" the connection to do database work unrelated
+    # to any of the specific Active Records.
+    def connection
+      retrieve_connection
+    end
+&nbsp;
+    attr_writer :connection_specification_name
+&nbsp;
+    # Return the specification name from the current class or its parent.
+    def connection_specification_name
+      if !defined?(@connection_specification_name) || @connection_specification_name.nil?
+        return self == Base ? "primary" : superclass.connection_specification_name
+      end
+      @connection_specification_name
+    end
+&nbsp;
+    # Returns the configuration of the associated connection as a hash:
+    #
+    #  ActiveRecord::Base.connection_config
+    #  # =&gt; {pool: 5, timeout: 5000, database: "db/development.sqlite3", adapter: "sqlite3"}
+    #
+    # Please use only for reading.
+    def connection_config
+      connection_pool.spec.config
+    end
+&nbsp;
+    def connection_pool
+      connection_handler.retrieve_connection_pool(connection_specification_name) || raise(<span class="cstat-no" title="statement not covered" >ConnectionNotEstablished</span>)
+    end
+&nbsp;
+    def retrieve_connection
+      connection_handler.retrieve_connection(connection_specification_name)
+    end
+&nbsp;
+    # Returns +true+ if Active Record is connected.
+    def connected?
+      connection_handler.connected?(connection_specification_name)
+    end
+&nbsp;
+    def remove_connection(name = nil)
+      name ||= @connection_specification_name if defined?(@connection_specification_name)
+      # if removing a connection that has a pool, we reset the
+      # connection_specification_name so it will use the parent
+      # pool.
+      if connection_handler.retrieve_connection_pool(name)
+        self.connection_specification_name = nil
+      end
+&nbsp;
+      connection_handler.remove_connection(name)
+    end
+&nbsp;
+    def clear_cache! # :nodoc:
+      connection.schema_cache.clear!
+    end
+&nbsp;
+    delegate :clear_active_connections!, :clear_reloadable_connections!,
+      :clear_all_connections!, to: :connection_handler
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

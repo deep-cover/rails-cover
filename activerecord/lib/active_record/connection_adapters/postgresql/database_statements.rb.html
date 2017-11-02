@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/postgresql/database_statements.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters/postgresql</a> database_statements.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.76% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>86/98</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.97% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>22/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.3% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>26/27</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>76/80</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-yes">146591x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-yes">146591x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-yes">42263x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">94278x</span>
+<span class="cline-any cline-yes">94280x</span>
+<span class="cline-any cline-yes">95884x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">30676x</span>
+<span class="cline-any cline-yes">30676x</span>
+<span class="cline-any cline-yes">30676x</span>
+<span class="cline-any cline-yes">30676x</span>
+<span class="cline-any cline-yes">185359x</span>
+<span class="cline-any cline-yes">185359x</span>
+<span class="cline-any cline-yes">185359x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30676x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8062x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6199x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6199x</span>
+<span class="cline-any cline-yes">5705x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6199x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6207x</span>
+<span class="cline-any cline-yes">6199x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">31899x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3950x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">27871x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6205x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionAdapters
+    module PostgreSQL
+      module DatabaseStatements
+        def explain(arel, binds = <span class="cstat-no" title="statement not covered" >[]</span>)
+          sql = "EXPLAIN #{to_sql(arel, binds)}"
+          PostgreSQL::ExplainPrettyPrinter.new.pp(exec_query(sql, "EXPLAIN", binds))
+        end
+&nbsp;
+        # The internal PostgreSQL identifier of the money data type.
+        MONEY_COLUMN_TYPE_OID = 790 #:nodoc:
+        # The internal PostgreSQL identifier of the BYTEA data type.
+        BYTEA_COLUMN_TYPE_OID = 17 #:nodoc:
+&nbsp;
+        # create a 2D array representing the result set
+        def result_as_array(res) #:nodoc:
+          # check if we have any binary column and if they need escaping
+          ftypes = Array.new(res.nfields) do |i|
+            [i, res.ftype(i)]
+          end
+&nbsp;
+          rows = res.values
+          return rows unless ftypes.any? { |_, x|
+            x == BYTEA_COLUMN_TYPE_OID || x == MONEY_COLUMN_TYPE_OID
+          }
+&nbsp;
+          typehash = ftypes.group_by { |_, type| type }
+          binaries = typehash[BYTEA_COLUMN_TYPE_OID] || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >[]</span></span>
+          monies   = <span class="branch-1 cbranch-no" title="branch not covered" >typehash[MONEY_COLUMN_TYPE_OID] || []</span>
+&nbsp;
+          rows.each do |row|
+            # unescape string passed BYTEA field (OID == 17)
+            binaries.each do |index, _|
+              row[index] = unescape_bytea(row[index])
+            end
+&nbsp;
+            # If this is a money type column and there are any currency symbols,
+            # then strip them off. Indeed it would be prettier to do this in
+            # PostgreSQLColumn.string_to_decimal but would break form input
+            # fields that call value_before_type_cast.
+            monies.each <span class="fstat-no" title="function not covered" >do |index, _|</span>
+<span class="cstat-no" title="statement not covered" >              data = row[index]</span>
+              # Because money output is formatted according to the locale, there are two
+              # cases to consider (note the decimal separators):
+              #  (1) $12,345,678.12
+              #  (2) $12.345.678,12
+<span class="cstat-no" title="statement not covered" >              case data</span>
+              when /^-?\D+[\d,]+\.\d{2}$/  # (1)
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >                data.gsub!(/[^-\d.]/, "")</span></span>
+              when /^-?\D+[\d.]+,\d{2}$/  # (2)
+<span class="cstat-no" title="statement not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >                data.gsub!(/[^-\d,]/, "").sub!(/,/, ".")</span></span>
+              end
+            end
+          end
+        end
+&nbsp;
+        # Queries the database and returns the results in an Array-like object
+        def query(sql, name = nil) #:nodoc:
+          log(sql, name) do
+            ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+              result_as_array @connection.async_exec(sql)
+            end
+          end
+        end
+&nbsp;
+        # Executes an SQL statement, returning a PG::Result object on success
+        # or raising a PG::Error exception otherwise.
+        # Note: the PG::Result object is manually memory managed; if you don't
+        # need it specifically, you may want consider the &lt;tt&gt;exec_query&lt;/tt&gt; wrapper.
+        def execute(sql, name = nil)
+          log(sql, name) do
+            ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+              @connection.async_exec(sql)
+            end
+          end
+        end
+&nbsp;
+        def exec_query(sql, name = "SQL", binds = [], prepare: false)
+          execute_and_clear(sql, name, binds, prepare: prepare) do |result|
+            types = {}
+            fields = result.fields
+            fields.each_with_index do |fname, i|
+              ftype = result.ftype i
+              fmod  = result.fmod i
+              types[fname] = get_oid_type(ftype, fmod, fname)
+            end
+            ActiveRecord::Result.new(fields, result.values, types)
+          end
+        end
+&nbsp;
+        def exec_delete(sql, name = <span class="cstat-no" title="statement not covered" >nil</span>, binds = <span class="cstat-no" title="statement not covered" >[]</span>)
+          execute_and_clear(sql, name, binds) { |result| result.cmd_tuples }
+        end
+        alias :exec_update :exec_delete
+&nbsp;
+        def sql_for_insert(sql, pk, id_value, sequence_name, binds) # :nodoc:
+          if pk.nil?
+            # Extract the table from the insert sql. Yuck.
+            table_ref = extract_table_ref_from_insert_sql(sql)
+            <span class="missing-if-branch" title="else path not taken" >E</span>pk = primary_key(table_ref) if table_ref
+          end
+&nbsp;
+          if pk = suppress_composite_primary_key(pk)
+            sql = "#{sql} RETURNING #{quote_column_name(pk)}"
+          end
+&nbsp;
+          super
+        end
+        private :sql_for_insert
+&nbsp;
+        def exec_insert(sql, name = <span class="cstat-no" title="statement not covered" >nil</span>, binds = <span class="cstat-no" title="statement not covered" >[]</span>, pk = nil, sequence_name = nil)
+          if use_insert_returning? || pk == false
+            super
+          else
+            result = exec_query(sql, name, binds)
+            unless sequence_name
+              table_ref = extract_table_ref_from_insert_sql(sql)
+              <span class="missing-if-branch" title="else path not taken" >E</span>if table_ref
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="if path not taken" >I</span>pk = primary_key(table_ref)</span> if pk.nil?
+                pk = suppress_composite_primary_key(pk)
+                sequence_name = default_sequence_name(table_ref, pk)
+              end
+<span class="cstat-no" title="statement not covered" >              <span class="missing-if-branch" title="else path not taken" >E</span>return result</span> unless sequence_name
+            end
+            last_insert_id_result(sequence_name)
+          end
+        end
+&nbsp;
+        # Begins a transaction.
+        def begin_db_transaction
+          execute "BEGIN"
+        end
+&nbsp;
+        def begin_isolated_db_transaction(isolation)
+          begin_db_transaction
+          execute "SET TRANSACTION ISOLATION LEVEL #{transaction_isolation_levels.fetch(isolation)}"
+        end
+&nbsp;
+        # Commits a transaction.
+        def commit_db_transaction
+          execute "COMMIT"
+        end
+&nbsp;
+        # Aborts a transaction.
+        def exec_rollback_db_transaction
+          execute "ROLLBACK"
+        end
+&nbsp;
+        private
+          # Returns the current ID of a table's sequence.
+          def last_insert_id_result(sequence_name)
+            exec_query("SELECT currval(#{quote(sequence_name)})", "SQL")
+          end
+&nbsp;
+          def suppress_composite_primary_key(pk)
+            <span class="missing-if-branch" title="if path not taken" >I</span>pk unless pk.is_a?(Array)
+          end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

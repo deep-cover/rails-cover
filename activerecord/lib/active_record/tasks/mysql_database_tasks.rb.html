@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/tasks/mysql_database_tasks.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/tasks</a> mysql_database_tasks.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.82% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>101/110</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">82.14% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>23/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>21/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">92.13% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>82/89</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">41x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">88x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Tasks # :nodoc:
+    class MySQLDatabaseTasks # :nodoc:
+      ACCESS_DENIED_ERROR = 1045
+&nbsp;
+      delegate :connection, :establish_connection, to: ActiveRecord::Base
+&nbsp;
+      def initialize(configuration)
+        @configuration = configuration
+      end
+&nbsp;
+      def create
+        establish_connection configuration_without_database
+        connection.create_database configuration["database"], creation_options
+        establish_connection configuration
+      rescue ActiveRecord::StatementInvalid =&gt; <span class="cstat-no" title="statement not covered" >error</span>
+<span class="cstat-no" title="statement not covered" >        if error.message.include?("database exists")</span>
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >DatabaseAlreadyExists</span></span>
+        else
+<span class="cstat-no" title="statement not covered" >          raise</span>
+        end
+      rescue error_class =&gt; error
+        if <span class="branch-1 cbranch-no" title="branch not covered" >error.respond_to?(:errno) &amp;&amp; error.errno == ACCESS_DENIED_ERROR</span>
+          $stdout.print error.message
+          establish_connection root_configuration_without_database
+          connection.create_database configuration["database"], creation_options
+          if configuration["username"] != "root"
+            connection.execute grant_statement.gsub(/\s+/, " ").strip
+          end
+          establish_connection configuration
+        else
+          $stderr.puts error.inspect
+          $stderr.puts "Couldn't create database for #{configuration.inspect}, #{creation_options.inspect}"
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>$stderr.puts "(If you set the charset manually, make sure you have a matching collation)"</span> if configuration["encoding"]
+        end
+      end
+&nbsp;
+      def drop
+        establish_connection configuration
+        connection.drop_database configuration["database"]
+      end
+&nbsp;
+      def purge
+        establish_connection configuration
+        connection.recreate_database configuration["database"], creation_options
+      end
+&nbsp;
+      def charset
+        connection.charset
+      end
+&nbsp;
+      def collation
+        connection.collation
+      end
+&nbsp;
+      def structure_dump(filename, extra_flags)
+        args = prepare_command_options
+        args.concat(["--result-file", "#{filename}"])
+        args.concat(["--no-data"])
+        args.concat(["--routines"])
+        args.concat(["--skip-comments"])
+&nbsp;
+        ignore_tables = ActiveRecord::SchemaDumper.ignore_tables
+        if ignore_tables.any?
+          args += ignore_tables.map { |table| "--ignore-table=#{configuration['database']}.#{table}" }
+        end
+&nbsp;
+        args.concat(["#{configuration['database']}"])
+        args.unshift(*extra_flags) if extra_flags
+&nbsp;
+        run_cmd("mysqldump", args, "dumping")
+      end
+&nbsp;
+      def structure_load(filename, extra_flags)
+        args = prepare_command_options
+        args.concat(["--execute", %{SET FOREIGN_KEY_CHECKS = 0; SOURCE #{filename}; SET FOREIGN_KEY_CHECKS = 1}])
+        args.concat(["--database", "#{configuration['database']}"])
+        <span class="missing-if-branch" title="else path not taken" >E</span>args.unshift(*extra_flags) if extra_flags
+&nbsp;
+        run_cmd("mysql", args, "loading")
+      end
+&nbsp;
+      private
+&nbsp;
+        def configuration
+          @configuration
+        end
+&nbsp;
+        def configuration_without_database
+          configuration.merge("database" =&gt; nil)
+        end
+&nbsp;
+        def creation_options
+          Hash.new.tap do |options|
+            options[:charset]     = configuration["encoding"]   if configuration.include? "encoding"
+            options[:collation]   = configuration["collation"]  if configuration.include? "collation"
+          end
+        end
+&nbsp;
+        def error_class
+          if configuration["adapter"].include?("jdbc")
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>require "active_record/railties/jdbcmysql_error"</span>
+<span class="cstat-no" title="statement not covered" >            ArJdbcMySQL::Error</span>
+          elsif defined?(Mysql2)
+            Mysql2::Error
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>StandardError</span>
+          end
+        end
+&nbsp;
+        def grant_statement
+          &lt;&lt;-SQL
+GRANT ALL PRIVILEGES ON `#{configuration['database']}`.*
+  TO '#{configuration['username']}'@'localhost'
+IDENTIFIED BY '#{configuration['password']}' WITH GRANT OPTION;
+          SQL
+        end
+&nbsp;
+        def root_configuration_without_database
+          configuration_without_database.merge(
+            "username" =&gt; "root",
+            "password" =&gt; root_password
+          )
+        end
+&nbsp;
+        def root_password
+          $stdout.print "Please provide the root password for your MySQL installation\n&gt;"
+          $stdin.gets.strip
+        end
+&nbsp;
+        def prepare_command_options
+          args = {
+            "host"      =&gt; "--host",
+            "port"      =&gt; "--port",
+            "socket"    =&gt; "--socket",
+            "username"  =&gt; "--user",
+            "password"  =&gt; "--password",
+            "encoding"  =&gt; "--default-character-set",
+            "sslca"     =&gt; "--ssl-ca",
+            "sslcert"   =&gt; "--ssl-cert",
+            "sslcapath" =&gt; "--ssl-capath",
+            "sslcipher" =&gt; "--ssl-cipher",
+            "sslkey"    =&gt; "--ssl-key"
+          }.map { |opt, arg| "#{arg}=#{configuration[opt]}" if configuration[opt] }.compact
+&nbsp;
+          args
+        end
+&nbsp;
+        def run_cmd(cmd, args, action)
+          fail run_cmd_error(cmd, args, action) unless Kernel.system(cmd, *args)
+        end
+&nbsp;
+        def run_cmd_error(cmd, args, action)
+          msg = "failed to execute: `#{cmd}`\n".dup
+          msg &lt;&lt; "Please check the output above for any errors and make sure that `#{cmd}` is installed in your PATH and has proper permissions.\n\n"
+          msg
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,3287 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/fixtures.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> fixtures.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.75% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>367/400</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.15% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>119/135</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.07% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>94/101</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.11% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>321/334</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064
+1065
+1066
+1067
+1068
+1069
+1070
+1071
+1072
+1073
+1074
+1075</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3433x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9122x</span>
+<span class="cline-any cline-yes">9122x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">703x</span>
+<span class="cline-any cline-yes">703x</span>
+<span class="cline-any cline-yes">703x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6131x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16514x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9818x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4810x</span>
+<span class="cline-any cline-yes">4810x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1886x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1251x</span>
+<span class="cline-any cline-yes">1236x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5568x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9211x</span>
+<span class="cline-any cline-yes">9122x</span>
+<span class="cline-any cline-yes">9122x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9211x</span>
+<span class="cline-any cline-yes">8471x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">740x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9122x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-yes">9806x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4820x</span>
+<span class="cline-any cline-yes">1886x</span>
+<span class="cline-any cline-yes">1896x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1891x</span>
+<span class="cline-any cline-yes">9211x</span>
+<span class="cline-any cline-yes">9211x</span>
+<span class="cline-any cline-yes">9206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1891x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1886x</span>
+<span class="cline-any cline-yes">1901x</span>
+<span class="cline-any cline-yes">1886x</span>
+<span class="cline-any cline-yes">9206x</span>
+<span class="cline-any cline-yes">9206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9206x</span>
+<span class="cline-any cline-yes">10447x</span>
+<span class="cline-any cline-yes">9907x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10447x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9201x</span>
+<span class="cline-any cline-yes">10447x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9201x</span>
+<span class="cline-any cline-yes">3883x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1886x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4810x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9544x</span>
+<span class="cline-any cline-yes">172x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9372x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10614x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1891x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9253x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9253x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9253x</span>
+<span class="cline-any cline-yes">8550x</span>
+<span class="cline-any cline-yes">703x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20571x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1301x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9238x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9238x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9238x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9238x</span>
+<span class="cline-any cline-yes">45683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">42493x</span>
+<span class="cline-any cline-yes">53487x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">226652x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">3813x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">7453x</span>
+<span class="cline-any cline-yes">2334x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16434x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26337x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">1116194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93928x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93928x</span>
+<span class="cline-any cline-yes">2031x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">383x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2031x</span>
+<span class="cline-any cline-yes">2031x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">923453x</span>
+<span class="cline-any cline-yes">476120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45683x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9238x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">476120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">476120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">66158x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3813x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">476120x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-yes">1816x</span>
+<span class="cline-any cline-yes">2810x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">42771x</span>
+<span class="cline-any cline-yes">8382x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">42493x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">59205x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9305x</span>
+<span class="cline-any cline-yes">8533x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">772x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-yes">1266x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9253x</span>
+<span class="cline-any cline-yes">10519x</span>
+<span class="cline-any cline-yes">10519x</span>
+<span class="cline-any cline-yes">10519x</span>
+<span class="cline-any cline-yes">46786x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">46786x</span>
+<span class="cline-any cline-yes">46786x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1265x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">548x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">14319x</span>
+<span class="cline-any cline-yes">14007x</span>
+<span class="cline-any cline-yes">14007x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">312x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">28687x</span>
+<span class="cline-any cline-yes">28687x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1060x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1049x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1060x</span>
+<span class="cline-any cline-yes">1060x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1064x</span>
+<span class="cline-any cline-yes">1064x</span>
+<span class="cline-any cline-yes">1064x</span>
+<span class="cline-any cline-yes">4907x</span>
+<span class="cline-any cline-yes">4907x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4907x</span>
+<span class="cline-any cline-yes">11561x</span>
+<span class="cline-any cline-yes">11561x</span>
+<span class="cline-any cline-yes">11561x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11561x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11534x</span>
+<span class="cline-any cline-yes">11793x</span>
+<span class="cline-any cline-yes">11793x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11793x</span>
+<span class="cline-any cline-yes">11766x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11534x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4907x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1064x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">51298x</span>
+<span class="cline-any cline-yes">51298x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">57384x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">25649x</span>
+<span class="cline-any cline-yes">24158x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1486x</span>
+<span class="cline-any cline-yes">1486x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25644x</span>
+<span class="cline-any cline-yes">25644x</span>
+<span class="cline-any cline-yes">125027x</span>
+<span class="cline-any cline-yes">125027x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25644x</span>
+<span class="cline-any cline-yes">289x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">289x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">254x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">289x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3043x</span>
+<span class="cline-any cline-yes">3043x</span>
+<span class="cline-any cline-yes">3043x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28687x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-yes">25649x</span>
+<span class="cline-any cline-yes">25649x</span>
+<span class="cline-any cline-yes">125130x</span>
+<span class="cline-any cline-yes">125130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25649x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3043x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28692x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">25644x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4529x</span>
+<span class="cline-any cline-yes">9430x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">225x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">225x</span>
+<span class="cline-any cline-yes">225x</span>
+<span class="cline-any cline-yes">1251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10604x</span>
+<span class="cline-any cline-yes">10604x</span>
+<span class="cline-any cline-yes">10604x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10604x</span>
+<span class="cline-any cline-yes">159x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "erb"
+require "yaml"
+require "zlib"
+require "set"
+require "active_support/dependencies"
+require "active_support/core_ext/digest/uuid"
+require "active_record/fixture_set/file"
+require "active_record/errors"
+&nbsp;
+module ActiveRecord
+  class FixtureClassNotFound &lt; ActiveRecord::ActiveRecordError #:nodoc:
+  end
+&nbsp;
+  # \Fixtures are a way of organizing data that you want to test against; in short, sample data.
+  #
+  # They are stored in YAML files, one file per model, which are placed in the directory
+  # appointed by &lt;tt&gt;ActiveSupport::TestCase.fixture_path=(path)&lt;/tt&gt; (this is automatically
+  # configured for Rails, so you can just put your files in &lt;tt&gt;&lt;your-rails-app&gt;/test/fixtures/&lt;/tt&gt;).
+  # The fixture file ends with the +.yml+ file extension, for example:
+  # &lt;tt&gt;&lt;your-rails-app&gt;/test/fixtures/web_sites.yml&lt;/tt&gt;).
+  #
+  # The format of a fixture file looks like this:
+  #
+  #   rubyonrails:
+  #     id: 1
+  #     name: Ruby on Rails
+  #     url: http://www.rubyonrails.org
+  #
+  #   google:
+  #     id: 2
+  #     name: Google
+  #     url: http://www.google.com
+  #
+  # This fixture file includes two fixtures. Each YAML fixture (ie. record) is given a name and
+  # is followed by an indented list of key/value pairs in the "key: value" format. Records are
+  # separated by a blank line for your viewing pleasure.
+  #
+  # Note: Fixtures are unordered. If you want ordered fixtures, use the omap YAML type.
+  # See http://yaml.org/type/omap.html
+  # for the specification. You will need ordered fixtures when you have foreign key constraints
+  # on keys in the same table. This is commonly needed for tree structures. Example:
+  #
+  #    --- !omap
+  #    - parent:
+  #        id:         1
+  #        parent_id:  NULL
+  #        title:      Parent
+  #    - child:
+  #        id:         2
+  #        parent_id:  1
+  #        title:      Child
+  #
+  # = Using Fixtures in Test Cases
+  #
+  # Since fixtures are a testing construct, we use them in our unit and functional tests. There
+  # are two ways to use the fixtures, but first let's take a look at a sample unit test:
+  #
+  #   require 'test_helper'
+  #
+  #   class WebSiteTest &lt; ActiveSupport::TestCase
+  #     test "web_site_count" do
+  #       assert_equal 2, WebSite.count
+  #     end
+  #   end
+  #
+  # By default, +test_helper.rb+ will load all of your fixtures into your test
+  # database, so this test will succeed.
+  #
+  # The testing environment will automatically load all the fixtures into the database before each
+  # test. To ensure consistent data, the environment deletes the fixtures before running the load.
+  #
+  # In addition to being available in the database, the fixture's data may also be accessed by
+  # using a special dynamic method, which has the same name as the model.
+  #
+  # Passing in a fixture name to this dynamic method returns the fixture matching this name:
+  #
+  #   test "find one" do
+  #     assert_equal "Ruby on Rails", web_sites(:rubyonrails).name
+  #   end
+  #
+  # Passing in multiple fixture names returns all fixtures matching these names:
+  #
+  #   test "find all by name" do
+  #     assert_equal 2, web_sites(:rubyonrails, :google).length
+  #   end
+  #
+  # Passing in no arguments returns all fixtures:
+  #
+  #   test "find all" do
+  #     assert_equal 2, web_sites.length
+  #   end
+  #
+  # Passing in any fixture name that does not exist will raise &lt;tt&gt;StandardError&lt;/tt&gt;:
+  #
+  #   test "find by name that does not exist" do
+  #     assert_raise(StandardError) { web_sites(:reddit) }
+  #   end
+  #
+  # Alternatively, you may enable auto-instantiation of the fixture data. For instance, take the
+  # following tests:
+  #
+  #   test "find_alt_method_1" do
+  #     assert_equal "Ruby on Rails", @web_sites['rubyonrails']['name']
+  #   end
+  #
+  #   test "find_alt_method_2" do
+  #     assert_equal "Ruby on Rails", @rubyonrails.name
+  #   end
+  #
+  # In order to use these methods to access fixtured data within your test cases, you must specify one of the
+  # following in your ActiveSupport::TestCase-derived class:
+  #
+  # - to fully enable instantiated fixtures (enable alternate methods #1 and #2 above)
+  #     self.use_instantiated_fixtures = true
+  #
+  # - create only the hash for the fixtures, do not 'find' each instance (enable alternate method #1 only)
+  #     self.use_instantiated_fixtures = :no_instances
+  #
+  # Using either of these alternate methods incurs a performance hit, as the fixtured data must be fully
+  # traversed in the database to create the fixture hash and/or instance variables. This is expensive for
+  # large sets of fixtured data.
+  #
+  # = Dynamic fixtures with ERB
+  #
+  # Sometimes you don't care about the content of the fixtures as much as you care about the volume.
+  # In these cases, you can mix ERB in with your YAML fixtures to create a bunch of fixtures for load
+  # testing, like:
+  #
+  #   &lt;% 1.upto(1000) do |i| %&gt;
+  #   fix_&lt;%= i %&gt;:
+  #     id: &lt;%= i %&gt;
+  #     name: guy_&lt;%= i %&gt;
+  #   &lt;% end %&gt;
+  #
+  # This will create 1000 very simple fixtures.
+  #
+  # Using ERB, you can also inject dynamic values into your fixtures with inserts like
+  # &lt;tt&gt;&lt;%= Date.today.strftime("%Y-%m-%d") %&gt;&lt;/tt&gt;.
+  # This is however a feature to be used with some caution. The point of fixtures are that they're
+  # stable units of predictable sample data. If you feel that you need to inject dynamic values, then
+  # perhaps you should reexamine whether your application is properly testable. Hence, dynamic values
+  # in fixtures are to be considered a code smell.
+  #
+  # Helper methods defined in a fixture will not be available in other fixtures, to prevent against
+  # unwanted inter-test dependencies. Methods used by multiple fixtures should be defined in a module
+  # that is included in ActiveRecord::FixtureSet.context_class.
+  #
+  # - define a helper method in &lt;tt&gt;test_helper.rb&lt;/tt&gt;
+  #     module FixtureFileHelpers
+  #       def file_sha(path)
+  #         Digest::SHA2.hexdigest(File.read(Rails.root.join('test/fixtures', path)))
+  #       end
+  #     end
+  #     ActiveRecord::FixtureSet.context_class.include FixtureFileHelpers
+  #
+  # - use the helper method in a fixture
+  #     photo:
+  #       name: kitten.png
+  #       sha: &lt;%= file_sha 'files/kitten.png' %&gt;
+  #
+  # = Transactional Tests
+  #
+  # Test cases can use begin+rollback to isolate their changes to the database instead of having to
+  # delete+insert for every test case.
+  #
+  #   class FooTest &lt; ActiveSupport::TestCase
+  #     self.use_transactional_tests = true
+  #
+  #     test "godzilla" do
+  #       assert !Foo.all.empty?
+  #       Foo.destroy_all
+  #       assert Foo.all.empty?
+  #     end
+  #
+  #     test "godzilla aftermath" do
+  #       assert !Foo.all.empty?
+  #     end
+  #   end
+  #
+  # If you preload your test database with all fixture data (probably in the rake task) and use
+  # transactional tests, then you may omit all fixtures declarations in your test cases since
+  # all the data's already there and every case rolls back its changes.
+  #
+  # In order to use instantiated fixtures with preloaded data, set +self.pre_loaded_fixtures+ to
+  # true. This will provide access to fixture data for every table that has been loaded through
+  # fixtures (depending on the value of +use_instantiated_fixtures+).
+  #
+  # When *not* to use transactional tests:
+  #
+  # 1. You're testing whether a transaction works correctly. Nested transactions don't commit until
+  #    all parent transactions commit, particularly, the fixtures transaction which is begun in setup
+  #    and rolled back in teardown. Thus, you won't be able to verify
+  #    the results of your transaction until Active Record supports nested transactions or savepoints (in progress).
+  # 2. Your database does not support transactions. Every Active Record database supports transactions except MySQL MyISAM.
+  #    Use InnoDB, MaxDB, or NDB instead.
+  #
+  # = Advanced Fixtures
+  #
+  # Fixtures that don't specify an ID get some extra features:
+  #
+  # * Stable, autogenerated IDs
+  # * Label references for associations (belongs_to, has_one, has_many)
+  # * HABTM associations as inline lists
+  #
+  # There are some more advanced features available even if the id is specified:
+  #
+  # * Autofilled timestamp columns
+  # * Fixture label interpolation
+  # * Support for YAML defaults
+  #
+  # == Stable, Autogenerated IDs
+  #
+  # Here, have a monkey fixture:
+  #
+  #   george:
+  #     id: 1
+  #     name: George the Monkey
+  #
+  #   reginald:
+  #     id: 2
+  #     name: Reginald the Pirate
+  #
+  # Each of these fixtures has two unique identifiers: one for the database
+  # and one for the humans. Why don't we generate the primary key instead?
+  # Hashing each fixture's label yields a consistent ID:
+  #
+  #   george: # generated id: 503576764
+  #     name: George the Monkey
+  #
+  #   reginald: # generated id: 324201669
+  #     name: Reginald the Pirate
+  #
+  # Active Record looks at the fixture's model class, discovers the correct
+  # primary key, and generates it right before inserting the fixture
+  # into the database.
+  #
+  # The generated ID for a given label is constant, so we can discover
+  # any fixture's ID without loading anything, as long as we know the label.
+  #
+  # == Label references for associations (belongs_to, has_one, has_many)
+  #
+  # Specifying foreign keys in fixtures can be very fragile, not to
+  # mention difficult to read. Since Active Record can figure out the ID of
+  # any fixture from its label, you can specify FK's by label instead of ID.
+  #
+  # === belongs_to
+  #
+  # Let's break out some more monkeys and pirates.
+  #
+  #   ### in pirates.yml
+  #
+  #   reginald:
+  #     id: 1
+  #     name: Reginald the Pirate
+  #     monkey_id: 1
+  #
+  #   ### in monkeys.yml
+  #
+  #   george:
+  #     id: 1
+  #     name: George the Monkey
+  #     pirate_id: 1
+  #
+  # Add a few more monkeys and pirates and break this into multiple files,
+  # and it gets pretty hard to keep track of what's going on. Let's
+  # use labels instead of IDs:
+  #
+  #   ### in pirates.yml
+  #
+  #   reginald:
+  #     name: Reginald the Pirate
+  #     monkey: george
+  #
+  #   ### in monkeys.yml
+  #
+  #   george:
+  #     name: George the Monkey
+  #     pirate: reginald
+  #
+  # Pow! All is made clear. Active Record reflects on the fixture's model class,
+  # finds all the +belongs_to+ associations, and allows you to specify
+  # a target *label* for the *association* (monkey: george) rather than
+  # a target *id* for the *FK* (&lt;tt&gt;monkey_id: 1&lt;/tt&gt;).
+  #
+  # ==== Polymorphic belongs_to
+  #
+  # Supporting polymorphic relationships is a little bit more complicated, since
+  # Active Record needs to know what type your association is pointing at. Something
+  # like this should look familiar:
+  #
+  #   ### in fruit.rb
+  #
+  #   belongs_to :eater, polymorphic: true
+  #
+  #   ### in fruits.yml
+  #
+  #   apple:
+  #     id: 1
+  #     name: apple
+  #     eater_id: 1
+  #     eater_type: Monkey
+  #
+  # Can we do better? You bet!
+  #
+  #   apple:
+  #     eater: george (Monkey)
+  #
+  # Just provide the polymorphic target type and Active Record will take care of the rest.
+  #
+  # === has_and_belongs_to_many
+  #
+  # Time to give our monkey some fruit.
+  #
+  #   ### in monkeys.yml
+  #
+  #   george:
+  #     id: 1
+  #     name: George the Monkey
+  #
+  #   ### in fruits.yml
+  #
+  #   apple:
+  #     id: 1
+  #     name: apple
+  #
+  #   orange:
+  #     id: 2
+  #     name: orange
+  #
+  #   grape:
+  #     id: 3
+  #     name: grape
+  #
+  #   ### in fruits_monkeys.yml
+  #
+  #   apple_george:
+  #     fruit_id: 1
+  #     monkey_id: 1
+  #
+  #   orange_george:
+  #     fruit_id: 2
+  #     monkey_id: 1
+  #
+  #   grape_george:
+  #     fruit_id: 3
+  #     monkey_id: 1
+  #
+  # Let's make the HABTM fixture go away.
+  #
+  #   ### in monkeys.yml
+  #
+  #   george:
+  #     id: 1
+  #     name: George the Monkey
+  #     fruits: apple, orange, grape
+  #
+  #   ### in fruits.yml
+  #
+  #   apple:
+  #     name: apple
+  #
+  #   orange:
+  #     name: orange
+  #
+  #   grape:
+  #     name: grape
+  #
+  # Zap! No more fruits_monkeys.yml file. We've specified the list of fruits
+  # on George's fixture, but we could've just as easily specified a list
+  # of monkeys on each fruit. As with +belongs_to+, Active Record reflects on
+  # the fixture's model class and discovers the +has_and_belongs_to_many+
+  # associations.
+  #
+  # == Autofilled Timestamp Columns
+  #
+  # If your table/model specifies any of Active Record's
+  # standard timestamp columns (+created_at+, +created_on+, +updated_at+, +updated_on+),
+  # they will automatically be set to &lt;tt&gt;Time.now&lt;/tt&gt;.
+  #
+  # If you've set specific values, they'll be left alone.
+  #
+  # == Fixture label interpolation
+  #
+  # The label of the current fixture is always available as a column value:
+  #
+  #   geeksomnia:
+  #     name: Geeksomnia's Account
+  #     subdomain: $LABEL
+  #     email: $LABEL@email.com
+  #
+  # Also, sometimes (like when porting older join table fixtures) you'll need
+  # to be able to get a hold of the identifier for a given label. ERB
+  # to the rescue:
+  #
+  #   george_reginald:
+  #     monkey_id: &lt;%= ActiveRecord::FixtureSet.identify(:reginald) %&gt;
+  #     pirate_id: &lt;%= ActiveRecord::FixtureSet.identify(:george) %&gt;
+  #
+  # == Support for YAML defaults
+  #
+  # You can set and reuse defaults in your fixtures YAML file.
+  # This is the same technique used in the +database.yml+ file to specify
+  # defaults:
+  #
+  #   DEFAULTS: &amp;DEFAULTS
+  #     created_on: &lt;%= 3.weeks.ago.to_s(:db) %&gt;
+  #
+  #   first:
+  #     name: Smurf
+  #     &lt;&lt;: *DEFAULTS
+  #
+  #   second:
+  #     name: Fraggle
+  #     &lt;&lt;: *DEFAULTS
+  #
+  # Any fixture labeled "DEFAULTS" is safely ignored.
+  #
+  # == Configure the fixture model class
+  #
+  # It's possible to set the fixture's model class directly in the YAML file.
+  # This is helpful when fixtures are loaded outside tests and
+  # +set_fixture_class+ is not available (e.g.
+  # when running &lt;tt&gt;rails db:fixtures:load&lt;/tt&gt;).
+  #
+  #   _fixture:
+  #     model_class: User
+  #   david:
+  #     name: David
+  #
+  # Any fixtures labeled "_fixture" are safely ignored.
+  class FixtureSet
+    #--
+    # An instance of FixtureSet is normally stored in a single YAML file and
+    # possibly in a folder with the same name.
+    #++
+&nbsp;
+    MAX_ID = 2**30 - 1
+&nbsp;
+    @@all_cached_fixtures = Hash.new { |h, k| h[k] = {} }
+&nbsp;
+    def self.default_fixture_model_name(fixture_set_name, config = <span class="cstat-no" title="statement not covered" >ActiveRecord::Base</span>) # :nodoc:
+      config.pluralize_table_names ?
+        fixture_set_name.singularize.camelize :
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="else path not taken" >E</span>fixture_set_name.camelize</span>
+    end
+&nbsp;
+    def self.default_fixture_table_name(fixture_set_name, config = <span class="cstat-no" title="statement not covered" >ActiveRecord::Base</span>) # :nodoc:
+      "#{ config.table_name_prefix }"\
+      "#{ fixture_set_name.tr('/', '_') }"\
+      "#{ config.table_name_suffix }".to_sym
+    end
+&nbsp;
+    def self.reset_cache
+      @@all_cached_fixtures.clear
+    end
+&nbsp;
+    def self.cache_for_connection(connection)
+      @@all_cached_fixtures[connection]
+    end
+&nbsp;
+    def self.fixture_is_cached?(connection, table_name)
+      cache_for_connection(connection)[table_name]
+    end
+&nbsp;
+    def self.cached_fixtures(connection, keys_to_fetch = <span class="cstat-no" title="statement not covered" >nil</span>)
+      if keys_to_fetch
+        cache_for_connection(connection).values_at(*keys_to_fetch)
+      else
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="else path not taken" >E</span>cache_for_connection(connection).values</span>
+      end
+    end
+&nbsp;
+    def self.cache_fixtures(connection, fixtures_map)
+      cache_for_connection(connection).update(fixtures_map)
+    end
+&nbsp;
+    def self.instantiate_fixtures(object, fixture_set, load_instances = <span class="cstat-no" title="statement not covered" >true</span>)
+      if load_instances
+        fixture_set.each do |fixture_name, fixture|
+          begin
+            object.instance_variable_set "@#{fixture_name}", fixture.find
+          rescue FixtureClassNotFound
+            nil
+          end
+        end
+      end
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def self.instantiate_all_loaded_fixtures(object, load_instances = <span class="cstat-no" title="statement not covered" >true</span>)</span>
+<span class="cstat-no" title="statement not covered" >      all_loaded_fixtures.each_value <span class="fstat-no" title="function not covered" >do |fixture_set|</span></span>
+<span class="cstat-no" title="statement not covered" >        instantiate_fixtures(object, fixture_set, load_instances)</span>
+      end
+    end
+&nbsp;
+    cattr_accessor :all_loaded_fixtures, default: {}
+&nbsp;
+    class ClassCache
+      def initialize(class_names, config)
+        @class_names = class_names.stringify_keys
+        @config      = config
+&nbsp;
+        # Remove string values that aren't constants or subclasses of AR
+        @class_names.delete_if { |klass_name, klass| !insert_class(@class_names, klass_name, klass) }
+      end
+&nbsp;
+      def [](fs_name)
+        @class_names.fetch(fs_name) {
+          klass = default_fixture_model(fs_name, @config).safe_constantize
+          insert_class(@class_names, fs_name, klass)
+        }
+      end
+&nbsp;
+      private
+&nbsp;
+        def insert_class(class_names, name, klass)
+          # We only want to deal with AR objects.
+          if klass &amp;&amp; klass &lt; ActiveRecord::Base
+            class_names[name] = klass
+          else
+            class_names[name] = nil
+          end
+        end
+&nbsp;
+        def default_fixture_model(fs_name, config)
+          ActiveRecord::FixtureSet.default_fixture_model_name(fs_name, config)
+        end
+    end
+&nbsp;
+    def self.create_fixtures(fixtures_directory, fixture_set_names, class_names = {}, config = ActiveRecord::Base)
+      fixture_set_names = Array(fixture_set_names).map(&amp;:to_s)
+      class_names = ClassCache.new class_names, config
+&nbsp;
+      # FIXME: Apparently JK uses this.
+      connection = block_given? ? yield : ActiveRecord::Base.connection
+&nbsp;
+      files_to_read = fixture_set_names.reject { |fs_name|
+        fixture_is_cached?(connection, fs_name)
+      }
+&nbsp;
+      unless files_to_read.empty?
+        connection.disable_referential_integrity do
+          fixtures_map = {}
+&nbsp;
+          fixture_sets = files_to_read.map do |fs_name|
+            klass = class_names[fs_name]
+            conn = klass ? klass.connection : connection
+            fixtures_map[fs_name] = new( # ActiveRecord::FixtureSet.new
+              conn,
+              fs_name,
+              klass,
+              ::File.join(fixtures_directory, fs_name))
+          end
+&nbsp;
+          update_all_loaded_fixtures fixtures_map
+&nbsp;
+          connection.transaction(requires_new: true) do
+            deleted_tables = Hash.new { |h, k| h[k] = Set.new }
+            fixture_sets.each do |fs|
+              conn = fs.model_class.respond_to?(:connection) ? fs.model_class.connection : connection
+              table_rows = fs.table_rows
+&nbsp;
+              table_rows.each_key do |table|
+                unless deleted_tables[conn].include? table
+                  conn.delete "DELETE FROM #{conn.quote_table_name(table)}", "Fixture Delete"
+                end
+                deleted_tables[conn] &lt;&lt; table
+              end
+&nbsp;
+              table_rows.each do |fixture_set_name, rows|
+                conn.insert_fixtures(rows, fixture_set_name)
+              end
+&nbsp;
+              # Cap primary key sequences to max(pk).
+              if conn.respond_to?(:reset_pk_sequence!)
+                conn.reset_pk_sequence!(fs.table_name)
+              end
+            end
+          end
+&nbsp;
+          cache_fixtures(connection, fixtures_map)
+        end
+      end
+      cached_fixtures(connection, fixture_set_names)
+    end
+&nbsp;
+    # Returns a consistent, platform-independent identifier for +label+.
+    # Integer identifiers are values less than 2^30. UUIDs are RFC 4122 version 5 SHA-1 hashes.
+    def self.identify(label, column_type = :integer)
+      if column_type == :uuid
+        Digest::UUID.uuid_v5(Digest::UUID::OID_NAMESPACE, label.to_s)
+      else
+        Zlib.crc32(label.to_s) % MAX_ID
+      end
+    end
+&nbsp;
+    # Superclass for the evaluation contexts used by ERB fixtures.
+    def self.context_class
+      @context_class ||= Class.new
+    end
+&nbsp;
+    def self.update_all_loaded_fixtures(fixtures_map) # :nodoc:
+      all_loaded_fixtures.update(fixtures_map)
+    end
+&nbsp;
+    attr_reader :table_name, :name, :fixtures, :model_class, :config
+&nbsp;
+    def initialize(connection, name, class_name, path, config = ActiveRecord::Base)
+      @name     = name
+      @path     = path
+      @config   = config
+&nbsp;
+      self.model_class = class_name
+&nbsp;
+      @fixtures = read_fixture_files(path)
+&nbsp;
+      @connection = connection
+&nbsp;
+      @table_name = (model_class.respond_to?(:table_name) ?
+                      model_class.table_name :
+                      self.class.default_fixture_table_name(name, config))
+    end
+&nbsp;
+    def [](x)
+      fixtures[x]
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def []=(k, v)</span>
+<span class="cstat-no" title="statement not covered" >      fixtures[k] = v</span>
+    end
+&nbsp;
+    def each(&amp;block)
+      fixtures.each(&amp;block)
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def size</span>
+<span class="cstat-no" title="statement not covered" >      fixtures.size</span>
+    end
+&nbsp;
+    # Returns a hash of rows to be inserted. The key is the table, the value is
+    # a list of rows to insert to that table.
+    def table_rows
+      now = config.default_timezone == :utc ? Time.now.utc : <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>Time.now</span>
+&nbsp;
+      # allow a standard key to be used for doing defaults in YAML
+      fixtures.delete("DEFAULTS")
+&nbsp;
+      # track any join tables we need to insert later
+      rows = Hash.new { |h, table| h[table] = [] }
+&nbsp;
+      rows[table_name] = fixtures.map do |label, fixture|
+        row = fixture.to_hash
+&nbsp;
+        if model_class
+          # fill in timestamp columns if they aren't specified and the model is set to record_timestamps
+          if model_class.record_timestamps
+            timestamp_column_names.each do |c_name|
+              row[c_name] = now unless row.key?(c_name)
+            end
+          end
+&nbsp;
+          # interpolate the fixture label
+          row.each do |key, value|
+            row[key] = value.gsub("$LABEL", label.to_s) if value.is_a?(String)
+          end
+&nbsp;
+          # generate a primary key if necessary
+          if has_primary_key_column? &amp;&amp; !row.include?(primary_key_name)
+            row[primary_key_name] = ActiveRecord::FixtureSet.identify(label, primary_key_type)
+          end
+&nbsp;
+          # Resolve enums
+          model_class.defined_enums.each do |name, values|
+            if row.include?(name)
+              row[name] = values.fetch(row[name], row[name])
+            end
+          end
+&nbsp;
+          # If STI is used, find the correct subclass for association reflection
+          reflection_class =
+            if row.include?(inheritance_column_name)
+              row[inheritance_column_name].constantize rescue model_class
+            else
+              model_class
+            end
+&nbsp;
+          reflection_class._reflections.each_value do |association|
+            case association.macro
+            when :belongs_to
+              # Do not replace association name with association foreign key if they are named the same
+              fk_name = (association.options[:foreign_key] || "#{association.name}_id").to_s
+&nbsp;
+              if association.name.to_s != fk_name &amp;&amp; value = row.delete(association.name.to_s)
+                if association.polymorphic? &amp;&amp; value.sub!(/\s*\(([^\)]*)\)\s*$/, "")
+                  # support polymorphic belongs_to as "label (Type)"
+                  row[association.foreign_type] = $1
+                end
+&nbsp;
+                fk_type = reflection_class.type_for_attribute(fk_name).type
+                row[fk_name] = ActiveRecord::FixtureSet.identify(value, fk_type)
+              end
+            when :has_many
+              if association.options[:through]
+                add_join_records(rows, row, HasManyThroughProxy.new(association))
+              end
+            end
+          end
+        end
+&nbsp;
+        row
+      end
+      rows
+    end
+&nbsp;
+    class ReflectionProxy # :nodoc:
+      def initialize(association)
+        @association = association
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def join_table</span>
+<span class="cstat-no" title="statement not covered" >        @association.join_table</span>
+      end
+&nbsp;
+      def name
+        @association.name
+      end
+&nbsp;
+      def primary_key_type
+        @association.klass.type_for_attribute(@association.klass.primary_key).type
+      end
+    end
+&nbsp;
+    class HasManyThroughProxy &lt; ReflectionProxy # :nodoc:
+      def rhs_key
+        @association.foreign_key
+      end
+&nbsp;
+      def lhs_key
+        @association.through_reflection.foreign_key
+      end
+&nbsp;
+      def join_table
+        @association.through_reflection.table_name
+      end
+    end
+&nbsp;
+    private
+      def primary_key_name
+        @primary_key_name ||= <span class="branch-1 cbranch-no" title="branch not covered" >model_class &amp;&amp; model_class.primary_key</span>
+      end
+&nbsp;
+      def primary_key_type
+        @primary_key_type ||= <span class="branch-1 cbranch-no" title="branch not covered" >model_class &amp;&amp; model_class.type_for_attribute(model_class.primary_key).type</span>
+      end
+&nbsp;
+      def add_join_records(rows, row, association)
+        # This is the case when the join table has no fixtures file
+        if (targets = row.delete(association.name.to_s))
+          table_name  = association.join_table
+          column_type = association.primary_key_type
+          lhs_key     = association.lhs_key
+          rhs_key     = association.rhs_key
+&nbsp;
+          targets = targets.is_a?(Array) ? targets : targets.split(/\s*,\s*/)
+          rows[table_name].concat targets.map { |target|
+            { lhs_key =&gt; row[primary_key_name],
+              rhs_key =&gt; ActiveRecord::FixtureSet.identify(target, column_type) }
+          }
+        end
+      end
+&nbsp;
+      def has_primary_key_column?
+        @has_primary_key_column ||= primary_key_name &amp;&amp;
+          model_class.columns.any? { |c| c.name == primary_key_name }
+      end
+&nbsp;
+      def timestamp_column_names
+        @timestamp_column_names ||=
+          %w(created_at created_on updated_at updated_on) &amp; column_names
+      end
+&nbsp;
+      def inheritance_column_name
+        @inheritance_column_name ||= <span class="branch-1 cbranch-no" title="branch not covered" >model_class &amp;&amp; model_class.inheritance_column</span>
+      end
+&nbsp;
+      def column_names
+        @column_names ||= @connection.columns(@table_name).collect(&amp;:name)
+      end
+&nbsp;
+      def model_class=(class_name)
+        if class_name.is_a?(Class) # TODO: Should be an AR::Base type class, or any?
+          @model_class = class_name
+        else
+          @model_class = class_name.safe_constantize if class_name
+        end
+      end
+&nbsp;
+      # Loads the fixtures from the YAML file at +path+.
+      # If the file sets the +model_class+ and current instance value is not set,
+      # it uses the file value.
+      def read_fixture_files(path)
+        yaml_files = Dir["#{path}/{**,*}/*.yml"].select { |f|
+          ::File.file?(f)
+        } + [yaml_file_path(path)]
+&nbsp;
+        yaml_files.each_with_object({}) do |file, fixtures|
+          FixtureSet::File.open(file) do |fh|
+            self.model_class ||= fh.model_class if fh.model_class
+            fh.each do |fixture_name, row|
+              fixtures[fixture_name] = ActiveRecord::Fixture.new(row, model_class)
+            end
+          end
+        end
+      end
+&nbsp;
+      def yaml_file_path(path)
+        "#{path}.yml"
+      end
+  end
+&nbsp;
+  class Fixture #:nodoc:
+    include Enumerable
+&nbsp;
+    class FixtureError &lt; StandardError #:nodoc:
+    end
+&nbsp;
+    class FormatError &lt; FixtureError #:nodoc:
+    end
+&nbsp;
+    attr_reader :model_class, :fixture
+&nbsp;
+    def initialize(fixture, model_class)
+      @fixture     = fixture
+      @model_class = model_class
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def class_name</span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >      model_class.name</span> if model_class</span>
+    end
+&nbsp;
+    def each
+      fixture.each { |item| yield item }
+    end
+&nbsp;
+    def [](key)
+      fixture[key]
+    end
+&nbsp;
+    alias :to_hash :fixture
+&nbsp;
+    def find
+      if model_class
+        model_class.unscoped do
+          model_class.find(fixture[model_class.primary_key])
+        end
+      else
+        raise FixtureClassNotFound, "No class attached to find."
+      end
+    end
+  end
+end
+&nbsp;
+module ActiveRecord
+  module TestFixtures
+    extend ActiveSupport::Concern
+&nbsp;
+    def before_setup # :nodoc:
+      setup_fixtures
+      super
+    end
+&nbsp;
+    def after_teardown # :nodoc:
+      super
+      teardown_fixtures
+    end
+&nbsp;
+    included do
+      class_attribute :fixture_path, instance_writer: false
+      class_attribute :fixture_table_names, default: []
+      class_attribute :fixture_class_names, default: {}
+      class_attribute :use_transactional_tests, default: true
+      class_attribute :use_instantiated_fixtures, default: false # true, false, or :no_instances
+      class_attribute :pre_loaded_fixtures, default: false
+      class_attribute :config, default: ActiveRecord::Base
+    end
+&nbsp;
+    module ClassMethods
+      # Sets the model class for a fixture when the class name cannot be inferred from the fixture name.
+      #
+      # Examples:
+      #
+      #   set_fixture_class some_fixture:        SomeModel,
+      #                     'namespaced/fixture' =&gt; Another::Model
+      #
+      # The keys must be the fixture names, that coincide with the short paths to the fixture files.
+      def set_fixture_class(class_names = <span class="cstat-no" title="statement not covered" >{}</span>)
+        self.fixture_class_names = fixture_class_names.merge(class_names.stringify_keys)
+      end
+&nbsp;
+      def fixtures(*fixture_set_names)
+        if fixture_set_names.first == :all
+          fixture_set_names = Dir["#{fixture_path}/{**,*}/*.{yml}"].uniq
+          fixture_set_names.map! { |f| f[(fixture_path.to_s.size + 1)..-5] }
+        else
+          fixture_set_names = fixture_set_names.flatten.map(&amp;:to_s)
+        end
+&nbsp;
+        self.fixture_table_names |= fixture_set_names
+        setup_fixture_accessors(fixture_set_names)
+      end
+&nbsp;
+      def setup_fixture_accessors(fixture_set_names = <span class="cstat-no" title="statement not covered" >nil</span>)
+        fixture_set_names = Array(fixture_set_names || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >fixture_table_names</span></span>)
+        methods = Module.new do
+          fixture_set_names.each do |fs_name|
+            fs_name = fs_name.to_s
+            accessor_name = fs_name.tr("/", "_").to_sym
+&nbsp;
+            define_method(accessor_name) do |*fixture_names|
+              force_reload = fixture_names.pop if fixture_names.last == true || fixture_names.last == :reload
+              return_single_record = fixture_names.size == 1
+              fixture_names = @loaded_fixtures[fs_name].fixtures.keys if fixture_names.empty?
+&nbsp;
+              @fixture_cache[fs_name] ||= {}
+&nbsp;
+              instances = fixture_names.map do |f_name|
+                f_name = f_name.to_s if f_name.is_a?(Symbol)
+                @fixture_cache[fs_name].delete(f_name) if force_reload
+&nbsp;
+                if @loaded_fixtures[fs_name][f_name]
+                  @fixture_cache[fs_name][f_name] ||= @loaded_fixtures[fs_name][f_name].find
+                else
+                  raise StandardError, "No fixture named '#{f_name}' found for fixture set '#{fs_name}'"
+                end
+              end
+&nbsp;
+              return_single_record ? instances.first : instances
+            end
+            private accessor_name
+          end
+        end
+        include methods
+      end
+&nbsp;
+<span class="fstat-no" title="function not covered" >      def uses_transaction(*methods)</span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >        @uses_transaction = []</span> unless defined?(@uses_transaction)</span>
+<span class="cstat-no" title="statement not covered" >        @uses_transaction.concat methods.map(&amp;:to_s)</span>
+      end
+&nbsp;
+      def uses_transaction?(method)
+        @uses_transaction = [] unless defined?(@uses_transaction)
+        @uses_transaction.include?(method.to_s)
+      end
+    end
+&nbsp;
+    def run_in_transaction?
+      use_transactional_tests &amp;&amp;
+        !self.class.uses_transaction?(method_name)
+    end
+&nbsp;
+    def setup_fixtures(config = ActiveRecord::Base)
+      if pre_loaded_fixtures &amp;&amp; <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >!use_transactional_tests</span></span>
+<span class="cstat-no" title="statement not covered" >        raise <span class="cstat-no" title="statement not covered" >RuntimeError</span>, <span class="cstat-no" title="statement not covered" >"pre_loaded_fixtures requires use_transactional_tests"</span></span>
+      end
+&nbsp;
+      @fixture_cache = {}
+      @fixture_connections = []
+      @@already_loaded_fixtures ||= {}
+      @connection_subscriber = nil
+&nbsp;
+      # Load fixtures once and begin transaction.
+      if run_in_transaction?
+        if @@already_loaded_fixtures[self.class]
+          @loaded_fixtures = @@already_loaded_fixtures[self.class]
+        else
+          @loaded_fixtures = load_fixtures(config)
+          @@already_loaded_fixtures[self.class] = @loaded_fixtures
+        end
+&nbsp;
+        # Begin transactions for connections already established
+        @fixture_connections = enlist_fixture_connections
+        @fixture_connections.each do |connection|
+          connection.begin_transaction joinable: false
+          connection.pool.lock_thread = true
+        end
+&nbsp;
+        # When connections are established in the future, begin a transaction too
+        @connection_subscriber = ActiveSupport::Notifications.subscribe("!connection.active_record") do |_, _, _, _, payload|
+          <span class="missing-if-branch" title="else path not taken" >E</span>spec_name = payload[:spec_name] if payload.key?(:spec_name)
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if spec_name
+            begin
+              connection = ActiveRecord::Base.connection_handler.retrieve_connection(spec_name)
+            rescue ConnectionNotEstablished
+              connection = nil
+            end
+&nbsp;
+            if connection &amp;&amp; !@fixture_connections.include?(connection)
+              connection.begin_transaction joinable: false
+              connection.pool.lock_thread = true
+              @fixture_connections &lt;&lt; connection
+            end
+          end
+        end
+&nbsp;
+      # Load fixtures for every test.
+      else
+        ActiveRecord::FixtureSet.reset_cache
+        @@already_loaded_fixtures[self.class] = nil
+        @loaded_fixtures = load_fixtures(config)
+      end
+&nbsp;
+      # Instantiate fixtures for every test if requested.
+      instantiate_fixtures if use_instantiated_fixtures
+    end
+&nbsp;
+    def teardown_fixtures
+      # Rollback changes if a transaction is active.
+      if run_in_transaction?
+        ActiveSupport::Notifications.unsubscribe(@connection_subscriber) if @connection_subscriber
+        @fixture_connections.each do |connection|
+          connection.rollback_transaction if connection.transaction_open?
+          connection.pool.lock_thread = false
+        end
+        @fixture_connections.clear
+      else
+        ActiveRecord::FixtureSet.reset_cache
+      end
+&nbsp;
+      ActiveRecord::Base.clear_active_connections!
+    end
+&nbsp;
+    def enlist_fixture_connections
+      ActiveRecord::Base.connection_handler.connection_pool_list.map(&amp;:connection)
+    end
+&nbsp;
+    private
+      def load_fixtures(config)
+        fixtures = ActiveRecord::FixtureSet.create_fixtures(fixture_path, fixture_table_names, fixture_class_names, config)
+        Hash[fixtures.map { |f| [f.name, f] }]
+      end
+&nbsp;
+      def instantiate_fixtures
+        if pre_loaded_fixtures
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="else path not taken" >E</span><span class="missing-if-branch" title="if path not taken" >I</span>raise <span class="cstat-no" title="statement not covered" >RuntimeError</span>, <span class="cstat-no" title="statement not covered" >"Load fixtures before instantiating them."</span></span> if ActiveRecord::FixtureSet.all_loaded_fixtures.empty?</span>
+<span class="cstat-no" title="statement not covered" >          ActiveRecord::FixtureSet.instantiate_all_loaded_fixtures(self, load_instances?)</span>
+        else
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >RuntimeError</span>, <span class="cstat-no" title="statement not covered" >"Load fixtures before instantiating them."</span></span> if @loaded_fixtures.nil?
+          @loaded_fixtures.each_value do |fixture_set|
+            ActiveRecord::FixtureSet.instantiate_fixtures(self, fixture_set, load_instances?)
+          end
+        end
+      end
+&nbsp;
+      def load_instances?
+        use_instantiated_fixtures != :no_instances
+      end
+  end
+end
+&nbsp;
+class ActiveRecord::FixtureSet::RenderContext # :nodoc:
+  def self.create_subclass
+    Class.new ActiveRecord::FixtureSet.context_class do
+      def get_binding
+        binding()
+      end
+&nbsp;
+      def binary(path)
+        %(!!binary "#{Base64.strict_encode64(File.read(path))}")
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

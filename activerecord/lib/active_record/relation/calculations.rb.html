@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/relation/calculations.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/relation</a> calculations.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.46% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>184/185</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.18% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>108/110</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>32/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>148/149</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5203x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5185x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">98x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5808x</span>
+<span class="cline-any cline-yes">152x</span>
+<span class="cline-any cline-yes">152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5656x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1822x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1796x</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1753x</span>
+<span class="cline-any cline-yes">1753x</span>
+<span class="cline-any cline-yes">1777x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1753x</span>
+<span class="cline-any cline-yes">1753x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7604x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5656x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5656x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5656x</span>
+<span class="cline-any cline-yes">5179x</span>
+<span class="cline-any cline-yes">5179x</span>
+<span class="cline-any cline-yes">4666x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">513x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5656x</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5376x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5441x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5351x</span>
+<span class="cline-any cline-yes">1015x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4336x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5644x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5376x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5376x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">239x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5364x</span>
+<span class="cline-any cline-yes">5358x</span>
+<span class="cline-any cline-yes">5358x</span>
+<span class="cline-any cline-yes">5358x</span>
+<span class="cline-any cline-yes">3673x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5358x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">268x</span>
+<span class="cline-any cline-yes">268x</span>
+<span class="cline-any cline-yes">268x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">176x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">292x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">280x</span>
+<span class="cline-any cline-yes">944x</span>
+<span class="cline-any cline-yes">1010x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1010x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">944x</span>
+<span class="cline-any cline-yes">944x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">944x</span>
+<span class="cline-any cline-yes">944x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">468x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5315x</span>
+<span class="cline-any cline-yes">5315x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7312x</span>
+<span class="cline-any cline-yes">5491x</span>
+<span class="cline-any cline-yes">585x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">1144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4273x</span>
+<span class="cline-any cline-yes">124x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4149x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">203x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">227x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Calculations
+    # Count the records.
+    #
+    #   Person.count
+    #   # =&gt; the total count of all people
+    #
+    #   Person.count(:age)
+    #   # =&gt; returns the total count of all people whose age is present in database
+    #
+    #   Person.count(:all)
+    #   # =&gt; performs a COUNT(*) (:all is an alias for '*')
+    #
+    #   Person.distinct.count(:age)
+    #   # =&gt; counts the number of different age values
+    #
+    # If #count is used with {Relation#group}[rdoc-ref:QueryMethods#group],
+    # it returns a Hash whose keys represent the aggregated column,
+    # and the values are the respective amounts:
+    #
+    #   Person.group(:city).count
+    #   # =&gt; { 'Rome' =&gt; 5, 'Paris' =&gt; 3 }
+    #
+    # If #count is used with {Relation#group}[rdoc-ref:QueryMethods#group] for multiple columns, it returns a Hash whose
+    # keys are an array containing the individual values of each column and the value
+    # of each key would be the #count.
+    #
+    #   Article.group(:status, :category).count
+    #   # =&gt;  {["draft", "business"]=&gt;10, ["draft", "technology"]=&gt;4,
+    #          ["published", "business"]=&gt;0, ["published", "technology"]=&gt;2}
+    #
+    # If #count is used with {Relation#select}[rdoc-ref:QueryMethods#select], it will count the selected columns:
+    #
+    #   Person.select(:age).count
+    #   # =&gt; counts the number of different age values
+    #
+    # Note: not all valid {Relation#select}[rdoc-ref:QueryMethods#select] expressions are valid #count expressions. The specifics differ
+    # between databases. In invalid cases, an error from the database is thrown.
+    def count(column_name = nil)
+      if block_given?
+        unless column_name.nil?
+          ActiveSupport::Deprecation.warn \
+            "When `count' is called with a block, it ignores other arguments. " \
+            "This behavior is now deprecated and will result in an ArgumentError in Rails 6.0."
+        end
+&nbsp;
+        return super()
+      end
+&nbsp;
+      calculate(:count, column_name)
+    end
+&nbsp;
+    # Calculates the average value on a given column. Returns +nil+ if there's
+    # no row. See #calculate for examples with options.
+    #
+    #   Person.average(:age) # =&gt; 35.8
+    def average(column_name)
+      calculate(:average, column_name)
+    end
+&nbsp;
+    # Calculates the minimum value on a given column. The value is returned
+    # with the same data type of the column, or +nil+ if there's no row. See
+    # #calculate for examples with options.
+    #
+    #   Person.minimum(:age) # =&gt; 7
+    def minimum(column_name)
+      calculate(:minimum, column_name)
+    end
+&nbsp;
+    # Calculates the maximum value on a given column. The value is returned
+    # with the same data type of the column, or +nil+ if there's no row. See
+    # #calculate for examples with options.
+    #
+    #   Person.maximum(:age) # =&gt; 93
+    def maximum(column_name)
+      calculate(:maximum, column_name)
+    end
+&nbsp;
+    # Calculates the sum of values on a given column. The value is returned
+    # with the same data type of the column, +0+ if there's no row. See
+    # #calculate for examples with options.
+    #
+    #   Person.sum(:age) # =&gt; 4562
+    def sum(column_name = nil)
+      if block_given?
+        unless column_name.nil?
+          ActiveSupport::Deprecation.warn \
+            "When `sum' is called with a block, it ignores other arguments. " \
+            "This behavior is now deprecated and will result in an ArgumentError in Rails 6.0."
+        end
+&nbsp;
+        return super()
+      end
+&nbsp;
+      calculate(:sum, column_name)
+    end
+&nbsp;
+    # This calculates aggregate values in the given column. Methods for #count, #sum, #average,
+    # #minimum, and #maximum have been added as shortcuts.
+    #
+    #   Person.calculate(:count, :all) # The same as Person.count
+    #   Person.average(:age) # SELECT AVG(age) FROM people...
+    #
+    #   # Selects the minimum age for any family without any minors
+    #   Person.group(:last_name).having("min(age) &gt; 17").minimum(:age)
+    #
+    #   Person.sum("2 * age")
+    #
+    # There are two basic forms of output:
+    #
+    # * Single aggregate value: The single value is type cast to Integer for COUNT, Float
+    #   for AVG, and the given column's type for everything else.
+    #
+    # * Grouped values: This returns an ordered hash of the values and groups them. It
+    #   takes either a column name, or the name of a belongs_to association.
+    #
+    #      values = Person.group('last_name').maximum(:age)
+    #      puts values["Drake"]
+    #      # =&gt; 43
+    #
+    #      drake  = Family.find_by(last_name: 'Drake')
+    #      values = Person.group(:family).maximum(:age) # Person belongs_to :family
+    #      puts values[drake]
+    #      # =&gt; 43
+    #
+    #      values.each do |family, max_age|
+    #        ...
+    #      end
+    def calculate(operation, column_name)
+      if has_include?(column_name)
+        relation = apply_join_dependency(construct_join_dependency)
+        relation.distinct! if operation.to_s.downcase == "count"
+&nbsp;
+        relation.calculate(operation, column_name)
+      else
+        perform_calculation(operation, column_name)
+      end
+    end
+&nbsp;
+    # Use #pluck as a shortcut to select one or more attributes without
+    # loading a bunch of records just to grab the attributes you want.
+    #
+    #   Person.pluck(:name)
+    #
+    # instead of
+    #
+    #   Person.all.map(&amp;:name)
+    #
+    # Pluck returns an Array of attribute values type-casted to match
+    # the plucked column names, if they can be deduced. Plucking an SQL fragment
+    # returns String values by default.
+    #
+    #   Person.pluck(:name)
+    #   # SELECT people.name FROM people
+    #   # =&gt; ['David', 'Jeremy', 'Jose']
+    #
+    #   Person.pluck(:id, :name)
+    #   # SELECT people.id, people.name FROM people
+    #   # =&gt; [[1, 'David'], [2, 'Jeremy'], [3, 'Jose']]
+    #
+    #   Person.distinct.pluck(:role)
+    #   # SELECT DISTINCT role FROM people
+    #   # =&gt; ['admin', 'member', 'guest']
+    #
+    #   Person.where(age: 21).limit(5).pluck(:id)
+    #   # SELECT people.id FROM people WHERE people.age = 21 LIMIT 5
+    #   # =&gt; [2, 3]
+    #
+    #   Person.pluck('DATEDIFF(updated_at, created_at)')
+    #   # SELECT DATEDIFF(updated_at, created_at) FROM people
+    #   # =&gt; ['0', '27761', '173']
+    #
+    # See also #ids.
+    #
+    def pluck(*column_names)
+      if loaded? &amp;&amp; (column_names.map(&amp;:to_s) - @klass.attribute_names - @klass.attribute_aliases.keys).empty?
+        return records.pluck(*column_names)
+      end
+&nbsp;
+      if has_include?(column_names.first)
+        relation = apply_join_dependency(construct_join_dependency)
+        relation.pluck(*column_names)
+      else
+        relation = spawn
+        relation.select_values = column_names.map { |cn|
+          @klass.has_attribute?(cn) || @klass.attribute_alias?(cn) ? arel_attribute(cn) : cn
+        }
+        result = skip_query_cache_if_necessary { klass.connection.select_all(relation.arel, nil) }
+        result.cast_values(klass.attribute_types)
+      end
+    end
+&nbsp;
+    # Pluck all the ID's for the relation using the table's primary key
+    #
+    #   Person.ids # SELECT people.id FROM people
+    #   Person.joins(:companies).ids # SELECT people.id FROM people INNER JOIN companies ON companies.person_id = people.id
+    def ids
+      pluck primary_key
+    end
+&nbsp;
+    private
+&nbsp;
+      def has_include?(column_name)
+        eager_loading? || (includes_values.present? &amp;&amp; column_name &amp;&amp; column_name != :all)
+      end
+&nbsp;
+      def perform_calculation(operation, column_name)
+        operation = operation.to_s.downcase
+&nbsp;
+        # If #count is used with #distinct (i.e. `relation.distinct.count`) it is
+        # considered distinct.
+        distinct = distinct_value
+&nbsp;
+        if operation == "count"
+          column_name ||= select_for_count
+          if column_name == :all
+            if distinct &amp;&amp; (group_values.any? || !(has_limit_or_offset? &amp;&amp; order_values.any?))
+              column_name = primary_key
+            end
+          elsif column_name =~ /\s*DISTINCT[\s(]+/i
+            distinct = nil
+          end
+        end
+&nbsp;
+        if group_values.any?
+          execute_grouped_calculation(operation, column_name, distinct)
+        else
+          execute_simple_calculation(operation, column_name, distinct)
+        end
+      end
+&nbsp;
+      def aggregate_column(column_name)
+        return column_name if Arel::Expressions === column_name
+&nbsp;
+        if @klass.has_attribute?(column_name.to_s) || @klass.attribute_alias?(column_name.to_s)
+          @klass.arel_attribute(column_name)
+        else
+          Arel.sql(column_name == :all ? "*" : column_name.to_s)
+        end
+      end
+&nbsp;
+      def operation_over_aggregate_column(column, operation, distinct)
+        operation == "count" ? column.count(distinct) : column.send(operation)
+      end
+&nbsp;
+      def execute_simple_calculation(operation, column_name, distinct) #:nodoc:
+        column_alias = column_name
+&nbsp;
+        if operation == "count" &amp;&amp; has_limit_or_offset?
+          # Shortcut when limit is zero.
+          return 0 if limit_value == 0
+&nbsp;
+          query_builder = build_count_subquery(spawn, column_name, distinct)
+        else
+          # PostgreSQL doesn't like ORDER BY when there are no GROUP BY
+          relation = unscope(:order).distinct!(false)
+&nbsp;
+          column = aggregate_column(column_name)
+&nbsp;
+          select_value = operation_over_aggregate_column(column, operation, distinct)
+          if operation == "sum" &amp;&amp; distinct
+            select_value.distinct = true
+          end
+&nbsp;
+          column_alias = select_value.alias
+          column_alias ||= @klass.connection.column_name_for_operation(operation, select_value)
+          relation.select_values = [select_value]
+&nbsp;
+          query_builder = relation.arel
+        end
+&nbsp;
+        result = skip_query_cache_if_necessary { @klass.connection.select_all(query_builder, nil) }
+        row    = result.first
+        value  = <span class="branch-1 cbranch-no" title="branch not covered" >row &amp;&amp; row.values.first</span>
+        type   = result.column_types.fetch(column_alias) do
+          type_for(column_name)
+        end
+&nbsp;
+        type_cast_calculated_value(value, type, operation)
+      end
+&nbsp;
+      def execute_grouped_calculation(operation, column_name, distinct) #:nodoc:
+        group_attrs = group_values
+&nbsp;
+        if group_attrs.first.respond_to?(:to_sym)
+          association  = @klass._reflect_on_association(group_attrs.first)
+          associated   = group_attrs.size == 1 &amp;&amp; association &amp;&amp; association.belongs_to? # only count belongs_to associations
+          group_fields = Array(associated ? association.foreign_key : group_attrs)
+        else
+          group_fields = group_attrs
+        end
+        group_fields = arel_columns(group_fields)
+&nbsp;
+        group_aliases = group_fields.map { |field| column_alias_for(field) }
+        group_columns = group_aliases.zip(group_fields)
+&nbsp;
+        if operation == "count" &amp;&amp; column_name == :all
+          aggregate_alias = "count_all"
+        else
+          aggregate_alias = column_alias_for([operation, column_name].join(" "))
+        end
+&nbsp;
+        select_values = [
+          operation_over_aggregate_column(
+            aggregate_column(column_name),
+            operation,
+            distinct).as(aggregate_alias)
+        ]
+        select_values += self.select_values unless having_clause.empty?
+&nbsp;
+        select_values.concat group_columns.map { |aliaz, field|
+          if field.respond_to?(:as)
+            field.as(aliaz)
+          else
+            "#{field} AS #{aliaz}"
+          end
+        }
+&nbsp;
+        relation = except(:group).distinct!(false)
+        relation.group_values  = group_fields
+        relation.select_values = select_values
+&nbsp;
+        calculated_data = skip_query_cache_if_necessary { @klass.connection.select_all(relation.arel, nil) }
+&nbsp;
+        if association
+          key_ids     = calculated_data.collect { |row| row[group_aliases.first] }
+          key_records = association.klass.base_class.where(association.klass.base_class.primary_key =&gt; key_ids)
+          key_records = Hash[key_records.map { |r| [r.id, r] }]
+        end
+&nbsp;
+        Hash[calculated_data.map do |row|
+          key = group_columns.map { |aliaz, col_name|
+            type = type_for(col_name) do
+              calculated_data.column_types.fetch(aliaz, Type.default_value)
+            end
+            type_cast_calculated_value(row[aliaz], type)
+          }
+          key = key.first if key.size == 1
+          key = key_records[key] if associated
+&nbsp;
+          type = calculated_data.column_types.fetch(aggregate_alias) { type_for(column_name) }
+          [key, type_cast_calculated_value(row[aggregate_alias], type, operation)]
+        end]
+      end
+&nbsp;
+      # Converts the given keys to the value that the database adapter returns as
+      # a usable column name:
+      #
+      #   column_alias_for("users.id")                 # =&gt; "users_id"
+      #   column_alias_for("sum(id)")                  # =&gt; "sum_id"
+      #   column_alias_for("count(distinct users.id)") # =&gt; "count_distinct_users_id"
+      #   column_alias_for("count(*)")                 # =&gt; "count_all"
+      def column_alias_for(keys)
+        if keys.respond_to? :name
+          keys = "#{keys.relation.name}.#{keys.name}"
+        end
+&nbsp;
+        table_name = keys.to_s.downcase
+        table_name.gsub!(/\*/, "all")
+        table_name.gsub!(/\W+/, " ")
+        table_name.strip!
+        table_name.gsub!(/ +/, "_")
+&nbsp;
+        @klass.connection.table_alias_for(table_name)
+      end
+&nbsp;
+      def type_for(field, &amp;block)
+        field_name = field.respond_to?(:name) ? field.name.to_s : field.to_s.split(".").last
+        @klass.type_for_attribute(field_name, &amp;block)
+      end
+&nbsp;
+      def type_cast_calculated_value(value, type, operation = nil)
+        case operation
+        when "count"   then value.to_i
+        when "sum"     then type.deserialize(value || 0)
+        when "average" then value.respond_to?(:to_d) ? value.to_d : value
+        else type.deserialize(value)
+        end
+      end
+&nbsp;
+      def select_for_count
+        if select_values.present?
+          <span class="missing-if-branch" title="else path not taken" >E</span>return select_values.first if select_values.one?
+<span class="cstat-no" title="statement not covered" >          select_values.join(", ")</span>
+        else
+          :all
+        end
+      end
+&nbsp;
+      def build_count_subquery(relation, column_name, distinct)
+        relation.select_values = [
+          if column_name == :all
+            distinct ? table[Arel.star] : Arel.sql(FinderMethods::ONE_AS_ONE)
+          else
+            column_alias = Arel.sql("count_column")
+            aggregate_column(column_name).as(column_alias)
+          end
+        ]
+&nbsp;
+        subquery = relation.arel.as(Arel.sql("subquery_for_count"))
+        select_value = operation_over_aggregate_column(column_alias || Arel.star, "count", false)
+&nbsp;
+        Arel::SelectManager.new(subquery).project(select_value)
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

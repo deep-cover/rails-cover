@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/postgresql/oid/type_map_initializer.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters/postgresql/oid</a> type_map_initializer.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.14% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>72/79</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>30/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.28% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>57/58</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">220936x</span>
+<span class="cline-any cline-yes">220936x</span>
+<span class="cline-any cline-yes">194185x</span>
+<span class="cline-any cline-yes">189875x</span>
+<span class="cline-any cline-yes">189863x</span>
+<span class="cline-any cline-yes">186321x</span>
+<span class="cline-any cline-yes">1428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26751x</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-yes">3542x</span>
+<span class="cline-any cline-yes">184893x</span>
+<span class="cline-any cline-yes">4310x</span>
+<span class="cline-any cline-yes">1416x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">28320x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">26751x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">184893x</span>
+<span class="cline-any cline-yes">1035x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4310x</span>
+<span class="cline-any cline-yes">1242x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3542x</span>
+<span class="cline-any cline-yes">3542x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1416x</span>
+<span class="cline-any cline-yes">1416x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">36013x</span>
+<span class="cline-any cline-yes">36013x</span>
+<span class="cline-any cline-yes">31043x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4970x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">26751x</span>
+<span class="cline-any cline-yes">26751x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">189203x</span>
+<span class="cline-any cline-yes">31043x</span>
+<span class="cline-any cline-yes">2277x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">62764x</span>
+<span class="cline-any cline-yes">62764x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionAdapters
+    module PostgreSQL
+      module OID # :nodoc:
+        # This class uses the data from PostgreSQL pg_type table to build
+        # the OID -&gt; Type mapping.
+        #   - OID is an integer representing the type.
+        #   - Type is an OID::Type object.
+        # This class has side effects on the +store+ passed during initialization.
+        class TypeMapInitializer # :nodoc:
+          def initialize(store)
+            @store = store
+          end
+&nbsp;
+          def run(records)
+            nodes = records.reject { |row| @store.key? row["oid"].to_i }
+            mapped, nodes = nodes.partition { |row| @store.key? row["typname"] }
+            ranges, nodes = nodes.partition { |row| row["typtype"] == "r".freeze }
+            enums, nodes = nodes.partition { |row| row["typtype"] == "e".freeze }
+            domains, nodes = nodes.partition { |row| row["typtype"] == "d".freeze }
+            arrays, nodes = nodes.partition { |row| row["typinput"] == "array_in".freeze }
+            composites, nodes = nodes.partition { |row| row["typelem"].to_i != 0 }
+&nbsp;
+            mapped.each     { |row| register_mapped_type(row)    }
+            enums.each      { |row| register_enum_type(row)      }
+            domains.each    { |row| register_domain_type(row)    }
+            arrays.each     { |row| register_array_type(row)     }
+            ranges.each     { |row| register_range_type(row)     }
+            composites.each { |row| register_composite_type(row) }
+          end
+&nbsp;
+          def query_conditions_for_initial_load
+            known_type_names = @store.keys.map { |n| "'#{n}'" }
+            known_type_types = %w('r' 'e' 'd')
+            &lt;&lt;-SQL % [known_type_names.join(", "), known_type_types.join(", ")]
+              WHERE
+                t.typname IN (%s)
+                OR t.typtype IN (%s)
+                OR t.typinput = 'array_in(cstring,oid,integer)'::regprocedure
+                OR t.typelem != 0
+            SQL
+          end
+&nbsp;
+          private
+            def register_mapped_type(row)
+              alias_type row["oid"], row["typname"]
+            end
+&nbsp;
+            def register_enum_type(row)
+              register row["oid"], OID::Enum.new
+            end
+&nbsp;
+            def register_array_type(row)
+              register_with_subtype(row["oid"], row["typelem"].to_i) do |subtype|
+                OID::Array.new(subtype, row["typdelim"])
+              end
+            end
+&nbsp;
+            def register_range_type(row)
+              register_with_subtype(row["oid"], row["rngsubtype"].to_i) do |subtype|
+                OID::Range.new(subtype, row["typname"].to_sym)
+              end
+            end
+&nbsp;
+            def register_domain_type(row)
+              if base_type = @store.lookup(row["typbasetype"].to_i)
+                register row["oid"], base_type
+              else
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="else path not taken" >E</span>warn "unknown base type (OID: #{<span class="cstat-no" title="statement not covered" >row["typbasetype"]</span>}) for domain #{<span class="cstat-no" title="statement not covered" >row["typname"]</span>}."</span>
+              end
+            end
+&nbsp;
+            def register_composite_type(row)
+              <span class="missing-if-branch" title="else path not taken" >E</span>if subtype = @store.lookup(row["typelem"].to_i)
+                register row["oid"], OID::Vector.new(row["typdelim"], subtype)
+              end
+            end
+&nbsp;
+            def register(oid, oid_type = nil, &amp;block)
+              oid = assert_valid_registration(oid, oid_type || block)
+              if block_given?
+                @store.register_type(oid, &amp;block)
+              else
+                @store.register_type(oid, oid_type)
+              end
+            end
+&nbsp;
+            def alias_type(oid, target)
+              oid = assert_valid_registration(oid, target)
+              @store.alias_type(oid, target)
+            end
+&nbsp;
+            def register_with_subtype(oid, target_oid)
+              if @store.key?(target_oid)
+                register(oid) do |_, *args|
+                  yield @store.lookup(target_oid, *args)
+                end
+              end
+            end
+&nbsp;
+            def assert_valid_registration(oid, oid_type)
+<span class="cstat-no" title="statement not covered" >              raise <span class="cstat-no" title="statement not covered" >ArgumentError</span>, <span class="cstat-no" title="statement not covered" >"can't register nil type for OID #{<span class="cstat-no" title="statement not covered" >oid</span>}"</span></span> if oid_type.nil?
+              oid.to_i
+            end
+        end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

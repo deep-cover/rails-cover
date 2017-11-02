@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/errors.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> errors.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>105/105</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>11/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>91/91</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">454x</span>
+<span class="cline-any cline-yes">454x</span>
+<span class="cline-any cline-yes">454x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">454x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3049x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  # = Active Record Errors
+  #
+  # Generic Active Record exception class.
+  class ActiveRecordError &lt; StandardError
+  end
+&nbsp;
+  # Raised when the single-table inheritance mechanism fails to locate the subclass
+  # (for example due to improper usage of column that
+  # {ActiveRecord::Base.inheritance_column}[rdoc-ref:ModelSchema::ClassMethods#inheritance_column]
+  # points to).
+  class SubclassNotFound &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when an object assigned to an association has an incorrect type.
+  #
+  #   class Ticket &lt; ActiveRecord::Base
+  #     has_many :patches
+  #   end
+  #
+  #   class Patch &lt; ActiveRecord::Base
+  #     belongs_to :ticket
+  #   end
+  #
+  #   # Comments are not patches, this assignment raises AssociationTypeMismatch.
+  #   @ticket.patches &lt;&lt; Comment.new(content: "Please attach tests to your patch.")
+  class AssociationTypeMismatch &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when unserialized object's type mismatches one specified for serializable field.
+  class SerializationTypeMismatch &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when adapter not specified on connection (or configuration file
+  # +config/database.yml+ misses adapter field).
+  class AdapterNotSpecified &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when Active Record cannot find database adapter specified in
+  # +config/database.yml+ or programmatically.
+  class AdapterNotFound &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when connection to the database could not been established (for example when
+  # {ActiveRecord::Base.connection=}[rdoc-ref:ConnectionHandling#connection]
+  # is given a +nil+ object).
+  class ConnectionNotEstablished &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when Active Record cannot find a record by given id or set of ids.
+  class RecordNotFound &lt; ActiveRecordError
+    attr_reader :model, :primary_key, :id
+&nbsp;
+    def initialize(message = nil, model = nil, primary_key = nil, id = nil)
+      @primary_key = primary_key
+      @model = model
+      @id = id
+&nbsp;
+      super(message)
+    end
+  end
+&nbsp;
+  # Raised by {ActiveRecord::Base#save!}[rdoc-ref:Persistence#save!] and
+  # {ActiveRecord::Base.create!}[rdoc-ref:Persistence::ClassMethods#create!]
+  # methods when a record is invalid and can not be saved.
+  class RecordNotSaved &lt; ActiveRecordError
+    attr_reader :record
+&nbsp;
+    def initialize(message = nil, record = nil)
+      @record = record
+      super(message)
+    end
+  end
+&nbsp;
+  # Raised by {ActiveRecord::Base#destroy!}[rdoc-ref:Persistence#destroy!]
+  # when a call to {#destroy}[rdoc-ref:Persistence#destroy!]
+  # would return false.
+  #
+  #   begin
+  #     complex_operation_that_internally_calls_destroy!
+  #   rescue ActiveRecord::RecordNotDestroyed =&gt; invalid
+  #     puts invalid.record.errors
+  #   end
+  #
+  class RecordNotDestroyed &lt; ActiveRecordError
+    attr_reader :record
+&nbsp;
+    def initialize(message = nil, record = nil)
+      @record = record
+      super(message)
+    end
+  end
+&nbsp;
+  # Superclass for all database execution errors.
+  #
+  # Wraps the underlying database error as +cause+.
+  class StatementInvalid &lt; ActiveRecordError
+    def initialize(message = nil)
+      super(message || $!.try(:message))
+    end
+  end
+&nbsp;
+  # Defunct wrapper class kept for compatibility.
+  # StatementInvalid wraps the original exception now.
+  class WrappedDatabaseException &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised when a record cannot be inserted or updated because it would violate a uniqueness constraint.
+  class RecordNotUnique &lt; WrappedDatabaseException
+  end
+&nbsp;
+  # Raised when a record cannot be inserted or updated because it references a non-existent record.
+  class InvalidForeignKey &lt; WrappedDatabaseException
+  end
+&nbsp;
+  # Raised when a foreign key constraint cannot be added because the column type does not match the referenced column type.
+  class MismatchedForeignKey &lt; StatementInvalid
+    def initialize(adapter = nil, message: nil, table: nil, foreign_key: nil, target_table: nil, primary_key: nil)
+      @adapter = adapter
+      if table
+        msg = &lt;&lt;-EOM.strip_heredoc
+          Column `#{foreign_key}` on table `#{table}` has a type of `#{column_type(table, foreign_key)}`.
+          This does not match column `#{primary_key}` on `#{target_table}`, which has type `#{column_type(target_table, primary_key)}`.
+          To resolve this issue, change the type of the `#{foreign_key}` column on `#{table}` to be :integer. (For example `t.integer #{foreign_key}`).
+        EOM
+      else
+        msg = &lt;&lt;-EOM
+          There is a mismatch between the foreign key and primary key column types.
+          Verify that the foreign key column type and the primary key of the associated table match types.
+        EOM
+      end
+      if message
+        msg &lt;&lt; "\nOriginal message: #{message}"
+      end
+      super(msg)
+    end
+&nbsp;
+    private
+      def column_type(table, column)
+        @adapter.columns(table).detect { |c| c.name == column }.sql_type
+      end
+  end
+&nbsp;
+  # Raised when a record cannot be inserted or updated because it would violate a not null constraint.
+  class NotNullViolation &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised when a record cannot be inserted or updated because a value too long for a column type.
+  class ValueTooLong &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised when values that executed are out of range.
+  class RangeError &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised when number of bind variables in statement given to +:condition+ key
+  # (for example, when using {ActiveRecord::Base.find}[rdoc-ref:FinderMethods#find] method)
+  # does not match number of expected values supplied.
+  #
+  # For example, when there are two placeholders with only one value supplied:
+  #
+  #   Location.where("lat = ? AND lng = ?", 53.7362)
+  class PreparedStatementInvalid &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when a given database does not exist.
+  class NoDatabaseError &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised when PostgreSQL returns 'cached plan must not change result type' and
+  # we cannot retry gracefully (e.g. inside a transaction)
+  class PreparedStatementCacheExpired &lt; StatementInvalid
+  end
+&nbsp;
+  # Raised on attempt to save stale record. Record is stale when it's being saved in another query after
+  # instantiation, for example, when two users edit the same wiki page and one starts editing and saves
+  # the page before the other.
+  #
+  # Read more about optimistic locking in ActiveRecord::Locking module
+  # documentation.
+  class StaleObjectError &lt; ActiveRecordError
+    attr_reader :record, :attempted_action
+&nbsp;
+    def initialize(record = nil, attempted_action = nil)
+      if record &amp;&amp; attempted_action
+        @record = record
+        @attempted_action = attempted_action
+        super("Attempted to #{attempted_action} a stale object: #{record.class.name}.")
+      else
+        super("Stale object error.")
+      end
+    end
+  end
+&nbsp;
+  # Raised when association is being configured improperly or user tries to use
+  # offset and limit together with
+  # {ActiveRecord::Base.has_many}[rdoc-ref:Associations::ClassMethods#has_many] or
+  # {ActiveRecord::Base.has_and_belongs_to_many}[rdoc-ref:Associations::ClassMethods#has_and_belongs_to_many]
+  # associations.
+  class ConfigurationError &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised on attempt to update record that is instantiated as read only.
+  class ReadOnlyRecord &lt; ActiveRecordError
+  end
+&nbsp;
+  # {ActiveRecord::Base.transaction}[rdoc-ref:Transactions::ClassMethods#transaction]
+  # uses this exception to distinguish a deliberate rollback from other exceptional situations.
+  # Normally, raising an exception will cause the
+  # {.transaction}[rdoc-ref:Transactions::ClassMethods#transaction] method to rollback
+  # the database transaction *and* pass on the exception. But if you raise an
+  # ActiveRecord::Rollback exception, then the database transaction will be rolled back,
+  # without passing on the exception.
+  #
+  # For example, you could do this in your controller to rollback a transaction:
+  #
+  #   class BooksController &lt; ActionController::Base
+  #     def create
+  #       Book.transaction do
+  #         book = Book.new(params[:book])
+  #         book.save!
+  #         if today_is_friday?
+  #           # The system must fail on Friday so that our support department
+  #           # won't be out of job. We silently rollback this transaction
+  #           # without telling the user.
+  #           raise ActiveRecord::Rollback, "Call tech support!"
+  #         end
+  #       end
+  #       # ActiveRecord::Rollback is the only exception that won't be passed on
+  #       # by ActiveRecord::Base.transaction, so this line will still be reached
+  #       # even on Friday.
+  #       redirect_to root_url
+  #     end
+  #   end
+  class Rollback &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when attribute has a name reserved by Active Record (when attribute
+  # has name of one of Active Record instance methods).
+  class DangerousAttributeError &lt; ActiveRecordError
+  end
+&nbsp;
+  # Raised when unknown attributes are supplied via mass assignment.
+  UnknownAttributeError = ActiveModel::UnknownAttributeError
+&nbsp;
+  # Raised when an error occurred while doing a mass assignment to an attribute through the
+  # {ActiveRecord::Base#attributes=}[rdoc-ref:AttributeAssignment#attributes=] method.
+  # The exception has an +attribute+ property that is the name of the offending attribute.
+  class AttributeAssignmentError &lt; ActiveRecordError
+    attr_reader :exception, :attribute
+&nbsp;
+    def initialize(message = nil, exception = nil, attribute = nil)
+      super(message)
+      @exception = exception
+      @attribute = attribute
+    end
+  end
+&nbsp;
+  # Raised when there are multiple errors while doing a mass assignment through the
+  # {ActiveRecord::Base#attributes=}[rdoc-ref:AttributeAssignment#attributes=]
+  # method. The exception has an +errors+ property that contains an array of AttributeAssignmentError
+  # objects, each corresponding to the error while assigning to an attribute.
+  class MultiparameterAssignmentErrors &lt; ActiveRecordError
+    attr_reader :errors
+&nbsp;
+    def initialize(errors = nil)
+      @errors = errors
+    end
+  end
+&nbsp;
+  # Raised when a primary key is needed, but not specified in the schema or model.
+  class UnknownPrimaryKey &lt; ActiveRecordError
+    attr_reader :model
+&nbsp;
+    def initialize(model = nil, description = nil)
+      if model
+        message = "Unknown primary key for table #{model.table_name} in model #{model}."
+        message += "\n#{description}" if description
+        @model = model
+        super(message)
+      else
+        super("Unknown primary key.")
+      end
+    end
+  end
+&nbsp;
+  # Raised when a relation cannot be mutated because it's already loaded.
+  #
+  #   class Task &lt; ActiveRecord::Base
+  #   end
+  #
+  #   relation = Task.all
+  #   relation.loaded? # =&gt; true
+  #
+  #   # Methods which try to mutate a loaded relation fail.
+  #   relation.where!(title: 'TODO')  # =&gt; ActiveRecord::ImmutableRelation
+  #   relation.limit!(5)              # =&gt; ActiveRecord::ImmutableRelation
+  class ImmutableRelation &lt; ActiveRecordError
+  end
+&nbsp;
+  # TransactionIsolationError will be raised under the following conditions:
+  #
+  # * The adapter does not support setting the isolation level
+  # * You are joining an existing open transaction
+  # * You are creating a nested (savepoint) transaction
+  #
+  # The mysql2 and postgresql adapters support setting the transaction isolation level.
+  class TransactionIsolationError &lt; ActiveRecordError
+  end
+&nbsp;
+  # TransactionRollbackError will be raised when a transaction is rolled
+  # back by the database due to a serialization failure or a deadlock.
+  #
+  # See the following:
+  #
+  # * https://www.postgresql.org/docs/current/static/transaction-iso.html
+  # * https://dev.mysql.com/doc/refman/5.7/en/error-messages-server.html#error_er_lock_deadlock
+  class TransactionRollbackError &lt; StatementInvalid
+  end
+&nbsp;
+  # SerializationFailure will be raised when a transaction is rolled
+  # back by the database due to a serialization failure.
+  class SerializationFailure &lt; TransactionRollbackError
+  end
+&nbsp;
+  # Deadlocked will be raised when a transaction is rolled
+  # back by the database when a deadlock is encountered.
+  class Deadlocked &lt; TransactionRollbackError
+  end
+&nbsp;
+  # IrreversibleOrderError is raised when a relation's order is too complex for
+  # +reverse_order+ to automatically reverse.
+  class IrreversibleOrderError &lt; ActiveRecordError
+  end
+&nbsp;
+  # TransactionTimeout will be raised when lock wait timeout expires.
+  # Wait time value is set by innodb_lock_wait_timeout.
+  class TransactionTimeout &lt; StatementInvalid
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/associations/through_association.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/associations</a> through_association.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.65% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>44/46</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>26/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>11/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.73% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>43/44</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8279x</span>
+<span class="cline-any cline-yes">8279x</span>
+<span class="cline-any cline-yes">8540x</span>
+<span class="cline-any cline-yes">8540x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1289x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1266x</span>
+<span class="cline-any cline-yes">1254x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1266x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1266x</span>
+<span class="cline-any cline-yes">1155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">139x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12524x</span>
+<span class="cline-any cline-yes">305x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3289x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4624x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1530x</span>
+<span class="cline-any cline-yes">1530x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1530x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1530x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Associations
+    # = Active Record Through Association
+    module ThroughAssociation #:nodoc:
+      delegate :source_reflection, :through_reflection, to: :reflection
+&nbsp;
+      private
+&nbsp;
+        # We merge in these scopes for two reasons:
+        #
+        #   1. To get the default_scope conditions for any of the other reflections in the chain
+        #   2. To get the type conditions for any STI models in the chain
+        def target_scope
+          scope = super
+          reflection.chain.drop(1).each do |reflection|
+            relation = reflection.klass.scope_for_association
+            scope.merge!(
+              relation.except(:select, :create_with, :includes, :preload, :joins, :eager_load)
+            )
+          end
+          scope
+        end
+&nbsp;
+        # Construct attributes for :through pointing to owner and associate. This is used by the
+        # methods which create and delete records on the association.
+        #
+        # We only support indirectly modifying through associations which have a belongs_to source.
+        # This is the "has_many :tags, through: :taggings" situation, where the join model
+        # typically has a belongs_to on both side. In other words, associations which could also
+        # be represented as has_and_belongs_to_many associations.
+        #
+        # We do not support creating/deleting records on the association where the source has
+        # some other type, because this opens up a whole can of worms, and in basically any
+        # situation it is more natural for the user to just create or modify their join records
+        # directly as required.
+        def construct_join_attributes(*records)
+          ensure_mutable
+&nbsp;
+          if source_reflection.association_primary_key(reflection.klass) == reflection.klass.primary_key
+            join_attributes = { source_reflection.name =&gt; records }
+          else
+            join_attributes = {
+              source_reflection.foreign_key =&gt;
+                records.map { |record|
+                  record.send(source_reflection.association_primary_key(reflection.klass))
+                }
+            }
+          end
+&nbsp;
+          if options[:source_type]
+            join_attributes[source_reflection.foreign_type] =
+              records.map { |record| record.class.base_class.name }
+          end
+&nbsp;
+          if records.count == 1
+            Hash[join_attributes.map { |k, v| [k, v.first] }]
+          else
+            join_attributes
+          end
+        end
+&nbsp;
+        # Note: this does not capture all cases, for example it would be crazy to try to
+        # properly support stale-checking for nested associations.
+        def stale_state
+          if through_reflection.belongs_to?
+            owner[through_reflection.foreign_key] &amp;&amp; owner[through_reflection.foreign_key].to_s
+          end
+        end
+&nbsp;
+        def foreign_key_present?
+          through_reflection.belongs_to? &amp;&amp; !owner[through_reflection.foreign_key].nil?
+        end
+&nbsp;
+        def ensure_mutable
+          unless source_reflection.belongs_to?
+            if reflection.has_one?
+<span class="cstat-no" title="statement not covered" >              raise <span class="cstat-no" title="statement not covered" >HasOneThroughCantAssociateThroughHasOneOrManyReflection.new(owner, reflection)</span></span>
+            else
+              raise HasManyThroughCantAssociateThroughHasOneOrManyReflection.new(owner, reflection)
+            end
+          end
+        end
+&nbsp;
+        def ensure_not_nested
+          if reflection.nested?
+            if reflection.has_one?
+              raise HasOneThroughNestedAssociationsAreReadonly.new(owner, reflection)
+            else
+              raise HasManyThroughNestedAssociationsAreReadonly.new(owner, reflection)
+            end
+          end
+        end
+&nbsp;
+        def build_record(attributes)
+          inverse = source_reflection.inverse_of
+          target = through_association.target
+&nbsp;
+          if inverse &amp;&amp; target &amp;&amp; !target.is_a?(Array)
+            attributes[inverse.foreign_key] = target.id
+          end
+&nbsp;
+          super(attributes)
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

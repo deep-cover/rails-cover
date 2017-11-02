@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/relation/delegation.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/relation</a> delegation.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>54/58</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>9/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>14/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.36% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>53/55</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">207121x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6008x</span>
+<span class="cline-any cline-yes">6008x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6008x</span>
+<span class="cline-any cline-yes">6008x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18024x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5061x</span>
+<span class="cline-any cline-yes">5061x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5061x</span>
+<span class="cline-any cline-yes">5054x</span>
+<span class="cline-any cline-yes">5054x</span>
+<span class="cline-any cline-yes">5054x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5571x</span>
+<span class="cline-any cline-yes">5061x</span>
+<span class="cline-any cline-yes">5061x</span>
+<span class="cline-any cline-yes">510x</span>
+<span class="cline-any cline-yes">510x</span>
+<span class="cline-any cline-yes">510x</span>
+<span class="cline-any cline-yes">510x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">207121x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">207121x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">193x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Delegation # :nodoc:
+    module DelegateCache # :nodoc:
+      def relation_delegate_class(klass)
+        @relation_delegate_cache[klass]
+      end
+&nbsp;
+      def initialize_relation_delegate_cache
+        @relation_delegate_cache = cache = {}
+        [
+          ActiveRecord::Relation,
+          ActiveRecord::Associations::CollectionProxy,
+          ActiveRecord::AssociationRelation
+        ].each do |klass|
+          delegate = Class.new(klass) {
+            include ClassSpecificRelation
+          }
+          mangled_name = klass.name.gsub("::".freeze, "_".freeze)
+          const_set mangled_name, delegate
+          private_constant mangled_name
+&nbsp;
+          cache[klass] = delegate
+        end
+      end
+&nbsp;
+      def inherited(child_class)
+        child_class.initialize_relation_delegate_cache
+        super
+      end
+    end
+&nbsp;
+    extend ActiveSupport::Concern
+&nbsp;
+    # This module creates compiled delegation methods dynamically at runtime, which makes
+    # subsequent calls to that method faster by avoiding method_missing. The delegations
+    # may vary depending on the klass of a relation, so we create a subclass of Relation
+    # for each different klass, and the delegations are compiled into that subclass only.
+&nbsp;
+    delegate :to_xml, :encode_with, :length, :each, :uniq, :to_ary, :join,
+             :[], :&amp;, :|, :+, :-, :sample, :reverse, :rotate, :compact, :in_groups, :in_groups_of,
+             :to_sentence, :to_formatted_s, :as_json,
+             :shuffle, :split, :slice, :index, :rindex, to: :records
+&nbsp;
+    delegate :primary_key, :connection, to: :klass
+&nbsp;
+    module ClassSpecificRelation # :nodoc:
+      extend ActiveSupport::Concern
+&nbsp;
+      included do
+        @delegation_mutex = Mutex.new
+      end
+&nbsp;
+      module ClassMethods # :nodoc:
+        def name
+          superclass.name
+        end
+&nbsp;
+        def delegate_to_scoped_klass(method)
+          @delegation_mutex.synchronize do
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>return</span> if method_defined?(method)
+&nbsp;
+            if /\A[a-zA-Z_]\w*[!?]?\z/.match?(method)
+              module_eval &lt;&lt;-RUBY, __FILE__, __LINE__ + 1
+                def #{method}(*args, &amp;block)
+                  scoping { @klass.#{method}(*args, &amp;block) }
+                end
+              RUBY
+            else
+              define_method method <span class="fstat-no" title="function not covered" >do |*args, &amp;block|</span>
+<span class="cstat-no" title="statement not covered" >                scoping <span class="fstat-no" title="function not covered" >{</span> <span class="cstat-no" title="statement not covered" >@klass.public_send(method, *args, &amp;block)</span> }</span>
+              end
+            end
+          end
+        end
+      end
+&nbsp;
+      private
+&nbsp;
+        def method_missing(method, *args, &amp;block)
+          if @klass.respond_to?(method)
+            self.class.delegate_to_scoped_klass(method)
+            scoping { @klass.public_send(method, *args, &amp;block) }
+          elsif arel.respond_to?(method)
+            ActiveSupport::Deprecation.warn \
+              "Delegating #{method} to arel is deprecated and will be removed in Rails 6.0."
+            arel.public_send(method, *args, &amp;block)
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>super</span>
+          end
+        end
+    end
+&nbsp;
+    module ClassMethods # :nodoc:
+      def create(klass, *args)
+        relation_class_for(klass).new(klass, *args)
+      end
+&nbsp;
+      private
+&nbsp;
+        def relation_class_for(klass)
+          klass.relation_delegate_class(self)
+        end
+    end
+&nbsp;
+    private
+      def respond_to_missing?(method, _)
+<span class="branch-1 cbranch-no" title="branch not covered" >        super || @klass.respond_to?(method)</span> || arel.respond_to?(method)
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

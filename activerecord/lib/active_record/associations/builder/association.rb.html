@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/associations/builder/association.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_record/associations/builder</a> association.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.24% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>69/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.21% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.38% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>62/65</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7789x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7737x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7713x</span>
+<span class="cline-any cline-yes">7713x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8333x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-yes">8350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8333x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8333x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8318x</span>
+<span class="cline-any cline-yes">521x</span>
+<span class="cline-any cline-yes">517x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8314x</span>
+<span class="cline-any cline-yes">8314x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-yes">7717x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">521x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">485x</span>
+<span class="cline-any cline-yes">1265x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+# This is the parent Association class which defines the variables
+# used by all associations.
+#
+# The hierarchy is defined as follows:
+#  Association
+#    - SingularAssociation
+#      - BelongsToAssociation
+#      - HasOneAssociation
+#    - CollectionAssociation
+#      - HasManyAssociation
+&nbsp;
+module ActiveRecord::Associations::Builder # :nodoc:
+  class Association #:nodoc:
+    class &lt;&lt; self
+      attr_accessor :extensions
+    end
+    self.extensions = []
+&nbsp;
+    VALID_OPTIONS = [:class_name, :anonymous_class, :foreign_key, :validate] # :nodoc:
+&nbsp;
+    def self.build(model, name, scope, options, &amp;block)
+      if model.dangerous_attribute_method?(name)
+        raise ArgumentError, "You tried to define an association named #{name} on the model #{model.name}, but " \
+                             "this will conflict with a method #{name} already defined by Active Record. " \
+                             "Please choose a different association name."
+      end
+&nbsp;
+      extension = define_extensions model, name, &amp;block
+      reflection = create_reflection model, name, scope, options, extension
+      define_accessors model, reflection
+      define_callbacks model, reflection
+      define_validations model, reflection
+      reflection
+    end
+&nbsp;
+    def self.create_reflection(model, name, scope, options, extension = nil)
+      raise ArgumentError, "association names must be a Symbol" unless name.kind_of?(Symbol)
+&nbsp;
+      validate_options(options)
+&nbsp;
+      scope = build_scope(scope, extension)
+&nbsp;
+      ActiveRecord::Reflection.create(macro, name, scope, options, model)
+    end
+&nbsp;
+    def self.build_scope(scope, extension)
+      new_scope = scope
+&nbsp;
+      if scope &amp;&amp; scope.arity == 0
+        new_scope = proc { instance_exec(&amp;scope) }
+      end
+&nbsp;
+      if extension
+        new_scope = wrap_scope new_scope, extension
+      end
+&nbsp;
+      new_scope
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def self.wrap_scope(scope, extension)</span>
+<span class="cstat-no" title="statement not covered" >      scope</span>
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def self.macro</span>
+<span class="cstat-no" title="statement not covered" >      raise <span class="cstat-no" title="statement not covered" >NotImplementedError</span></span>
+    end
+&nbsp;
+    def self.valid_options(options)
+      VALID_OPTIONS + Association.extensions.flat_map(&amp;:valid_options)
+    end
+&nbsp;
+    def self.validate_options(options)
+      options.assert_valid_keys(valid_options(options))
+    end
+&nbsp;
+    def self.define_extensions(model, name)
+    end
+&nbsp;
+    def self.define_callbacks(model, reflection)
+      if dependent = reflection.options[:dependent]
+        check_dependent_options(dependent)
+        add_destroy_callbacks(model, reflection)
+      end
+&nbsp;
+      Association.extensions.each do |extension|
+        extension.build model, reflection
+      end
+    end
+&nbsp;
+    # Defines the setter and getter methods for the association
+    # class Post &lt; ActiveRecord::Base
+    #   has_many :comments
+    # end
+    #
+    # Post.first.comments and Post.first.comments= methods are defined by this method...
+    def self.define_accessors(model, reflection)
+      mixin = model.generated_association_methods
+      name = reflection.name
+      define_readers(mixin, name)
+      define_writers(mixin, name)
+    end
+&nbsp;
+    def self.define_readers(mixin, name)
+      mixin.class_eval &lt;&lt;-CODE, __FILE__, __LINE__ + 1
+        def #{name}(*args)
+          association(:#{name}).reader(*args)
+        end
+      CODE
+    end
+&nbsp;
+    def self.define_writers(mixin, name)
+      mixin.class_eval &lt;&lt;-CODE, __FILE__, __LINE__ + 1
+        def #{name}=(value)
+          association(:#{name}).writer(value)
+        end
+      CODE
+    end
+&nbsp;
+    def self.define_validations(model, reflection)
+      # noop
+    end
+&nbsp;
+<span class="fstat-no" title="function not covered" >    def self.valid_dependent_options</span>
+<span class="cstat-no" title="statement not covered" >      raise <span class="cstat-no" title="statement not covered" >NotImplementedError</span></span>
+    end
+&nbsp;
+    def self.check_dependent_options(dependent)
+      unless valid_dependent_options.include? dependent
+        raise ArgumentError, "The :dependent option must be one of #{valid_dependent_options}, but is :#{dependent}"
+      end
+    end
+&nbsp;
+    def self.add_destroy_callbacks(model, reflection)
+      name = reflection.name
+      model.before_destroy lambda { |o| o.association(name).handle_dependency }
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

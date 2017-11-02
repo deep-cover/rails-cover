@@ -1,0 +1,2564 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/postgresql_adapter.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters</a> postgresql_adapter.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.65% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>407/430</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.62% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>77/91</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.95% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>94/95</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.41% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>376/390</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">628x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">654x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2526x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">400x</span>
+<span class="cline-any cline-yes">400x</span>
+<span class="cline-any cline-yes">400x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2604x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2600x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2529x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2529x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2448x</span>
+<span class="cline-any cline-yes">2448x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">29826x</span>
+<span class="cline-any cline-yes">29829x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29826x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">331x</span>
+<span class="cline-any cline-yes">331x</span>
+<span class="cline-any cline-yes">331x</span>
+<span class="cline-any cline-yes">331x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">352x</span>
+<span class="cline-any cline-yes">352x</span>
+<span class="cline-any cline-yes">352x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">24804x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">178x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">139x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">320x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">816x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">144x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">141x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">141x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-yes">154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">156x</span>
+<span class="cline-any cline-yes">156x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">336x</span>
+<span class="cline-any cline-yes">336x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">56233x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-yes">112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6207x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1687x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1318x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">936x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1720x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1716x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">240405x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">240405x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-yes">466x</span>
+<span class="cline-any cline-yes">466x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">466x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">434x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1064x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1036x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">678x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7080x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">46224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">708x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-yes">814x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">40048x</span>
+<span class="cline-any cline-yes">14044x</span>
+<span class="cline-any cline-yes">25966x</span>
+<span class="cline-any cline-yes">13831x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12097x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39972x</span>
+<span class="cline-any cline-yes">39972x</span>
+<span class="cline-any cline-yes">39972x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">27931x</span>
+<span class="cline-any cline-yes">27875x</span>
+<span class="cline-any cline-yes">27875x</span>
+<span class="cline-any cline-yes">27931x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12109x</span>
+<span class="cline-any cline-yes">12105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12097x</span>
+<span class="cline-any cline-yes">12099x</span>
+<span class="cline-any cline-yes">12105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12117x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12109x</span>
+<span class="cline-any cline-yes">12117x</span>
+<span class="cline-any cline-yes">12117x</span>
+<span class="cline-any cline-yes">2604x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2604x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2596x</span>
+<span class="cline-any cline-yes">2596x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12109x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">798x</span>
+<span class="cline-any cline-yes">796x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">799x</span>
+<span class="cline-any cline-yes">803x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">802x</span>
+<span class="cline-any cline-yes">801x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">9964x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9964x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">398x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2772x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">2772x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">2772x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2772x</span>
+<span class="cline-any cline-yes">2772x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+# Make sure we're using pg high enough for type casts and Ruby 2.2+ compatibility
+gem "pg", "~&gt; 0.18"
+require "pg"
+&nbsp;
+require "active_record/connection_adapters/abstract_adapter"
+require "active_record/connection_adapters/statement_pool"
+require "active_record/connection_adapters/postgresql/column"
+require "active_record/connection_adapters/postgresql/database_statements"
+require "active_record/connection_adapters/postgresql/explain_pretty_printer"
+require "active_record/connection_adapters/postgresql/oid"
+require "active_record/connection_adapters/postgresql/quoting"
+require "active_record/connection_adapters/postgresql/referential_integrity"
+require "active_record/connection_adapters/postgresql/schema_creation"
+require "active_record/connection_adapters/postgresql/schema_definitions"
+require "active_record/connection_adapters/postgresql/schema_dumper"
+require "active_record/connection_adapters/postgresql/schema_statements"
+require "active_record/connection_adapters/postgresql/type_metadata"
+require "active_record/connection_adapters/postgresql/utils"
+&nbsp;
+module ActiveRecord
+  module ConnectionHandling # :nodoc:
+    # Establishes a connection to the database that's used by all Active Record objects
+    def postgresql_connection(config)
+      conn_params = config.symbolize_keys
+&nbsp;
+      conn_params.delete_if { |_, v| v.nil? }
+&nbsp;
+      # Map ActiveRecords param names to PGs.
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>conn_params[:user] = conn_params.delete(:username)</span> if conn_params[:username]
+      <span class="missing-if-branch" title="else path not taken" >E</span>conn_params[:dbname] = conn_params.delete(:database) if conn_params[:database]
+&nbsp;
+      # Forward only valid config params to PG::Connection.connect.
+      valid_conn_param_keys = PG::Connection.conndefaults_hash.keys + [:requiressl]
+      conn_params.slice!(*valid_conn_param_keys)
+&nbsp;
+      # The postgres drivers don't allow the creation of an unconnected PG::Connection object,
+      # so just pass a nil connection object for the time being.
+      ConnectionAdapters::PostgreSQLAdapter.new(nil, logger, conn_params, config)
+    end
+  end
+&nbsp;
+  module ConnectionAdapters
+    # The PostgreSQL adapter works with the native C (https://bitbucket.org/ged/ruby-pg) driver.
+    #
+    # Options:
+    #
+    # * &lt;tt&gt;:host&lt;/tt&gt; - Defaults to a Unix-domain socket in /tmp. On machines without Unix-domain sockets,
+    #   the default is to connect to localhost.
+    # * &lt;tt&gt;:port&lt;/tt&gt; - Defaults to 5432.
+    # * &lt;tt&gt;:username&lt;/tt&gt; - Defaults to be the same as the operating system name of the user running the application.
+    # * &lt;tt&gt;:password&lt;/tt&gt; - Password to be used if the server demands password authentication.
+    # * &lt;tt&gt;:database&lt;/tt&gt; - Defaults to be the same as the user name.
+    # * &lt;tt&gt;:schema_search_path&lt;/tt&gt; - An optional schema search path for the connection given
+    #   as a string of comma-separated schema names. This is backward-compatible with the &lt;tt&gt;:schema_order&lt;/tt&gt; option.
+    # * &lt;tt&gt;:encoding&lt;/tt&gt; - An optional client encoding that is used in a &lt;tt&gt;SET client_encoding TO
+    #   &lt;encoding&gt;&lt;/tt&gt; call on the connection.
+    # * &lt;tt&gt;:min_messages&lt;/tt&gt; - An optional client min messages that is used in a
+    #   &lt;tt&gt;SET client_min_messages TO &lt;min_messages&gt;&lt;/tt&gt; call on the connection.
+    # * &lt;tt&gt;:variables&lt;/tt&gt; - An optional hash of additional parameters that
+    #   will be used in &lt;tt&gt;SET SESSION key = val&lt;/tt&gt; calls on the connection.
+    # * &lt;tt&gt;:insert_returning&lt;/tt&gt; - An optional boolean to control the use of &lt;tt&gt;RETURNING&lt;/tt&gt; for &lt;tt&gt;INSERT&lt;/tt&gt; statements
+    #   defaults to true.
+    #
+    # Any further options are used as connection parameters to libpq. See
+    # https://www.postgresql.org/docs/current/static/libpq-connect.html for the
+    # list of parameters.
+    #
+    # In addition, default connection parameters of libpq can be set per environment variables.
+    # See https://www.postgresql.org/docs/current/static/libpq-envars.html .
+    class PostgreSQLAdapter &lt; AbstractAdapter
+      ADAPTER_NAME = "PostgreSQL".freeze
+&nbsp;
+      NATIVE_DATABASE_TYPES = {
+        primary_key: "bigserial primary key",
+        string:      { name: "character varying" },
+        text:        { name: "text" },
+        integer:     { name: "integer", limit: 4 },
+        float:       { name: "float" },
+        decimal:     { name: "decimal" },
+        datetime:    { name: "timestamp" },
+        time:        { name: "time" },
+        date:        { name: "date" },
+        daterange:   { name: "daterange" },
+        numrange:    { name: "numrange" },
+        tsrange:     { name: "tsrange" },
+        tstzrange:   { name: "tstzrange" },
+        int4range:   { name: "int4range" },
+        int8range:   { name: "int8range" },
+        binary:      { name: "bytea" },
+        boolean:     { name: "boolean" },
+        xml:         { name: "xml" },
+        tsvector:    { name: "tsvector" },
+        hstore:      { name: "hstore" },
+        inet:        { name: "inet" },
+        cidr:        { name: "cidr" },
+        macaddr:     { name: "macaddr" },
+        uuid:        { name: "uuid" },
+        json:        { name: "json" },
+        jsonb:       { name: "jsonb" },
+        ltree:       { name: "ltree" },
+        citext:      { name: "citext" },
+        point:       { name: "point" },
+        line:        { name: "line" },
+        lseg:        { name: "lseg" },
+        box:         { name: "box" },
+        path:        { name: "path" },
+        polygon:     { name: "polygon" },
+        circle:      { name: "circle" },
+        bit:         { name: "bit" },
+        bit_varying: { name: "bit varying" },
+        money:       { name: "money" },
+        interval:    { name: "interval" },
+        oid:         { name: "oid" },
+      }
+&nbsp;
+      OID = PostgreSQL::OID #:nodoc:
+&nbsp;
+      include PostgreSQL::Quoting
+      include PostgreSQL::ReferentialIntegrity
+      include PostgreSQL::SchemaStatements
+      include PostgreSQL::DatabaseStatements
+&nbsp;
+      def supports_index_sort_order?
+        true
+      end
+&nbsp;
+      def supports_partial_index?
+        true
+      end
+&nbsp;
+      def supports_expression_index?
+        true
+      end
+&nbsp;
+      def supports_transaction_isolation?
+        true
+      end
+&nbsp;
+      def supports_foreign_keys?
+        true
+      end
+&nbsp;
+      def supports_views?
+        true
+      end
+&nbsp;
+      def supports_datetime_with_precision?
+        true
+      end
+&nbsp;
+      def supports_json?
+        postgresql_version &gt;= 90200
+      end
+&nbsp;
+      def supports_comments?
+        true
+      end
+&nbsp;
+      def supports_savepoints?
+        true
+      end
+&nbsp;
+      def index_algorithms
+        { concurrently: "CONCURRENTLY" }
+      end
+&nbsp;
+      class StatementPool &lt; ConnectionAdapters::StatementPool
+        def initialize(connection, max)
+          super(max)
+          @connection = connection
+          @counter = 0
+        end
+&nbsp;
+        def next_key
+          "a#{@counter + 1}"
+        end
+&nbsp;
+        def []=(sql, key)
+          super.tap { @counter += 1 }
+        end
+&nbsp;
+        private
+&nbsp;
+          def dealloc(key)
+            @connection.query "DEALLOCATE #{key}" if connection_active?
+          rescue <span class="cstat-no" title="statement not covered" >PG::Error</span>
+          end
+&nbsp;
+          def connection_active?
+            @connection.status == PG::CONNECTION_OK
+          rescue <span class="cstat-no" title="statement not covered" >PG::Error</span>
+<span class="cstat-no" title="statement not covered" >            false</span>
+          end
+      end
+&nbsp;
+      # Initializes and connects a PostgreSQL adapter.
+      def initialize(connection, logger, connection_parameters, config)
+        super(connection, logger, config)
+&nbsp;
+        @connection_parameters = connection_parameters
+&nbsp;
+        # @local_tz is initialized as nil to avoid warnings when connect tries to use it
+        @local_tz = nil
+        @max_identifier_length = nil
+&nbsp;
+        connect
+        add_pg_encoders
+        @statements = StatementPool.new @connection,
+                                        self.class.type_cast_config_to_integer(config[:statement_limit])
+&nbsp;
+        if postgresql_version &lt; 90100
+<span class="cstat-no" title="statement not covered" >          raise <span class="cstat-no" title="statement not covered" >"Your version of PostgreSQL (#{<span class="cstat-no" title="statement not covered" >postgresql_version</span>}) is too old. Active Record supports PostgreSQL &gt;= 9.1."</span></span>
+        end
+&nbsp;
+        add_pg_decoders
+&nbsp;
+        @type_map = Type::HashLookupTypeMap.new
+        initialize_type_map
+        @local_tz = execute("SHOW TIME ZONE", "SCHEMA").first["TimeZone"]
+        @use_insert_returning = @config.key?(:insert_returning) ? self.class.type_cast_config_to_boolean(@config[:insert_returning]) : true
+      end
+&nbsp;
+      # Clears the prepared statements cache.
+      def clear_cache!
+        @lock.synchronize do
+          @statements.clear
+        end
+      end
+&nbsp;
+      def truncate(table_name, name = nil)
+        exec_query "TRUNCATE TABLE #{quote_table_name(table_name)}", name, []
+      end
+&nbsp;
+      # Is this connection alive and ready for queries?
+      def active?
+        @lock.synchronize do
+          @connection.query "SELECT 1"
+        end
+        true
+      rescue PG::Error
+        false
+      end
+&nbsp;
+      # Close then reopen the connection.
+      def reconnect!
+        @lock.synchronize do
+          super
+          @connection.reset
+          configure_connection
+        end
+      end
+&nbsp;
+      def reset!
+        @lock.synchronize do
+          clear_cache!
+          reset_transaction
+          unless @connection.transaction_status == ::PG::PQTRANS_IDLE
+            @connection.query "ROLLBACK"
+          end
+          @connection.query "DISCARD ALL"
+          configure_connection
+        end
+      end
+&nbsp;
+      # Disconnects from the database if already connected. Otherwise, this
+      # method does nothing.
+      def disconnect!
+        @lock.synchronize do
+          super
+          @connection.close rescue nil
+        end
+      end
+&nbsp;
+      def native_database_types #:nodoc:
+        NATIVE_DATABASE_TYPES
+      end
+&nbsp;
+      def set_standard_conforming_strings
+        execute("SET standard_conforming_strings = on", "SCHEMA")
+      end
+&nbsp;
+      def supports_ddl_transactions?
+        true
+      end
+&nbsp;
+      def supports_advisory_locks?
+        true
+      end
+&nbsp;
+      def supports_explain?
+        true
+      end
+&nbsp;
+      def supports_extensions?
+        true
+      end
+&nbsp;
+      def supports_ranges?
+        # Range datatypes weren't introduced until PostgreSQL 9.2
+        postgresql_version &gt;= 90200
+      end
+&nbsp;
+      def supports_materialized_views?
+        postgresql_version &gt;= 90300
+      end
+&nbsp;
+      def supports_pgcrypto_uuid?
+        postgresql_version &gt;= 90400
+      end
+&nbsp;
+      def get_advisory_lock(lock_id) # :nodoc:
+        unless <span class="branch-1 cbranch-no" title="branch not covered" >lock_id.is_a?(Integer) &amp;&amp; lock_id.bit_length &lt;= 63</span>
+<span class="cstat-no" title="statement not covered" >          raise(<span class="cstat-no" title="statement not covered" >ArgumentError</span>, <span class="cstat-no" title="statement not covered" >"PostgreSQL requires advisory lock ids to be a signed 64 bit integer"</span>)</span>
+        end
+        query_value("SELECT pg_try_advisory_lock(#{lock_id})")
+      end
+&nbsp;
+      def release_advisory_lock(lock_id) # :nodoc:
+        unless <span class="branch-1 cbranch-no" title="branch not covered" >lock_id.is_a?(Integer) &amp;&amp; lock_id.bit_length &lt;= 63</span>
+<span class="cstat-no" title="statement not covered" >          raise(<span class="cstat-no" title="statement not covered" >ArgumentError</span>, <span class="cstat-no" title="statement not covered" >"PostgreSQL requires advisory lock ids to be a signed 64 bit integer"</span>)</span>
+        end
+        query_value("SELECT pg_advisory_unlock(#{lock_id})")
+      end
+&nbsp;
+      def enable_extension(name)
+        exec_query("CREATE EXTENSION IF NOT EXISTS \"#{name}\"").tap {
+          reload_type_map
+        }
+      end
+&nbsp;
+      def disable_extension(name)
+        exec_query("DROP EXTENSION IF EXISTS \"#{name}\" CASCADE").tap {
+          reload_type_map
+        }
+      end
+&nbsp;
+      def extension_enabled?(name)
+        res = exec_query("SELECT EXISTS(SELECT * FROM pg_available_extensions WHERE name = '#{name}' AND installed_version IS NOT NULL) as enabled", "SCHEMA")
+        res.cast_values.first
+      end
+&nbsp;
+      def extensions
+        exec_query("SELECT extname FROM pg_extension", "SCHEMA").cast_values
+      end
+&nbsp;
+      # Returns the configured supported identifier length supported by PostgreSQL
+      def max_identifier_length
+        @max_identifier_length ||= query_value("SHOW max_identifier_length", "SCHEMA").to_i
+      end
+      alias table_alias_length max_identifier_length
+      alias index_name_length max_identifier_length
+&nbsp;
+      # Set the authorized user for this session
+      def session_auth=(user)
+        clear_cache!
+        execute("SET SESSION AUTHORIZATION #{user}")
+      end
+&nbsp;
+      def use_insert_returning?
+        @use_insert_returning
+      end
+&nbsp;
+      def column_name_for_operation(operation, node) # :nodoc:
+        OPERATION_ALIASES.fetch(operation) { operation.downcase }
+      end
+&nbsp;
+      OPERATION_ALIASES = { # :nodoc:
+        "maximum" =&gt; "max",
+        "minimum" =&gt; "min",
+        "average" =&gt; "avg",
+      }
+&nbsp;
+      # Returns the version of the connected PostgreSQL server.
+      def postgresql_version
+        @connection.server_version
+      end
+&nbsp;
+      def default_index_type?(index) # :nodoc:
+        index.using == :btree || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >super</span></span>
+      end
+&nbsp;
+      private
+&nbsp;
+        # See https://www.postgresql.org/docs/current/static/errcodes-appendix.html
+        VALUE_LIMIT_VIOLATION = "22001"
+        NUMERIC_VALUE_OUT_OF_RANGE = "22003"
+        NOT_NULL_VIOLATION    = "23502"
+        FOREIGN_KEY_VIOLATION = "23503"
+        UNIQUE_VIOLATION      = "23505"
+        SERIALIZATION_FAILURE = "40001"
+        DEADLOCK_DETECTED     = "40P01"
+&nbsp;
+        def translate_exception(exception, message)
+          return exception unless exception.respond_to?(:result)
+&nbsp;
+          case exception.result.try(:error_field, PG::PG_DIAG_SQLSTATE)
+          when UNIQUE_VIOLATION
+            RecordNotUnique.new(message)
+          when FOREIGN_KEY_VIOLATION
+            InvalidForeignKey.new(message)
+          when VALUE_LIMIT_VIOLATION
+            ValueTooLong.new(message)
+          when NUMERIC_VALUE_OUT_OF_RANGE
+            RangeError.new(message)
+          when NOT_NULL_VIOLATION
+            NotNullViolation.new(message)
+          when SERIALIZATION_FAILURE
+            SerializationFailure.new(message)
+          when DEADLOCK_DETECTED
+            Deadlocked.new(message)
+          else
+            super
+          end
+        end
+&nbsp;
+        def get_oid_type(oid, fmod, column_name, sql_type = "".freeze)
+          if !type_map.key?(oid)
+            load_additional_types([oid])
+          end
+&nbsp;
+          type_map.fetch(oid, fmod, sql_type) {
+            warn "unknown OID #{oid}: failed to recognize type of '#{column_name}'. It will be treated as String."
+            Type.default_value.tap do |cast_type|
+              type_map.register_type(oid, cast_type)
+            end
+          }
+        end
+&nbsp;
+        def initialize_type_map(m = type_map)
+          m.register_type "int2", Type::Integer.new(limit: 2)
+          m.register_type "int4", Type::Integer.new(limit: 4)
+          m.register_type "int8", Type::Integer.new(limit: 8)
+          m.register_type "oid", OID::Oid.new
+          m.register_type "float4", Type::Float.new
+          m.alias_type "float8", "float4"
+          m.register_type "text", Type::Text.new
+          register_class_with_limit m, "varchar", Type::String
+          m.alias_type "char", "varchar"
+          m.alias_type "name", "varchar"
+          m.alias_type "bpchar", "varchar"
+          m.register_type "bool", Type::Boolean.new
+          register_class_with_limit m, "bit", OID::Bit
+          register_class_with_limit m, "varbit", OID::BitVarying
+          m.alias_type "timestamptz", "timestamp"
+          m.register_type "date", Type::Date.new
+&nbsp;
+          m.register_type "money", OID::Money.new
+          m.register_type "bytea", OID::Bytea.new
+          m.register_type "point", OID::Point.new
+          m.register_type "hstore", OID::Hstore.new
+          m.register_type "json", Type::Json.new
+          m.register_type "jsonb", OID::Jsonb.new
+          m.register_type "cidr", OID::Cidr.new
+          m.register_type "inet", OID::Inet.new
+          m.register_type "uuid", OID::Uuid.new
+          m.register_type "xml", OID::Xml.new
+          m.register_type "tsvector", OID::SpecializedString.new(:tsvector)
+          m.register_type "macaddr", OID::SpecializedString.new(:macaddr)
+          m.register_type "citext", OID::SpecializedString.new(:citext)
+          m.register_type "ltree", OID::SpecializedString.new(:ltree)
+          m.register_type "line", OID::SpecializedString.new(:line)
+          m.register_type "lseg", OID::SpecializedString.new(:lseg)
+          m.register_type "box", OID::SpecializedString.new(:box)
+          m.register_type "path", OID::SpecializedString.new(:path)
+          m.register_type "polygon", OID::SpecializedString.new(:polygon)
+          m.register_type "circle", OID::SpecializedString.new(:circle)
+&nbsp;
+          m.register_type "interval" do |_, _, sql_type|
+            precision = extract_precision(sql_type)
+            OID::SpecializedString.new(:interval, precision: precision)
+          end
+&nbsp;
+          register_class_with_precision m, "time", Type::Time
+          register_class_with_precision m, "timestamp", OID::DateTime
+&nbsp;
+          m.register_type "numeric" do |_, fmod, sql_type|
+            precision = extract_precision(sql_type)
+            scale = extract_scale(sql_type)
+&nbsp;
+            # The type for the numeric depends on the width of the field,
+            # so we'll do something special here.
+            #
+            # When dealing with decimal columns:
+            #
+            # places after decimal  = fmod - 4 &amp; 0xffff
+            # places before decimal = (fmod - 4) &gt;&gt; 16 &amp; 0xffff
+            if fmod &amp;&amp; (fmod - 4 &amp; 0xffff).zero?
+              # FIXME: Remove this class, and the second argument to
+              # lookups on PG
+              Type::DecimalWithoutScale.new(precision: precision)
+            else
+              OID::Decimal.new(precision: precision, scale: scale)
+            end
+          end
+&nbsp;
+          load_additional_types
+        end
+&nbsp;
+        # Extracts the value from a PostgreSQL column default definition.
+        def extract_value_from_default(default)
+          case default
+            # Quoted types
+          when /\A[\(B]?'(.*)'.*::"?([\w. ]+)"?(?:\[\])?\z/m
+            # The default 'now'::date is CURRENT_DATE
+            if $1 == "now".freeze &amp;&amp; $2 == "date".freeze
+              nil
+            else
+              $1.gsub("''".freeze, "'".freeze)
+            end
+            # Boolean types
+          when "true".freeze, "false".freeze
+            default
+            # Numeric types
+          when /\A\(?(-?\d+(\.\d*)?)\)?(::bigint)?\z/
+            $1
+            # Object identifier types
+          when /\A-?\d+\z/
+<span class="cstat-no" title="statement not covered" ><span class="branch-3 cbranch-no" title="branch not covered" >            $1</span></span>
+          else
+            # Anything else is blank, some user type, or some function
+            # and we can't know the value of that, so return nil.
+            nil
+          end
+        end
+&nbsp;
+        def extract_default_function(default_value, default)
+          default if has_default_function?(default_value, default)
+        end
+&nbsp;
+        def has_default_function?(default_value, default)
+          !default_value &amp;&amp; %r{\w+\(.*\)|\(.*\)::\w+|CURRENT_DATE|CURRENT_TIMESTAMP}.match?(default)
+        end
+&nbsp;
+        def load_additional_types(oids = nil)
+          initializer = OID::TypeMapInitializer.new(type_map)
+&nbsp;
+          if supports_ranges?
+            query = &lt;&lt;-SQL
+              SELECT t.oid, t.typname, t.typelem, t.typdelim, t.typinput, r.rngsubtype, t.typtype, t.typbasetype
+              FROM pg_type as t
+              LEFT JOIN pg_range as r ON oid = rngtypid
+            SQL
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>query = &lt;&lt;-SQL</span>
+              SELECT t.oid, t.typname, t.typelem, t.typdelim, t.typinput, t.typtype, t.typbasetype
+              FROM pg_type as t
+            SQL
+          end
+&nbsp;
+          if oids
+            query += "WHERE t.oid::integer IN (%s)" % oids.join(", ")
+          else
+            query += initializer.query_conditions_for_initial_load
+          end
+&nbsp;
+          execute_and_clear(query, "SCHEMA", []) do |records|
+            initializer.run(records)
+          end
+        end
+&nbsp;
+        FEATURE_NOT_SUPPORTED = "0A000" #:nodoc:
+&nbsp;
+        def execute_and_clear(sql, name, binds, prepare: false)
+          if without_prepared_statement?(binds)
+            result = exec_no_cache(sql, name, [])
+          elsif !prepare
+            result = exec_no_cache(sql, name, binds)
+          else
+            result = exec_cache(sql, name, binds)
+          end
+          ret = yield result
+          result.clear
+          ret
+        end
+&nbsp;
+        def exec_no_cache(sql, name, binds)
+          type_casted_binds = type_casted_binds(binds)
+          log(sql, name, binds, type_casted_binds) do
+            ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+              @connection.async_exec(sql, type_casted_binds)
+            end
+          end
+        end
+&nbsp;
+        def exec_cache(sql, name, binds)
+          stmt_key = prepare_statement(sql)
+          type_casted_binds = type_casted_binds(binds)
+&nbsp;
+          log(sql, name, binds, type_casted_binds, stmt_key) do
+            ActiveSupport::Dependencies.interlock.permit_concurrent_loads do
+              @connection.exec_prepared(stmt_key, type_casted_binds)
+            end
+          end
+        rescue ActiveRecord::StatementInvalid =&gt; e
+          raise unless is_cached_plan_failure?(e)
+&nbsp;
+          # Nothing we can do if we are in a transaction because all commands
+          # will raise InFailedSQLTransaction
+          if in_transaction?
+            raise ActiveRecord::PreparedStatementCacheExpired.new(e.cause.message)
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>@lock.synchronize <span class="fstat-no" title="function not covered" >do</span></span>
+              # outside of transactions we can simply flush this query and retry
+<span class="cstat-no" title="statement not covered" >              @statements.delete sql_key(sql)</span>
+            end
+<span class="cstat-no" title="statement not covered" >            retry</span>
+          end
+        end
+&nbsp;
+        # Annoyingly, the code for prepared statements whose return value may
+        # have changed is FEATURE_NOT_SUPPORTED.
+        #
+        # This covers various different error types so we need to do additional
+        # work to classify the exception definitively as a
+        # ActiveRecord::PreparedStatementCacheExpired
+        #
+        # Check here for more details:
+        # https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob;f=src/backend/utils/cache/plancache.c#l573
+        CACHED_PLAN_HEURISTIC = "cached plan must not change result type".freeze
+        def is_cached_plan_failure?(e)
+          pgerror = e.cause
+          code = pgerror.result.result_error_field(PG::PG_DIAG_SQLSTATE)
+          code == FEATURE_NOT_SUPPORTED &amp;&amp; pgerror.message.include?(CACHED_PLAN_HEURISTIC)
+        rescue
+<span class="cstat-no" title="statement not covered" >          false</span>
+        end
+&nbsp;
+        def in_transaction?
+          open_transactions &gt; 0
+        end
+&nbsp;
+        # Returns the statement identifier for the client side cache
+        # of statements
+        def sql_key(sql)
+          "#{schema_search_path}-#{sql}"
+        end
+&nbsp;
+        # Prepare the statement if it hasn't been prepared, return
+        # the statement key.
+        def prepare_statement(sql)
+          @lock.synchronize do
+            sql_key = sql_key(sql)
+            unless @statements.key? sql_key
+              nextkey = @statements.next_key
+              begin
+                @connection.prepare nextkey, sql
+              rescue =&gt; e
+                raise translate_exception_class(e, sql)
+              end
+              # Clear the queue
+              @connection.get_last_result
+              @statements[sql_key] = nextkey
+            end
+            @statements[sql_key]
+          end
+        end
+&nbsp;
+        # Connects to a PostgreSQL server and sets up the adapter depending on the
+        # connected server's characteristics.
+        def connect
+          @connection = PG.connect(@connection_parameters)
+          configure_connection
+        rescue ::PG::Error =&gt; error
+          if error.message.include?("does not exist")
+            raise ActiveRecord::NoDatabaseError
+          else
+<span class="cstat-no" title="statement not covered" >            raise</span>
+          end
+        end
+&nbsp;
+        # Configures the encoding, verbosity, schema search path, and time zone of the connection.
+        # This is called by #connect and should not be called manually.
+        def configure_connection
+          if @config[:encoding]
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="if path not taken" >I</span>@connection.set_client_encoding(@config[:encoding])</span>
+          end
+          self.client_min_messages = @config[:min_messages] || "warning"
+          self.schema_search_path = <span class="branch-1 cbranch-no" title="branch not covered" >@config[:schema_search_path] || @config[:schema_order]</span>
+&nbsp;
+          # Use standard-conforming strings so we don't have to do the E'...' dance.
+          set_standard_conforming_strings
+&nbsp;
+          variables = @config.fetch(:variables, {}).stringify_keys
+&nbsp;
+          # If using Active Record's time zone support configure the connection to return
+          # TIMESTAMP WITH ZONE types in UTC.
+          unless variables["timezone"]
+            if ActiveRecord::Base.default_timezone == :utc
+              variables["timezone"] = "UTC"
+            <span class="missing-if-branch" title="else path not taken" >E</span>elsif @local_tz
+              variables["timezone"] = @local_tz
+            end
+          end
+&nbsp;
+          # SET statements from :variables config hash
+          # https://www.postgresql.org/docs/current/static/sql-set.html
+          variables.map do |k, v|
+            if <span class="branch-1 cbranch-no" title="branch not covered" >v == ":default" || v == :default</span>
+              # Sets the value to the global or compile default
+              execute("SET SESSION #{k} TO DEFAULT", "SCHEMA")
+            elsif !v.nil?
+              execute("SET SESSION #{k} TO #{quote(v)}", "SCHEMA")
+            end
+          end
+        end
+&nbsp;
+        # Returns the list of a table's column names, data types, and default values.
+        #
+        # The underlying query is roughly:
+        #  SELECT column.name, column.type, default.value, column.comment
+        #    FROM column LEFT JOIN default
+        #      ON column.table_id = default.table_id
+        #     AND column.num = default.column_num
+        #   WHERE column.table_id = get_table_id('table_name')
+        #     AND column.num &gt; 0
+        #     AND NOT column.is_dropped
+        #   ORDER BY column.num
+        #
+        # If the table name is not prefixed with a schema, the database will
+        # take the first match from the schema search path.
+        #
+        # Query implementation notes:
+        #  - format_type includes the column size constraint, e.g. varchar(50)
+        #  - ::regclass is a function that gives the id for a table name
+        def column_definitions(table_name)
+          query(&lt;&lt;-end_sql, "SCHEMA")
+              SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+                     pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod,
+                     c.collname, col_description(a.attrelid, a.attnum) AS comment
+                FROM pg_attribute a
+                LEFT JOIN pg_attrdef d ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+                LEFT JOIN pg_type t ON a.atttypid = t.oid
+                LEFT JOIN pg_collation c ON a.attcollation = c.oid AND a.attcollation &lt;&gt; t.typcollation
+               WHERE a.attrelid = #{quote(quote_table_name(table_name))}::regclass
+                 AND a.attnum &gt; 0 AND NOT a.attisdropped
+               ORDER BY a.attnum
+          end_sql
+        end
+&nbsp;
+        def extract_table_ref_from_insert_sql(sql)
+          sql[/into\s("[A-Za-z0-9_."\[\]\s]+"|[A-Za-z0-9_."\[\]]+)\s*/im]
+          <span class="missing-if-branch" title="else path not taken" >E</span>$1.strip if $1
+        end
+&nbsp;
+        def arel_visitor
+          Arel::Visitors::PostgreSQL.new(self)
+        end
+&nbsp;
+        def can_perform_case_insensitive_comparison_for?(column)
+          @case_insensitive_cache ||= {}
+          @case_insensitive_cache[column.sql_type] ||= begin
+            sql = &lt;&lt;-end_sql
+              SELECT exists(
+                SELECT * FROM pg_proc
+                WHERE proname = 'lower'
+                  AND proargtypes = ARRAY[#{quote column.sql_type}::regtype]::oidvector
+              ) OR exists(
+                SELECT * FROM pg_proc
+                INNER JOIN pg_cast
+                  ON ARRAY[casttarget]::oidvector = proargtypes
+                WHERE proname = 'lower'
+                  AND castsource = #{quote column.sql_type}::regtype
+              )
+            end_sql
+            execute_and_clear(sql, "SCHEMA", []) do |result|
+              result.getvalue(0, 0)
+            end
+          end
+        end
+&nbsp;
+        def add_pg_encoders
+          map = PG::TypeMapByClass.new
+          map[Integer] = PG::TextEncoder::Integer.new
+          map[TrueClass] = PG::TextEncoder::Boolean.new
+          map[FalseClass] = PG::TextEncoder::Boolean.new
+          @connection.type_map_for_queries = map
+        end
+&nbsp;
+        def add_pg_decoders
+          coders_by_name = {
+            "int2" =&gt; PG::TextDecoder::Integer,
+            "int4" =&gt; PG::TextDecoder::Integer,
+            "int8" =&gt; PG::TextDecoder::Integer,
+            "oid" =&gt; PG::TextDecoder::Integer,
+            "float4" =&gt; PG::TextDecoder::Float,
+            "float8" =&gt; PG::TextDecoder::Float,
+            "bool" =&gt; PG::TextDecoder::Boolean,
+          }
+          known_coder_types = coders_by_name.keys.map { |n| quote(n) }
+          query = &lt;&lt;-SQL % known_coder_types.join(", ")
+            SELECT t.oid, t.typname
+            FROM pg_type as t
+            WHERE t.typname IN (%s)
+          SQL
+          coders = execute_and_clear(query, "SCHEMA", []) do |result|
+            result
+              .map { |row| construct_coder(row, coders_by_name[row["typname"]]) }
+              .compact
+          end
+&nbsp;
+          map = PG::TypeMapByOid.new
+          coders.each { |coder| map.add_coder(coder) }
+          @connection.type_map_for_results = map
+        end
+&nbsp;
+        def construct_coder(row, coder_class)
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="else path not taken" >E</span>return</span> unless coder_class
+          coder_class.new(oid: row["oid"].to_i, name: row["typname"])
+        end
+&nbsp;
+        ActiveRecord::Type.add_modifier({ array: true }, OID::Array, adapter: :postgresql)
+        ActiveRecord::Type.add_modifier({ range: true }, OID::Range, adapter: :postgresql)
+        ActiveRecord::Type.register(:bit, OID::Bit, adapter: :postgresql)
+        ActiveRecord::Type.register(:bit_varying, OID::BitVarying, adapter: :postgresql)
+        ActiveRecord::Type.register(:binary, OID::Bytea, adapter: :postgresql)
+        ActiveRecord::Type.register(:cidr, OID::Cidr, adapter: :postgresql)
+        ActiveRecord::Type.register(:datetime, OID::DateTime, adapter: :postgresql)
+        ActiveRecord::Type.register(:decimal, OID::Decimal, adapter: :postgresql)
+        ActiveRecord::Type.register(:enum, OID::Enum, adapter: :postgresql)
+        ActiveRecord::Type.register(:hstore, OID::Hstore, adapter: :postgresql)
+        ActiveRecord::Type.register(:inet, OID::Inet, adapter: :postgresql)
+        ActiveRecord::Type.register(:jsonb, OID::Jsonb, adapter: :postgresql)
+        ActiveRecord::Type.register(:money, OID::Money, adapter: :postgresql)
+        ActiveRecord::Type.register(:point, OID::Point, adapter: :postgresql)
+        ActiveRecord::Type.register(:legacy_point, OID::LegacyPoint, adapter: :postgresql)
+        ActiveRecord::Type.register(:uuid, OID::Uuid, adapter: :postgresql)
+        ActiveRecord::Type.register(:vector, OID::Vector, adapter: :postgresql)
+        ActiveRecord::Type.register(:xml, OID::Xml, adapter: :postgresql)
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

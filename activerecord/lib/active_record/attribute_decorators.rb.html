@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/attribute_decorators.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> attribute_decorators.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>39/39</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>36/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">15584x</span>
+<span class="cline-any cline-yes">748x</span>
+<span class="cline-any cline-yes">748x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12740x</span>
+<span class="cline-any cline-yes">12740x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12740x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5300x</span>
+<span class="cline-any cline-yes">5285x</span>
+<span class="cline-any cline-yes">41869x</span>
+<span class="cline-any cline-yes">41869x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12748x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12740x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">41877x</span>
+<span class="cline-any cline-yes">41869x</span>
+<span class="cline-any cline-yes">2032x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">41877x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">41877x</span>
+<span class="cline-any cline-yes">99172x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module AttributeDecorators # :nodoc:
+    extend ActiveSupport::Concern
+&nbsp;
+    included do
+      class_attribute :attribute_type_decorations, instance_accessor: false, default: TypeDecorator.new # :internal:
+    end
+&nbsp;
+    module ClassMethods # :nodoc:
+      # This method is an internal API used to create class macros such as
+      # +serialize+, and features like time zone aware attributes.
+      #
+      # Used to wrap the type of an attribute in a new type.
+      # When the schema for a model is loaded, attributes with the same name as
+      # +column_name+ will have their type yielded to the given block. The
+      # return value of that block will be used instead.
+      #
+      # Subsequent calls where +column_name+ and +decorator_name+ are the same
+      # will override the previous decorator, not decorate twice. This can be
+      # used to create idempotent class macros like +serialize+
+      def decorate_attribute_type(column_name, decorator_name, &amp;block)
+        matcher = -&gt;(name, _) { name == column_name.to_s }
+        key = "_#{column_name}_#{decorator_name}"
+        decorate_matching_attribute_types(matcher, key, &amp;block)
+      end
+&nbsp;
+      # This method is an internal API used to create higher level features like
+      # time zone aware attributes.
+      #
+      # When the schema for a model is loaded, +matcher+ will be called for each
+      # attribute with its name and type. If the matcher returns a truthy value,
+      # the type will then be yielded to the given block, and the return value
+      # of that block will replace the type.
+      #
+      # Subsequent calls to this method with the same value for +decorator_name+
+      # will replace the previous decorator, not decorate twice. This can be
+      # used to ensure that class macros are idempotent.
+      def decorate_matching_attribute_types(matcher, decorator_name, &amp;block)
+        reload_schema_from_cache
+        decorator_name = decorator_name.to_s
+&nbsp;
+        # Create new hashes so we don't modify parent classes
+        self.attribute_type_decorations = attribute_type_decorations.merge(decorator_name =&gt; [matcher, block])
+      end
+&nbsp;
+      private
+&nbsp;
+        def load_schema!
+          super
+          attribute_types.each do |name, type|
+            decorated_type = attribute_type_decorations.apply(name, type)
+            define_attribute(name, decorated_type)
+          end
+        end
+    end
+&nbsp;
+    class TypeDecorator # :nodoc:
+      delegate :clear, to: :@decorations
+&nbsp;
+      def initialize(decorations = {})
+        @decorations = decorations
+      end
+&nbsp;
+      def merge(*args)
+        TypeDecorator.new(@decorations.merge(*args))
+      end
+&nbsp;
+      def apply(name, type)
+        decorations = decorators_for(name, type)
+        decorations.inject(type) do |new_type, block|
+          block.call(new_type)
+        end
+      end
+&nbsp;
+      private
+&nbsp;
+        def decorators_for(name, type)
+          matching(name, type).map(&amp;:last)
+        end
+&nbsp;
+        def matching(name, type)
+          @decorations.values.select do |(matcher, _)|
+            matcher.call(name, type)
+          end
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

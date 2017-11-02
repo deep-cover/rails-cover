@@ -1,0 +1,1829 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/nested_attributes.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> nested_attributes.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>146/146</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>84/86</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>21/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>116/116</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-yes">552x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">546x</span>
+<span class="cline-any cline-yes">624x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-yes">618x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">419x</span>
+<span class="cline-any cline-yes">419x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">419x</span>
+<span class="cline-any cline-yes">419x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">419x</span>
+<span class="cline-any cline-yes">239x</span>
+<span class="cline-any cline-yes">229x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">190x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">115x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">671x</span>
+<span class="cline-any cline-yes">671x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">671x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">660x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">647x</span>
+<span class="cline-any cline-yes">349x</span>
+<span class="cline-any cline-yes">349x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">320x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">647x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">647x</span>
+<span class="cline-any cline-yes">279x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">590x</span>
+<span class="cline-any cline-yes">368x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-yes">1067x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1067x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1067x</span>
+<span class="cline-any cline-yes">377x</span>
+<span class="cline-any cline-yes">343x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1026x</span>
+<span class="cline-any cline-yes">668x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">801x</span>
+<span class="cline-any cline-yes">662x</span>
+<span class="cline-any cline-yes">482x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">662x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">660x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">879x</span>
+<span class="cline-any cline-yes">879x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2389x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">557x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1423x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">889x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1980x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1980x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/hash/except"
+require "active_support/core_ext/module/redefine_method"
+require "active_support/core_ext/object/try"
+require "active_support/core_ext/hash/indifferent_access"
+&nbsp;
+module ActiveRecord
+  module NestedAttributes #:nodoc:
+    class TooManyRecords &lt; ActiveRecordError
+    end
+&nbsp;
+    extend ActiveSupport::Concern
+&nbsp;
+    included do
+      class_attribute :nested_attributes_options, instance_writer: false, default: {}
+    end
+&nbsp;
+    # = Active Record Nested Attributes
+    #
+    # Nested attributes allow you to save attributes on associated records
+    # through the parent. By default nested attribute updating is turned off
+    # and you can enable it using the accepts_nested_attributes_for class
+    # method. When you enable nested attributes an attribute writer is
+    # defined on the model.
+    #
+    # The attribute writer is named after the association, which means that
+    # in the following example, two new methods are added to your model:
+    #
+    # &lt;tt&gt;author_attributes=(attributes)&lt;/tt&gt; and
+    # &lt;tt&gt;pages_attributes=(attributes)&lt;/tt&gt;.
+    #
+    #   class Book &lt; ActiveRecord::Base
+    #     has_one :author
+    #     has_many :pages
+    #
+    #     accepts_nested_attributes_for :author, :pages
+    #   end
+    #
+    # Note that the &lt;tt&gt;:autosave&lt;/tt&gt; option is automatically enabled on every
+    # association that accepts_nested_attributes_for is used for.
+    #
+    # === One-to-one
+    #
+    # Consider a Member model that has one Avatar:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_one :avatar
+    #     accepts_nested_attributes_for :avatar
+    #   end
+    #
+    # Enabling nested attributes on a one-to-one association allows you to
+    # create the member and avatar in one go:
+    #
+    #   params = { member: { name: 'Jack', avatar_attributes: { icon: 'smiling' } } }
+    #   member = Member.create(params[:member])
+    #   member.avatar.id # =&gt; 2
+    #   member.avatar.icon # =&gt; 'smiling'
+    #
+    # It also allows you to update the avatar through the member:
+    #
+    #   params = { member: { avatar_attributes: { id: '2', icon: 'sad' } } }
+    #   member.update params[:member]
+    #   member.avatar.icon # =&gt; 'sad'
+    #
+    # By default you will only be able to set and update attributes on the
+    # associated model. If you want to destroy the associated model through the
+    # attributes hash, you have to enable it first using the
+    # &lt;tt&gt;:allow_destroy&lt;/tt&gt; option.
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_one :avatar
+    #     accepts_nested_attributes_for :avatar, allow_destroy: true
+    #   end
+    #
+    # Now, when you add the &lt;tt&gt;_destroy&lt;/tt&gt; key to the attributes hash, with a
+    # value that evaluates to +true+, you will destroy the associated model:
+    #
+    #   member.avatar_attributes = { id: '2', _destroy: '1' }
+    #   member.avatar.marked_for_destruction? # =&gt; true
+    #   member.save
+    #   member.reload.avatar # =&gt; nil
+    #
+    # Note that the model will _not_ be destroyed until the parent is saved.
+    #
+    # Also note that the model will not be destroyed unless you also specify
+    # its id in the updated hash.
+    #
+    # === One-to-many
+    #
+    # Consider a member that has a number of posts:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts
+    #     accepts_nested_attributes_for :posts
+    #   end
+    #
+    # You can now set or update attributes on the associated posts through
+    # an attribute hash for a member: include the key +:posts_attributes+
+    # with an array of hashes of post attributes as a value.
+    #
+    # For each hash that does _not_ have an &lt;tt&gt;id&lt;/tt&gt; key a new record will
+    # be instantiated, unless the hash also contains a &lt;tt&gt;_destroy&lt;/tt&gt; key
+    # that evaluates to +true+.
+    #
+    #   params = { member: {
+    #     name: 'joe', posts_attributes: [
+    #       { title: 'Kari, the awesome Ruby documentation browser!' },
+    #       { title: 'The egalitarian assumption of the modern citizen' },
+    #       { title: '', _destroy: '1' } # this will be ignored
+    #     ]
+    #   }}
+    #
+    #   member = Member.create(params[:member])
+    #   member.posts.length # =&gt; 2
+    #   member.posts.first.title # =&gt; 'Kari, the awesome Ruby documentation browser!'
+    #   member.posts.second.title # =&gt; 'The egalitarian assumption of the modern citizen'
+    #
+    # You may also set a +:reject_if+ proc to silently ignore any new record
+    # hashes if they fail to pass your criteria. For example, the previous
+    # example could be rewritten as:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts
+    #     accepts_nested_attributes_for :posts, reject_if: proc { |attributes| attributes['title'].blank? }
+    #   end
+    #
+    #   params = { member: {
+    #     name: 'joe', posts_attributes: [
+    #       { title: 'Kari, the awesome Ruby documentation browser!' },
+    #       { title: 'The egalitarian assumption of the modern citizen' },
+    #       { title: '' } # this will be ignored because of the :reject_if proc
+    #     ]
+    #   }}
+    #
+    #   member = Member.create(params[:member])
+    #   member.posts.length # =&gt; 2
+    #   member.posts.first.title # =&gt; 'Kari, the awesome Ruby documentation browser!'
+    #   member.posts.second.title # =&gt; 'The egalitarian assumption of the modern citizen'
+    #
+    # Alternatively, +:reject_if+ also accepts a symbol for using methods:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts
+    #     accepts_nested_attributes_for :posts, reject_if: :new_record?
+    #   end
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts
+    #     accepts_nested_attributes_for :posts, reject_if: :reject_posts
+    #
+    #     def reject_posts(attributes)
+    #       attributes['title'].blank?
+    #     end
+    #   end
+    #
+    # If the hash contains an &lt;tt&gt;id&lt;/tt&gt; key that matches an already
+    # associated record, the matching record will be modified:
+    #
+    #   member.attributes = {
+    #     name: 'Joe',
+    #     posts_attributes: [
+    #       { id: 1, title: '[UPDATED] An, as of yet, undisclosed awesome Ruby documentation browser!' },
+    #       { id: 2, title: '[UPDATED] other post' }
+    #     ]
+    #   }
+    #
+    #   member.posts.first.title # =&gt; '[UPDATED] An, as of yet, undisclosed awesome Ruby documentation browser!'
+    #   member.posts.second.title # =&gt; '[UPDATED] other post'
+    #
+    # However, the above applies if the parent model is being updated as well.
+    # For example, If you wanted to create a +member+ named _joe_ and wanted to
+    # update the +posts+ at the same time, that would give an
+    # ActiveRecord::RecordNotFound error.
+    #
+    # By default the associated records are protected from being destroyed. If
+    # you want to destroy any of the associated records through the attributes
+    # hash, you have to enable it first using the &lt;tt&gt;:allow_destroy&lt;/tt&gt;
+    # option. This will allow you to also use the &lt;tt&gt;_destroy&lt;/tt&gt; key to
+    # destroy existing records:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts
+    #     accepts_nested_attributes_for :posts, allow_destroy: true
+    #   end
+    #
+    #   params = { member: {
+    #     posts_attributes: [{ id: '2', _destroy: '1' }]
+    #   }}
+    #
+    #   member.attributes = params[:member]
+    #   member.posts.detect { |p| p.id == 2 }.marked_for_destruction? # =&gt; true
+    #   member.posts.length # =&gt; 2
+    #   member.save
+    #   member.reload.posts.length # =&gt; 1
+    #
+    # Nested attributes for an associated collection can also be passed in
+    # the form of a hash of hashes instead of an array of hashes:
+    #
+    #   Member.create(
+    #     name: 'joe',
+    #     posts_attributes: {
+    #       first:  { title: 'Foo' },
+    #       second: { title: 'Bar' }
+    #     }
+    #   )
+    #
+    # has the same effect as
+    #
+    #   Member.create(
+    #     name: 'joe',
+    #     posts_attributes: [
+    #       { title: 'Foo' },
+    #       { title: 'Bar' }
+    #     ]
+    #   )
+    #
+    # The keys of the hash which is the value for +:posts_attributes+ are
+    # ignored in this case.
+    # However, it is not allowed to use &lt;tt&gt;'id'&lt;/tt&gt; or &lt;tt&gt;:id&lt;/tt&gt; for one of
+    # such keys, otherwise the hash will be wrapped in an array and
+    # interpreted as an attribute hash for a single post.
+    #
+    # Passing attributes for an associated collection in the form of a hash
+    # of hashes can be used with hashes generated from HTTP/HTML parameters,
+    # where there may be no natural way to submit an array of hashes.
+    #
+    # === Saving
+    #
+    # All changes to models, including the destruction of those marked for
+    # destruction, are saved and destroyed automatically and atomically when
+    # the parent model is saved. This happens inside the transaction initiated
+    # by the parent's save method. See ActiveRecord::AutosaveAssociation.
+    #
+    # === Validating the presence of a parent model
+    #
+    # If you want to validate that a child record is associated with a parent
+    # record, you can use the +validates_presence_of+ method and the +:inverse_of+
+    # key as this example illustrates:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_many :posts, inverse_of: :member
+    #     accepts_nested_attributes_for :posts
+    #   end
+    #
+    #   class Post &lt; ActiveRecord::Base
+    #     belongs_to :member, inverse_of: :posts
+    #     validates_presence_of :member
+    #   end
+    #
+    # Note that if you do not specify the +:inverse_of+ option, then
+    # Active Record will try to automatically guess the inverse association
+    # based on heuristics.
+    #
+    # For one-to-one nested associations, if you build the new (in-memory)
+    # child object yourself before assignment, then this module will not
+    # overwrite it, e.g.:
+    #
+    #   class Member &lt; ActiveRecord::Base
+    #     has_one :avatar
+    #     accepts_nested_attributes_for :avatar
+    #
+    #     def avatar
+    #       super || build_avatar(width: 200)
+    #     end
+    #   end
+    #
+    #   member = Member.new
+    #   member.avatar_attributes = {icon: 'sad'}
+    #   member.avatar.width # =&gt; 200
+    module ClassMethods
+      REJECT_ALL_BLANK_PROC = proc { |attributes| attributes.all? { |key, value| key == "_destroy" || value.blank? } }
+&nbsp;
+      # Defines an attributes writer for the specified association(s).
+      #
+      # Supported options:
+      # [:allow_destroy]
+      #   If true, destroys any members from the attributes hash with a
+      #   &lt;tt&gt;_destroy&lt;/tt&gt; key and a value that evaluates to +true+
+      #   (eg. 1, '1', true, or 'true'). This option is off by default.
+      # [:reject_if]
+      #   Allows you to specify a Proc or a Symbol pointing to a method
+      #   that checks whether a record should be built for a certain attribute
+      #   hash. The hash is passed to the supplied Proc or the method
+      #   and it should return either +true+ or +false+. When no +:reject_if+
+      #   is specified, a record will be built for all attribute hashes that
+      #   do not have a &lt;tt&gt;_destroy&lt;/tt&gt; value that evaluates to true.
+      #   Passing &lt;tt&gt;:all_blank&lt;/tt&gt; instead of a Proc will create a proc
+      #   that will reject a record where all the attributes are blank excluding
+      #   any value for +_destroy+.
+      # [:limit]
+      #   Allows you to specify the maximum number of associated records that
+      #   can be processed with the nested attributes. Limit also can be specified
+      #   as a Proc or a Symbol pointing to a method that should return a number.
+      #   If the size of the nested attributes array exceeds the specified limit,
+      #   NestedAttributes::TooManyRecords exception is raised. If omitted, any
+      #   number of associations can be processed.
+      #   Note that the +:limit+ option is only applicable to one-to-many
+      #   associations.
+      # [:update_only]
+      #   For a one-to-one association, this option allows you to specify how
+      #   nested attributes are going to be used when an associated record already
+      #   exists. In general, an existing record may either be updated with the
+      #   new set of attribute values or be replaced by a wholly new record
+      #   containing those values. By default the +:update_only+ option is +false+
+      #   and the nested attributes are used to update the existing record only
+      #   if they include the record's &lt;tt&gt;:id&lt;/tt&gt; value. Otherwise a new
+      #   record will be instantiated and used to replace the existing one.
+      #   However if the +:update_only+ option is +true+, the nested attributes
+      #   are used to update the record's attributes always, regardless of
+      #   whether the &lt;tt&gt;:id&lt;/tt&gt; is present. The option is ignored for collection
+      #   associations.
+      #
+      # Examples:
+      #   # creates avatar_attributes=
+      #   accepts_nested_attributes_for :avatar, reject_if: proc { |attributes| attributes['name'].blank? }
+      #   # creates avatar_attributes=
+      #   accepts_nested_attributes_for :avatar, reject_if: :all_blank
+      #   # creates avatar_attributes= and posts_attributes=
+      #   accepts_nested_attributes_for :avatar, :posts, allow_destroy: true
+      def accepts_nested_attributes_for(*attr_names)
+        options = { allow_destroy: false, update_only: false }
+        options.update(attr_names.extract_options!)
+        options.assert_valid_keys(:allow_destroy, :reject_if, :limit, :update_only)
+        options[:reject_if] = REJECT_ALL_BLANK_PROC if options[:reject_if] == :all_blank
+&nbsp;
+        attr_names.each do |association_name|
+          if reflection = _reflect_on_association(association_name)
+            reflection.autosave = true
+            define_autosave_validation_callbacks(reflection)
+&nbsp;
+            nested_attributes_options = self.nested_attributes_options.dup
+            nested_attributes_options[association_name.to_sym] = options
+            self.nested_attributes_options = nested_attributes_options
+&nbsp;
+            type = (reflection.collection? ? :collection : :one_to_one)
+            generate_association_writer(association_name, type)
+          else
+            raise ArgumentError, "No association found for name `#{association_name}'. Has it been defined yet?"
+          end
+        end
+      end
+&nbsp;
+      private
+&nbsp;
+        # Generates a writer method for this association. Serves as a point for
+        # accessing the objects in the association. For example, this method
+        # could generate the following:
+        #
+        #   def pirate_attributes=(attributes)
+        #     assign_nested_attributes_for_one_to_one_association(:pirate, attributes)
+        #   end
+        #
+        # This redirects the attempts to write objects in an association through
+        # the helper methods defined below. Makes it seem like the nested
+        # associations are just regular associations.
+        def generate_association_writer(association_name, type)
+          generated_association_methods.module_eval &lt;&lt;-eoruby, __FILE__, __LINE__ + 1
+            silence_redefinition_of_method :#{association_name}_attributes=
+            def #{association_name}_attributes=(attributes)
+              assign_nested_attributes_for_#{type}_association(:#{association_name}, attributes)
+            end
+          eoruby
+        end
+    end
+&nbsp;
+    # Returns ActiveRecord::AutosaveAssociation::marked_for_destruction? It's
+    # used in conjunction with fields_for to build a form element for the
+    # destruction of this association.
+    #
+    # See ActionView::Helpers::FormHelper::fields_for for more info.
+    def _destroy
+      marked_for_destruction?
+    end
+&nbsp;
+    private
+&nbsp;
+      # Attribute hash keys that should not be assigned as normal attributes.
+      # These hash keys are nested attributes implementation details.
+      UNASSIGNABLE_KEYS = %w( id _destroy )
+&nbsp;
+      # Assigns the given attributes to the association.
+      #
+      # If an associated record does not yet exist, one will be instantiated. If
+      # an associated record already exists, the method's behavior depends on
+      # the value of the update_only option. If update_only is +false+ and the
+      # given attributes include an &lt;tt&gt;:id&lt;/tt&gt; that matches the existing record's
+      # id, then the existing record will be modified. If no &lt;tt&gt;:id&lt;/tt&gt; is provided
+      # it will be replaced with a new record. If update_only is +true+ the existing
+      # record will be modified regardless of whether an &lt;tt&gt;:id&lt;/tt&gt; is provided.
+      #
+      # If the given attributes include a matching &lt;tt&gt;:id&lt;/tt&gt; attribute, or
+      # update_only is true, and a &lt;tt&gt;:_destroy&lt;/tt&gt; key set to a truthy value,
+      # then the existing record will be marked for destruction.
+      def assign_nested_attributes_for_one_to_one_association(association_name, attributes)
+        options = nested_attributes_options[association_name]
+        if attributes.respond_to?(:permitted?)
+          attributes = attributes.to_h
+        end
+        attributes = attributes.with_indifferent_access
+        existing_record = send(association_name)
+&nbsp;
+        if (options[:update_only] || !attributes["id"].blank?) &amp;&amp; existing_record &amp;&amp;
+            (options[:update_only] || existing_record.id.to_s == attributes["id"].to_s)
+          assign_to_or_mark_for_destruction(existing_record, attributes, options[:allow_destroy]) unless call_reject_if(association_name, attributes)
+&nbsp;
+        elsif attributes["id"].present?
+          raise_nested_attributes_record_not_found!(association_name, attributes["id"])
+&nbsp;
+        elsif !reject_new_record?(association_name, attributes)
+          assignable_attributes = attributes.except(*UNASSIGNABLE_KEYS)
+&nbsp;
+          if existing_record &amp;&amp; existing_record.new_record?
+            existing_record.assign_attributes(assignable_attributes)
+            association(association_name).initialize_attributes(existing_record)
+          else
+            method = "build_#{association_name}"
+            if respond_to?(method)
+              send(method, assignable_attributes)
+            else
+              raise ArgumentError, "Cannot build association `#{association_name}'. Are you trying to build a polymorphic one-to-one association?"
+            end
+          end
+        end
+      end
+&nbsp;
+      # Assigns the given attributes to the collection association.
+      #
+      # Hashes with an &lt;tt&gt;:id&lt;/tt&gt; value matching an existing associated record
+      # will update that record. Hashes without an &lt;tt&gt;:id&lt;/tt&gt; value will build
+      # a new record for the association. Hashes with a matching &lt;tt&gt;:id&lt;/tt&gt;
+      # value and a &lt;tt&gt;:_destroy&lt;/tt&gt; key set to a truthy value will mark the
+      # matched record for destruction.
+      #
+      # For example:
+      #
+      #   assign_nested_attributes_for_collection_association(:people, {
+      #     '1' =&gt; { id: '1', name: 'Peter' },
+      #     '2' =&gt; { name: 'John' },
+      #     '3' =&gt; { id: '2', _destroy: true }
+      #   })
+      #
+      # Will update the name of the Person with ID 1, build a new associated
+      # person with the name 'John', and mark the associated Person with ID 2
+      # for destruction.
+      #
+      # Also accepts an Array of attribute hashes:
+      #
+      #   assign_nested_attributes_for_collection_association(:people, [
+      #     { id: '1', name: 'Peter' },
+      #     { name: 'John' },
+      #     { id: '2', _destroy: true }
+      #   ])
+      def assign_nested_attributes_for_collection_association(association_name, attributes_collection)
+        options = nested_attributes_options[association_name]
+        if attributes_collection.respond_to?(:permitted?)
+          attributes_collection = attributes_collection.to_h
+        end
+&nbsp;
+        unless attributes_collection.is_a?(Hash) || attributes_collection.is_a?(Array)
+          raise ArgumentError, "Hash or Array expected for attribute `#{association_name}`, got #{attributes_collection.class.name} (#{attributes_collection.inspect})"
+        end
+&nbsp;
+        check_record_limit!(options[:limit], attributes_collection)
+&nbsp;
+        if attributes_collection.is_a? Hash
+          keys = attributes_collection.keys
+          attributes_collection = if <span class="branch-1 cbranch-no" title="branch not covered" >keys.include?("id") || keys.include?(:id)</span>
+            [attributes_collection]
+          else
+            attributes_collection.values
+          end
+        end
+&nbsp;
+        association = association(association_name)
+&nbsp;
+        existing_records = if association.loaded?
+          association.target
+        else
+          attribute_ids = attributes_collection.map { |a| a["id"] || a[:id] }.compact
+          attribute_ids.empty? ? [] : association.scope.where(association.klass.primary_key =&gt; attribute_ids)
+        end
+&nbsp;
+        attributes_collection.each do |attributes|
+          if attributes.respond_to?(:permitted?)
+            attributes = attributes.to_h
+          end
+          attributes = attributes.with_indifferent_access
+&nbsp;
+          if attributes["id"].blank?
+            unless reject_new_record?(association_name, attributes)
+              association.build(attributes.except(*UNASSIGNABLE_KEYS))
+            end
+          elsif existing_record = existing_records.detect { |record| record.id.to_s == attributes["id"].to_s }
+            unless call_reject_if(association_name, attributes)
+              # Make sure we are operating on the actual object which is in the association's
+              # proxy_target array (either by finding it, or adding it if not found)
+              # Take into account that the proxy_target may have changed due to callbacks
+              target_record = association.target.detect { |record| record.id.to_s == attributes["id"].to_s }
+              if target_record
+                existing_record = target_record
+              else
+                association.add_to_target(existing_record, :skip_callbacks)
+              end
+&nbsp;
+              assign_to_or_mark_for_destruction(existing_record, attributes, options[:allow_destroy])
+            end
+          else
+            raise_nested_attributes_record_not_found!(association_name, attributes["id"])
+          end
+        end
+      end
+&nbsp;
+      # Takes in a limit and checks if the attributes_collection has too many
+      # records. It accepts limit in the form of symbol, proc, or
+      # number-like object (anything that can be compared with an integer).
+      #
+      # Raises TooManyRecords error if the attributes_collection is
+      # larger than the limit.
+      def check_record_limit!(limit, attributes_collection)
+        if limit
+          limit = \
+            case limit
+            when Symbol
+              send(limit)
+            when Proc
+              limit.call
+            else
+              limit
+            end
+&nbsp;
+          if <span class="branch-1 cbranch-no" title="branch not covered" >limit &amp;&amp; attributes_collection.size &gt; limit</span>
+            raise TooManyRecords, "Maximum #{limit} records are allowed. Got #{attributes_collection.size} records instead."
+          end
+        end
+      end
+&nbsp;
+      # Updates a record with the +attributes+ or marks it for destruction if
+      # +allow_destroy+ is +true+ and has_destroy_flag? returns +true+.
+      def assign_to_or_mark_for_destruction(record, attributes, allow_destroy)
+        record.assign_attributes(attributes.except(*UNASSIGNABLE_KEYS))
+        record.mark_for_destruction if has_destroy_flag?(attributes) &amp;&amp; allow_destroy
+      end
+&nbsp;
+      # Determines if a hash contains a truthy _destroy key.
+      def has_destroy_flag?(hash)
+        Type::Boolean.new.cast(hash["_destroy"])
+      end
+&nbsp;
+      # Determines if a new record should be rejected by checking
+      # has_destroy_flag? or if a &lt;tt&gt;:reject_if&lt;/tt&gt; proc exists for this
+      # association and evaluates to +true+.
+      def reject_new_record?(association_name, attributes)
+        will_be_destroyed?(association_name, attributes) || call_reject_if(association_name, attributes)
+      end
+&nbsp;
+      # Determines if a record with the particular +attributes+ should be
+      # rejected by calling the reject_if Symbol or Proc (if defined).
+      # The reject_if option is defined by +accepts_nested_attributes_for+.
+      #
+      # Returns false if there is a +destroy_flag+ on the attributes.
+      def call_reject_if(association_name, attributes)
+        return false if will_be_destroyed?(association_name, attributes)
+&nbsp;
+        case callback = nested_attributes_options[association_name][:reject_if]
+        when Symbol
+          method(callback).arity == 0 ? send(callback) : send(callback, attributes)
+        when Proc
+          callback.call(attributes)
+        end
+      end
+&nbsp;
+      # Only take into account the destroy flag if &lt;tt&gt;:allow_destroy&lt;/tt&gt; is true
+      def will_be_destroyed?(association_name, attributes)
+        allow_destroy?(association_name) &amp;&amp; has_destroy_flag?(attributes)
+      end
+&nbsp;
+      def allow_destroy?(association_name)
+        nested_attributes_options[association_name][:allow_destroy]
+      end
+&nbsp;
+      def raise_nested_attributes_record_not_found!(association_name, record_id)
+        model = self.class._reflect_on_association(association_name).klass.name
+        raise RecordNotFound.new("Couldn't find #{model} with ID=#{record_id} for #{self.class.name} with ID=#{id}",
+                                 model, "id", record_id)
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

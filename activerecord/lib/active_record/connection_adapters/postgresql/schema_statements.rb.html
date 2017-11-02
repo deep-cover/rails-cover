@@ -1,0 +1,2063 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/postgresql/schema_statements.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters/postgresql</a> schema_statements.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.06% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>389/418</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.65% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>125/141</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.92% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>56/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>278/291</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3543x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-yes">634x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4152x</span>
+<span class="cline-any cline-yes">4152x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4152x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1095x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1095x</span>
+<span class="cline-any cline-yes">1095x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1095x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3957x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-yes">3959x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">220x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">911x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12129x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">813x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3903x</span>
+<span class="cline-any cline-yes">3897x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3897x</span>
+<span class="cline-any cline-yes">3897x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3903x</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3903x</span>
+<span class="cline-any cline-yes">3551x</span>
+<span class="cline-any cline-yes">3551x</span>
+<span class="cline-any cline-yes">3551x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3551x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3932x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3934x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3932x</span>
+<span class="cline-any cline-yes">363x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">363x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3684x</span>
+<span class="cline-any cline-yes">3684x</span>
+<span class="cline-any cline-yes">3573x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5031x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5031x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">365x</span>
+<span class="cline-any cline-yes">365x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">648x</span>
+<span class="cline-any cline-yes">648x</span>
+<span class="cline-any cline-yes">648x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4085x</span>
+<span class="cline-any cline-yes">4085x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4085x</span>
+<span class="cline-any cline-yes">4085x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4085x</span>
+<span class="cline-any cline-yes">191x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">191x</span>
+<span class="cline-any cline-yes">191x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">191x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7544x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1037x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">998x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6296x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7544x</span>
+<span class="cline-any cline-yes">7544x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">108x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">147x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">171x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2686x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2693x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55046x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">382x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-yes">4402x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6907x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">70x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-yes">17866x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionAdapters
+    module PostgreSQL
+      module SchemaStatements
+        # Drops the database specified on the +name+ attribute
+        # and creates it again using the provided +options+.
+<span class="fstat-no" title="function not covered" >        def recreate_database(name, options = <span class="cstat-no" title="statement not covered" >{}</span>)</span> #:nodoc:
+<span class="cstat-no" title="statement not covered" >          drop_database(name)</span>
+<span class="cstat-no" title="statement not covered" >          create_database(name, options)</span>
+        end
+&nbsp;
+        # Create a new PostgreSQL database. Options include &lt;tt&gt;:owner&lt;/tt&gt;, &lt;tt&gt;:template&lt;/tt&gt;,
+        # &lt;tt&gt;:encoding&lt;/tt&gt; (defaults to utf8), &lt;tt&gt;:collation&lt;/tt&gt;, &lt;tt&gt;:ctype&lt;/tt&gt;,
+        # &lt;tt&gt;:tablespace&lt;/tt&gt;, and &lt;tt&gt;:connection_limit&lt;/tt&gt; (note that MySQL uses
+        # &lt;tt&gt;:charset&lt;/tt&gt; while PostgreSQL uses &lt;tt&gt;:encoding&lt;/tt&gt;).
+        #
+        # Example:
+        #   create_database config[:database], config
+        #   create_database 'foo_development', encoding: 'unicode'
+        def create_database(name, options = {})
+          options = { encoding: "utf8" }.merge!(options.symbolize_keys)
+&nbsp;
+          option_string = options.inject("") do |memo, (key, value)|
+            memo += case key
+                    when :owner
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >                      " OWNER = \"#{<span class="cstat-no" title="statement not covered" >value</span>}\""</span></span>
+                    when :template
+<span class="cstat-no" title="statement not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >                      " TEMPLATE = \"#{<span class="cstat-no" title="statement not covered" >value</span>}\""</span></span>
+                    when :encoding
+                      " ENCODING = '#{value}'"
+                    when :collation
+                      " LC_COLLATE = '#{value}'"
+                    when :ctype
+                      " LC_CTYPE = '#{value}'"
+<span class="cstat-no" title="statement not covered" >                    when :tablespace</span>
+<span class="cstat-no" title="statement not covered" ><span class="branch-5 cbranch-no" title="branch not covered" >                      " TABLESPACE = \"#{<span class="cstat-no" title="statement not covered" >value</span>}\""</span></span>
+<span class="cstat-no" title="statement not covered" >                    when :connection_limit</span>
+<span class="cstat-no" title="statement not covered" ><span class="branch-6 cbranch-no" title="branch not covered" >                      " CONNECTION LIMIT = #{<span class="cstat-no" title="statement not covered" >value</span>}"</span></span>
+            else
+<span class="cstat-no" title="statement not covered" ><span class="branch-7 cbranch-no" title="branch not covered" >                      ""</span></span>
+            end
+          end
+&nbsp;
+          execute "CREATE DATABASE #{quote_table_name(name)}#{option_string}"
+        end
+&nbsp;
+        # Drops a PostgreSQL database.
+        #
+        # Example:
+        #   drop_database 'matt_development'
+<span class="fstat-no" title="function not covered" >        def drop_database(name)</span> #:nodoc:
+<span class="cstat-no" title="statement not covered" >          execute "DROP DATABASE IF EXISTS #{<span class="cstat-no" title="statement not covered" >quote_table_name(name)</span>}"</span>
+        end
+&nbsp;
+        def drop_table(table_name, options = {}) # :nodoc:
+          execute "DROP TABLE#{' IF EXISTS' if options[:if_exists]} #{quote_table_name(table_name)}#{' CASCADE' if options[:force] == :cascade}"
+        end
+&nbsp;
+        # Returns true if schema exists.
+        def schema_exists?(name)
+          query_value("SELECT COUNT(*) FROM pg_namespace WHERE nspname = #{quote(name)}", "SCHEMA").to_i &gt; 0
+        end
+&nbsp;
+        # Verifies existence of an index with a given name.
+        def index_name_exists?(table_name, index_name)
+          table = quoted_scope(table_name)
+          index = quoted_scope(index_name)
+&nbsp;
+          query_value(&lt;&lt;-SQL, "SCHEMA").to_i &gt; 0
+            SELECT COUNT(*)
+            FROM pg_class t
+            INNER JOIN pg_index d ON t.oid = d.indrelid
+            INNER JOIN pg_class i ON d.indexrelid = i.oid
+            LEFT JOIN pg_namespace n ON n.oid = i.relnamespace
+            WHERE i.relkind = 'i'
+              AND i.relname = #{index[:name]}
+              AND t.relname = #{table[:name]}
+              AND n.nspname = #{index[:schema]}
+          SQL
+        end
+&nbsp;
+        # Returns an array of indexes for the given table.
+        def indexes(table_name) # :nodoc:
+          scope = quoted_scope(table_name)
+&nbsp;
+          result = query(&lt;&lt;-SQL, "SCHEMA")
+            SELECT distinct i.relname, d.indisunique, d.indkey, pg_get_indexdef(d.indexrelid), t.oid,
+                            pg_catalog.obj_description(i.oid, 'pg_class') AS comment,
+            (SELECT COUNT(*) FROM pg_opclass o
+               JOIN (SELECT unnest(string_to_array(d.indclass::text, ' '))::int oid) c
+                 ON o.oid = c.oid WHERE o.opcdefault = 'f')
+            FROM pg_class t
+            INNER JOIN pg_index d ON t.oid = d.indrelid
+            INNER JOIN pg_class i ON d.indexrelid = i.oid
+            LEFT JOIN pg_namespace n ON n.oid = i.relnamespace
+            WHERE i.relkind = 'i'
+              AND d.indisprimary = 'f'
+              AND t.relname = #{scope[:name]}
+              AND n.nspname = #{scope[:schema]}
+            ORDER BY i.relname
+          SQL
+&nbsp;
+          result.map do |row|
+            index_name = row[0]
+            unique = row[1]
+            indkey = row[2].split(" ").map(&amp;:to_i)
+            inddef = row[3]
+            oid = row[4]
+            comment = row[5]
+            opclass = row[6]
+&nbsp;
+            using, expressions, where = inddef.scan(/ USING (\w+?) \((.+?)\)(?: WHERE (.+))?\z/).flatten
+&nbsp;
+            if indkey.include?(0) || opclass &gt; 0
+              columns = expressions
+            else
+              columns = Hash[query(&lt;&lt;-SQL.strip_heredoc, "SCHEMA")].values_at(*indkey).compact
+                SELECT a.attnum, a.attname
+                FROM pg_attribute a
+                WHERE a.attrelid = #{oid}
+                AND a.attnum IN (#{indkey.join(",")})
+              SQL
+&nbsp;
+              # add info on sort order for columns (only desc order is explicitly specified, asc is the default)
+              orders = Hash[
+                expressions.scan(/(\w+) DESC/).flatten.map { |order_column| [order_column, :desc] }
+              ]
+            end
+&nbsp;
+            IndexDefinition.new(
+              table_name,
+              index_name,
+              unique,
+              columns,
+              orders: orders,
+              where: where,
+              using: using.to_sym,
+              comment: comment.presence
+            )
+          end
+        end
+&nbsp;
+        def table_options(table_name) # :nodoc:
+          if comment = table_comment(table_name)
+            { comment: comment }
+          end
+        end
+&nbsp;
+        # Returns a comment stored in database for given table
+        def table_comment(table_name) # :nodoc:
+          scope = quoted_scope(table_name, type: "BASE TABLE")
+          <span class="missing-if-branch" title="else path not taken" >E</span>if scope[:name]
+            query_value(&lt;&lt;-SQL.strip_heredoc, "SCHEMA")
+              SELECT pg_catalog.obj_description(c.oid, 'pg_class')
+              FROM pg_catalog.pg_class c
+                LEFT JOIN pg_namespace n ON n.oid = c.relnamespace
+              WHERE c.relname = #{scope[:name]}
+                AND c.relkind IN (#{scope[:type]})
+                AND n.nspname = #{scope[:schema]}
+            SQL
+          end
+        end
+&nbsp;
+        # Returns the current database name.
+        def current_database
+          query_value("SELECT current_database()", "SCHEMA")
+        end
+&nbsp;
+        # Returns the current schema name.
+        def current_schema
+          query_value("SELECT current_schema", "SCHEMA")
+        end
+&nbsp;
+        # Returns the current database encoding format.
+        def encoding
+          query_value("SELECT pg_encoding_to_char(encoding) FROM pg_database WHERE datname = current_database()", "SCHEMA")
+        end
+&nbsp;
+        # Returns the current database collation.
+        def collation
+          query_value("SELECT datcollate FROM pg_database WHERE datname = current_database()", "SCHEMA")
+        end
+&nbsp;
+        # Returns the current database ctype.
+        def ctype
+          query_value("SELECT datctype FROM pg_database WHERE datname = current_database()", "SCHEMA")
+        end
+&nbsp;
+        # Returns an array of schema names.
+        def schema_names
+          query_values(&lt;&lt;-SQL, "SCHEMA")
+            SELECT nspname
+              FROM pg_namespace
+             WHERE nspname !~ '^pg_.*'
+               AND nspname NOT IN ('information_schema')
+             ORDER by nspname;
+          SQL
+        end
+&nbsp;
+        # Creates a schema for the given schema name.
+        def create_schema(schema_name)
+          execute "CREATE SCHEMA #{quote_schema_name(schema_name)}"
+        end
+&nbsp;
+        # Drops the schema for the given schema name.
+        def drop_schema(schema_name, options = {})
+          execute "DROP SCHEMA#{' IF EXISTS' if options[:if_exists]} #{quote_schema_name(schema_name)} CASCADE"
+        end
+&nbsp;
+        # Sets the schema search path to a string of comma-separated schema names.
+        # Names beginning with $ have to be quoted (e.g. $user =&gt; '$user').
+        # See: https://www.postgresql.org/docs/current/static/ddl-schemas.html
+        #
+        # This should be not be called manually but set in database.yml.
+        def schema_search_path=(schema_csv)
+          if schema_csv
+            execute("SET search_path TO #{schema_csv}", "SCHEMA")
+            @schema_search_path = schema_csv
+          end
+        end
+&nbsp;
+        # Returns the active schema search path.
+        def schema_search_path
+          @schema_search_path ||= query_value("SHOW search_path", "SCHEMA")
+        end
+&nbsp;
+        # Returns the current client message level.
+        def client_min_messages
+          query_value("SHOW client_min_messages", "SCHEMA")
+        end
+&nbsp;
+        # Set the client message level.
+        def client_min_messages=(level)
+          execute("SET client_min_messages TO '#{level}'", "SCHEMA")
+        end
+&nbsp;
+        # Returns the sequence name for a table's primary key or some other specified key.
+        def default_sequence_name(table_name, pk = "id") #:nodoc:
+          result = serial_sequence(table_name, pk)
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="else path not taken" >E</span>return nil</span> unless result
+          Utils.extract_schema_qualified_name(result).to_s
+        rescue ActiveRecord::StatementInvalid
+          PostgreSQL::Name.new(nil, "#{table_name}_#{pk}_seq").to_s
+        end
+&nbsp;
+        def serial_sequence(table, column)
+          query_value("SELECT pg_get_serial_sequence(#{quote(table)}, #{quote(column)})", "SCHEMA")
+        end
+&nbsp;
+        # Sets the sequence of a table's primary key to the specified value.
+        def set_pk_sequence!(table, value) #:nodoc:
+          pk, sequence = pk_and_sequence_for(table)
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if pk
+            if sequence
+              quoted_sequence = quote_table_name(sequence)
+&nbsp;
+              query_value("SELECT setval(#{quote(quoted_sequence)}, #{value})", "SCHEMA")
+            else
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >              <span class="missing-if-branch" title="else path not taken" >E</span>@logger.warn "#{<span class="cstat-no" title="statement not covered" >table</span>} has primary key #{<span class="cstat-no" title="statement not covered" >pk</span>} with no default sequence."</span> if @logger</span>
+            end
+          end
+        end
+&nbsp;
+        # Resets the sequence of a table's primary key to the maximum value.
+        def reset_pk_sequence!(table, pk = nil, sequence = nil) #:nodoc:
+          unless pk &amp;&amp; sequence
+            default_pk, default_sequence = pk_and_sequence_for(table)
+&nbsp;
+            pk ||= default_pk
+            sequence ||= default_sequence
+          end
+&nbsp;
+          if <span class="branch-1 cbranch-no" title="branch not covered" >@logger &amp;&amp; pk</span> &amp;&amp; !sequence
+            @logger.warn "#{table} has primary key #{pk} with no default sequence."
+          end
+&nbsp;
+          if pk &amp;&amp; sequence
+            quoted_sequence = quote_table_name(sequence)
+            max_pk = query_value("SELECT MAX(#{quote_column_name pk}) FROM #{quote_table_name(table)}", "SCHEMA")
+            if max_pk.nil?
+              if postgresql_version &gt;= 100000
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="if path not taken" >I</span>minvalue = query_value("SELECT seqmin FROM pg_sequence WHERE seqrelid = #{<span class="cstat-no" title="statement not covered" >quote(quoted_sequence)</span>}::regclass", "SCHEMA")</span>
+              else
+                minvalue = query_value("SELECT min_value FROM #{quoted_sequence}", "SCHEMA")
+              end
+            end
+&nbsp;
+            query_value("SELECT setval(#{quote(quoted_sequence)}, #{max_pk ? max_pk : minvalue}, #{max_pk ? true : false})", "SCHEMA")
+          end
+        end
+&nbsp;
+        # Returns a table's primary key and belonging sequence.
+        def pk_and_sequence_for(table) #:nodoc:
+          # First try looking for a sequence with a dependency on the
+          # given table's primary key.
+          result = query(&lt;&lt;-end_sql, "SCHEMA")[0]
+            SELECT attr.attname, nsp.nspname, seq.relname
+            FROM pg_class      seq,
+                 pg_attribute  attr,
+                 pg_depend     dep,
+                 pg_constraint cons,
+                 pg_namespace  nsp
+            WHERE seq.oid           = dep.objid
+              AND seq.relkind       = 'S'
+              AND attr.attrelid     = dep.refobjid
+              AND attr.attnum       = dep.refobjsubid
+              AND attr.attrelid     = cons.conrelid
+              AND attr.attnum       = cons.conkey[1]
+              AND seq.relnamespace  = nsp.oid
+              AND cons.contype      = 'p'
+              AND dep.classid       = 'pg_class'::regclass
+              AND dep.refobjid      = #{quote(quote_table_name(table))}::regclass
+          end_sql
+&nbsp;
+          if result.nil? || result.empty?
+            result = query(&lt;&lt;-end_sql, "SCHEMA")[0]
+              SELECT attr.attname, nsp.nspname,
+                CASE
+                  WHEN pg_get_expr(def.adbin, def.adrelid) !~* 'nextval' THEN NULL
+                  WHEN split_part(pg_get_expr(def.adbin, def.adrelid), '''', 2) ~ '.' THEN
+                    substr(split_part(pg_get_expr(def.adbin, def.adrelid), '''', 2),
+                           strpos(split_part(pg_get_expr(def.adbin, def.adrelid), '''', 2), '.')+1)
+                  ELSE split_part(pg_get_expr(def.adbin, def.adrelid), '''', 2)
+                END
+              FROM pg_class       t
+              JOIN pg_attribute   attr ON (t.oid = attrelid)
+              JOIN pg_attrdef     def  ON (adrelid = attrelid AND adnum = attnum)
+              JOIN pg_constraint  cons ON (conrelid = adrelid AND adnum = conkey[1])
+              JOIN pg_namespace   nsp  ON (t.relnamespace = nsp.oid)
+              WHERE t.oid = #{quote(quote_table_name(table))}::regclass
+                AND cons.contype = 'p'
+                AND pg_get_expr(def.adbin, def.adrelid) ~* 'nextval|uuid_generate'
+            end_sql
+          end
+&nbsp;
+          pk = result.shift
+          if result.last
+            [pk, PostgreSQL::Name.new(*result)]
+          else
+            [pk, nil]
+          end
+        rescue
+          nil
+        end
+&nbsp;
+        def primary_keys(table_name) # :nodoc:
+          query_values(&lt;&lt;-SQL.strip_heredoc, "SCHEMA")
+            SELECT a.attname
+              FROM (
+                     SELECT indrelid, indkey, generate_subscripts(indkey, 1) idx
+                       FROM pg_index
+                      WHERE indrelid = #{quote(quote_table_name(table_name))}::regclass
+                        AND indisprimary
+                   ) i
+              JOIN pg_attribute a
+                ON a.attrelid = i.indrelid
+               AND a.attnum = i.indkey[i.idx]
+             ORDER BY i.idx
+          SQL
+        end
+&nbsp;
+        # Renames a table.
+        # Also renames a table's primary key sequence if the sequence name exists and
+        # matches the Active Record default.
+        #
+        # Example:
+        #   rename_table('octopuses', 'octopi')
+        def rename_table(table_name, new_name)
+          clear_cache!
+          execute "ALTER TABLE #{quote_table_name(table_name)} RENAME TO #{quote_table_name(new_name)}"
+          pk, seq = pk_and_sequence_for(new_name)
+          <span class="missing-if-branch" title="else path not taken" >E</span>if pk
+            idx = "#{table_name}_pkey"
+            new_idx = "#{new_name}_pkey"
+            execute "ALTER INDEX #{quote_table_name(idx)} RENAME TO #{quote_table_name(new_idx)}"
+            if seq &amp;&amp; seq.identifier == "#{table_name}_#{pk}_seq"
+              new_seq = "#{new_name}_#{pk}_seq"
+              execute "ALTER TABLE #{seq.quoted} RENAME TO #{quote_table_name(new_seq)}"
+            end
+          end
+          rename_table_indexes(table_name, new_name)
+        end
+&nbsp;
+        def add_column(table_name, column_name, type, options = {}) #:nodoc:
+          clear_cache!
+          super
+          change_column_comment(table_name, column_name, options[:comment]) if options.key?(:comment)
+        end
+&nbsp;
+        def change_column(table_name, column_name, type, options = {}) #:nodoc:
+          clear_cache!
+          quoted_table_name = quote_table_name(table_name)
+          quoted_column_name = quote_column_name(column_name)
+          sql_type = type_to_sql(type, options)
+          sql = "ALTER TABLE #{quoted_table_name} ALTER COLUMN #{quoted_column_name} TYPE #{sql_type}".dup
+          if options[:collation]
+            sql &lt;&lt; " COLLATE \"#{options[:collation]}\""
+          end
+          if options[:using]
+            sql &lt;&lt; " USING #{options[:using]}"
+          elsif options[:cast_as]
+            cast_as_type = type_to_sql(options[:cast_as], options)
+            sql &lt;&lt; " USING CAST(#{quoted_column_name} AS #{cast_as_type})"
+          end
+          execute sql
+&nbsp;
+          change_column_default(table_name, column_name, options[:default]) if options.key?(:default)
+          change_column_null(table_name, column_name, options[:null], options[:default]) if options.key?(:null)
+          change_column_comment(table_name, column_name, options[:comment]) if options.key?(:comment)
+        end
+&nbsp;
+        # Changes the default value of a table column.
+        def change_column_default(table_name, column_name, default_or_changes) # :nodoc:
+          clear_cache!
+          column = column_for(table_name, column_name)
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="else path not taken" >E</span>return</span> unless column
+&nbsp;
+          default = extract_new_default_value(default_or_changes)
+          alter_column_query = "ALTER TABLE #{quote_table_name(table_name)} ALTER COLUMN #{quote_column_name(column_name)} %s"
+          if default.nil?
+            # &lt;tt&gt;DEFAULT NULL&lt;/tt&gt; results in the same behavior as &lt;tt&gt;DROP DEFAULT&lt;/tt&gt;. However, PostgreSQL will
+            # cast the default to the columns type, which leaves us with a default like "default NULL::character varying".
+            execute alter_column_query % "DROP DEFAULT"
+          else
+            execute alter_column_query % "SET DEFAULT #{quote_default_expression(default, column)}"
+          end
+        end
+&nbsp;
+        def change_column_null(table_name, column_name, null, default = nil) #:nodoc:
+          clear_cache!
+          unless null || default.nil?
+            column = column_for(table_name, column_name)
+            <span class="missing-if-branch" title="else path not taken" >E</span>execute("UPDATE #{quote_table_name(table_name)} SET #{quote_column_name(column_name)}=#{quote_default_expression(default, column)} WHERE #{quote_column_name(column_name)} IS NULL") if column
+          end
+          execute("ALTER TABLE #{quote_table_name(table_name)} ALTER #{quote_column_name(column_name)} #{null ? 'DROP' : 'SET'} NOT NULL")
+        end
+&nbsp;
+        # Adds comment for given table column or drops it if +comment+ is a +nil+
+        def change_column_comment(table_name, column_name, comment) # :nodoc:
+          clear_cache!
+          execute "COMMENT ON COLUMN #{quote_table_name(table_name)}.#{quote_column_name(column_name)} IS #{quote(comment)}"
+        end
+&nbsp;
+        # Adds comment for given table or drops it if +comment+ is a +nil+
+        def change_table_comment(table_name, comment) # :nodoc:
+          clear_cache!
+          execute "COMMENT ON TABLE #{quote_table_name(table_name)} IS #{quote(comment)}"
+        end
+&nbsp;
+        # Renames a column in a table.
+        def rename_column(table_name, column_name, new_column_name) #:nodoc:
+          clear_cache!
+          execute "ALTER TABLE #{quote_table_name(table_name)} RENAME COLUMN #{quote_column_name(column_name)} TO #{quote_column_name(new_column_name)}"
+          rename_column_indexes(table_name, column_name, new_column_name)
+        end
+&nbsp;
+        def add_index(table_name, column_name, options = {}) #:nodoc:
+          index_name, index_type, index_columns, index_options, index_algorithm, index_using, comment = add_index_options(table_name, column_name, options)
+          execute("CREATE #{index_type} INDEX #{index_algorithm} #{quote_column_name(index_name)} ON #{quote_table_name(table_name)} #{index_using} (#{index_columns})#{index_options}").tap do
+            execute "COMMENT ON INDEX #{quote_column_name(index_name)} IS #{quote(comment)}" if comment
+          end
+        end
+&nbsp;
+        def remove_index(table_name, options = <span class="cstat-no" title="statement not covered" >{}</span>) #:nodoc:
+          table = Utils.extract_schema_qualified_name(table_name.to_s)
+&nbsp;
+          if options.is_a?(Hash) &amp;&amp; options.key?(:name)
+            provided_index = Utils.extract_schema_qualified_name(options[:name].to_s)
+&nbsp;
+            options[:name] = provided_index.identifier
+            table = PostgreSQL::Name.new(provided_index.schema, table.identifier) unless table.schema.present?
+&nbsp;
+            if provided_index.schema.present? &amp;&amp; table.schema != provided_index.schema
+              raise ArgumentError.new("Index schema '#{provided_index.schema}' does not match table schema '#{table.schema}'")
+            end
+          end
+&nbsp;
+          index_to_remove = PostgreSQL::Name.new(table.schema, index_name_for_remove(table.to_s, options))
+          algorithm =
+            if options.is_a?(Hash) &amp;&amp; options.key?(:algorithm)
+              index_algorithms.fetch(options[:algorithm]) <span class="fstat-no" title="function not covered" >do</span>
+<span class="cstat-no" title="statement not covered" >                raise <span class="cstat-no" title="statement not covered" >ArgumentError.new("Algorithm must be one of the following: #{<span class="cstat-no" title="statement not covered" >index_algorithms.keys.map(&amp;:inspect).join(', ')</span>}")</span></span>
+              end
+            end
+          execute "DROP INDEX #{algorithm} #{quote_table_name(index_to_remove)}"
+        end
+&nbsp;
+        # Renames an index of a table. Raises error if length of new
+        # index name is greater than allowed limit.
+        def rename_index(table_name, old_name, new_name)
+          validate_index_length!(table_name, new_name)
+&nbsp;
+          execute "ALTER INDEX #{quote_column_name(old_name)} RENAME TO #{quote_table_name(new_name)}"
+        end
+&nbsp;
+        def foreign_keys(table_name)
+          scope = quoted_scope(table_name)
+          fk_info = exec_query(&lt;&lt;-SQL.strip_heredoc, "SCHEMA")
+            SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+            FROM pg_constraint c
+            JOIN pg_class t1 ON c.conrelid = t1.oid
+            JOIN pg_class t2 ON c.confrelid = t2.oid
+            JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+            JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+            JOIN pg_namespace t3 ON c.connamespace = t3.oid
+            WHERE c.contype = 'f'
+              AND t1.relname = #{scope[:name]}
+              AND t3.nspname = #{scope[:schema]}
+            ORDER BY c.conname
+          SQL
+&nbsp;
+          fk_info.map do |row|
+            options = {
+              column: row["column"],
+              name: row["name"],
+              primary_key: row["primary_key"]
+            }
+&nbsp;
+            options[:on_delete] = extract_foreign_key_action(row["on_delete"])
+            options[:on_update] = extract_foreign_key_action(row["on_update"])
+&nbsp;
+            ForeignKeyDefinition.new(table_name, row["to_table"], options)
+          end
+        end
+&nbsp;
+        # Maps logical Rails types to PostgreSQL-specific data types.
+        def type_to_sql(type, limit: nil, precision: nil, scale: nil, array: nil, **) # :nodoc:
+          sql = \
+            case type.to_s
+            when "binary"
+              # PostgreSQL doesn't support limits on binary (bytea) columns.
+              # The hard limit is 1GB, because of a 32-bit size field, and TOAST.
+              case limit
+              when nil, 0..0x3fffffff; super(type)
+              else raise(ActiveRecordError, "No binary type has byte size #{limit}.")
+              end
+            when "text"
+              # PostgreSQL doesn't support limits on text columns.
+              # The hard limit is 1GB, according to section 8.3 in the manual.
+              case limit
+              when nil, 0..0x3fffffff; super(type)
+              else raise(ActiveRecordError, "The limit on text can be at most 1GB - 1byte.")
+              end
+            when "integer"
+              case limit
+              when 1, 2; "smallint"
+              when nil, 3, 4; "integer"
+              when 5..8; "bigint"
+              else raise(ActiveRecordError, "No integer type has byte size #{limit}. Use a numeric with scale 0 instead.")
+              end
+            else
+              super
+            end
+&nbsp;
+          sql = "#{sql}[]" if array &amp;&amp; type != :primary_key
+          sql
+        end
+&nbsp;
+        # PostgreSQL requires the ORDER BY columns in the select list for distinct queries, and
+        # requires that the ORDER BY include the distinct column.
+        def columns_for_distinct(columns, orders) #:nodoc:
+          order_columns = orders.reject(&amp;:blank?).map { |s|
+              # Convert Arel node to string
+              s = s.to_sql unless s.is_a?(String)
+              # Remove any ASC/DESC modifiers
+              s.gsub(/\s+(?:ASC|DESC)\b/i, "")
+               .gsub(/\s+NULLS\s+(?:FIRST|LAST)\b/i, "")
+            }.reject(&amp;:blank?).map.with_index { |column, i| "#{column} AS alias_#{i}" }
+&nbsp;
+          [super, *order_columns].join(", ")
+        end
+&nbsp;
+        def update_table_definition(table_name, base) # :nodoc:
+          PostgreSQL::Table.new(table_name, base)
+        end
+&nbsp;
+        def create_schema_dumper(options) # :nodoc:
+          PostgreSQL::SchemaDumper.create(self, options)
+        end
+&nbsp;
+        private
+          def schema_creation
+            PostgreSQL::SchemaCreation.new(self)
+          end
+&nbsp;
+          def create_table_definition(*args)
+            PostgreSQL::TableDefinition.new(*args)
+          end
+&nbsp;
+          def new_column_from_field(table_name, field)
+            column_name, type, default, notnull, oid, fmod, collation, comment = field
+            type_metadata = fetch_type_metadata(column_name, type, oid.to_i, fmod.to_i)
+            default_value = extract_value_from_default(default)
+            default_function = extract_default_function(default_value, default)
+&nbsp;
+            PostgreSQLColumn.new(
+              column_name,
+              default_value,
+              type_metadata,
+              !notnull,
+              table_name,
+              default_function,
+              collation,
+              comment: comment.presence,
+              max_identifier_length: max_identifier_length
+            )
+          end
+&nbsp;
+          def fetch_type_metadata(column_name, sql_type, oid, fmod)
+            cast_type = get_oid_type(oid, fmod, column_name, sql_type)
+            simple_type = SqlTypeMetadata.new(
+              sql_type: sql_type,
+              type: cast_type.type,
+              limit: cast_type.limit,
+              precision: cast_type.precision,
+              scale: cast_type.scale,
+            )
+            PostgreSQLTypeMetadata.new(simple_type, oid: oid, fmod: fmod)
+          end
+&nbsp;
+          def extract_foreign_key_action(specifier)
+            case specifier
+            when "c"; :cascade
+            when "n"; :nullify
+            when "r"; :restrict
+            end
+          end
+&nbsp;
+          def data_source_sql(name = nil, type: nil)
+            scope = quoted_scope(name, type: type)
+            scope[:type] ||= "'r','v','m'" # (r)elation/table, (v)iew, (m)aterialized view
+&nbsp;
+            sql = "SELECT c.relname FROM pg_class c LEFT JOIN pg_namespace n ON n.oid = c.relnamespace".dup
+            sql &lt;&lt; " WHERE n.nspname = #{scope[:schema]}"
+            sql &lt;&lt; " AND c.relname = #{scope[:name]}" if scope[:name]
+            sql &lt;&lt; " AND c.relkind IN (#{scope[:type]})"
+            sql
+          end
+&nbsp;
+          def quoted_scope(name = <span class="cstat-no" title="statement not covered" >nil</span>, type: nil)
+            schema, name = extract_schema_qualified_name(name)
+            type = \
+              case type
+              when "BASE TABLE"
+                "'r'"
+              when "VIEW"
+                "'v','m'"
+              end
+            scope = {}
+            scope[:schema] = schema ? quote(schema) : "ANY (current_schemas(false))"
+            scope[:name] = quote(name) if name
+            scope[:type] = type if type
+            scope
+          end
+&nbsp;
+          def extract_schema_qualified_name(string)
+            name = Utils.extract_schema_qualified_name(string.to_s)
+            [name.schema, name.identifier]
+          end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

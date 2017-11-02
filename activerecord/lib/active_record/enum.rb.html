@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/enum.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> enum.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.06% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>105/106</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.37% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>37/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/19</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.78% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>81/82</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">386x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">371x</span>
+<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-yes">206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2636x</span>
+<span class="cline-any cline-yes">2196x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2357x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">269x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">118x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-yes">273x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">121x</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-yes">121x</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">327x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">335x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">359x</span>
+<span class="cline-any cline-yes">353x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">353x</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">350x</span>
+<span class="cline-any cline-yes">329x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1159x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1530x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">1506x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1494x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/object/deep_dup"
+&nbsp;
+module ActiveRecord
+  # Declare an enum attribute where the values map to integers in the database,
+  # but can be queried by name. Example:
+  #
+  #   class Conversation &lt; ActiveRecord::Base
+  #     enum status: [ :active, :archived ]
+  #   end
+  #
+  #   # conversation.update! status: 0
+  #   conversation.active!
+  #   conversation.active? # =&gt; true
+  #   conversation.status  # =&gt; "active"
+  #
+  #   # conversation.update! status: 1
+  #   conversation.archived!
+  #   conversation.archived? # =&gt; true
+  #   conversation.status    # =&gt; "archived"
+  #
+  #   # conversation.status = 1
+  #   conversation.status = "archived"
+  #
+  #   conversation.status = nil
+  #   conversation.status.nil? # =&gt; true
+  #   conversation.status      # =&gt; nil
+  #
+  # Scopes based on the allowed values of the enum field will be provided
+  # as well. With the above example:
+  #
+  #   Conversation.active
+  #   Conversation.archived
+  #
+  # Of course, you can also query them directly if the scopes don't fit your
+  # needs:
+  #
+  #   Conversation.where(status: [:active, :archived])
+  #   Conversation.where.not(status: :active)
+  #
+  # You can set the default value from the database declaration, like:
+  #
+  #   create_table :conversations do |t|
+  #     t.column :status, :integer, default: 0
+  #   end
+  #
+  # Good practice is to let the first declared status be the default.
+  #
+  # Finally, it's also possible to explicitly map the relation between attribute and
+  # database integer with a hash:
+  #
+  #   class Conversation &lt; ActiveRecord::Base
+  #     enum status: { active: 0, archived: 1 }
+  #   end
+  #
+  # Note that when an array is used, the implicit mapping from the values to database
+  # integers is derived from the order the values appear in the array. In the example,
+  # &lt;tt&gt;:active&lt;/tt&gt; is mapped to +0+ as it's the first element, and &lt;tt&gt;:archived&lt;/tt&gt;
+  # is mapped to +1+. In general, the +i+-th element is mapped to &lt;tt&gt;i-1&lt;/tt&gt; in the
+  # database.
+  #
+  # Therefore, once a value is added to the enum array, its position in the array must
+  # be maintained, and new values should only be added to the end of the array. To
+  # remove unused values, the explicit hash syntax should be used.
+  #
+  # In rare circumstances you might need to access the mapping directly.
+  # The mappings are exposed through a class method with the pluralized attribute
+  # name, which return the mapping in a +HashWithIndifferentAccess+:
+  #
+  #   Conversation.statuses[:active]    # =&gt; 0
+  #   Conversation.statuses["archived"] # =&gt; 1
+  #
+  # Use that class method when you need to know the ordinal value of an enum.
+  # For example, you can use that when manually building SQL strings:
+  #
+  #   Conversation.where("status &lt;&gt; ?", Conversation.statuses[:archived])
+  #
+  # You can use the +:_prefix+ or +:_suffix+ options when you need to define
+  # multiple enums with same values. If the passed value is +true+, the methods
+  # are prefixed/suffixed with the name of the enum. It is also possible to
+  # supply a custom value:
+  #
+  #   class Conversation &lt; ActiveRecord::Base
+  #     enum status: [:active, :archived], _suffix: true
+  #     enum comments_status: [:active, :inactive], _prefix: :comments
+  #   end
+  #
+  # With the above example, the bang and predicate methods along with the
+  # associated scopes are now prefixed and/or suffixed accordingly:
+  #
+  #   conversation.active_status!
+  #   conversation.archived_status? # =&gt; false
+  #
+  #   conversation.comments_inactive!
+  #   conversation.comments_active? # =&gt; false
+&nbsp;
+  module Enum
+    def self.extended(base) # :nodoc:
+      base.class_attribute(:defined_enums, instance_writer: false, default: {})
+    end
+&nbsp;
+    def inherited(base) # :nodoc:
+      base.defined_enums = defined_enums.deep_dup
+      super
+    end
+&nbsp;
+    class EnumType &lt; Type::Value # :nodoc:
+      delegate :type, to: :subtype
+&nbsp;
+      def initialize(name, mapping, subtype)
+        @name = name
+        @mapping = mapping
+        @subtype = subtype
+      end
+&nbsp;
+      def cast(value)
+        return if value.blank?
+&nbsp;
+        if mapping.has_key?(value)
+          value.to_s
+        elsif mapping.has_value?(value)
+          mapping.key(value)
+        else
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="else path not taken" >E</span>assert_valid_value(value)</span>
+        end
+      end
+&nbsp;
+      def deserialize(value)
+        return if value.nil?
+        mapping.key(subtype.deserialize(value))
+      end
+&nbsp;
+      def serialize(value)
+        mapping.fetch(value, value)
+      end
+&nbsp;
+      def assert_valid_value(value)
+        unless value.blank? || mapping.has_key?(value) || mapping.has_value?(value)
+          raise ArgumentError, "'#{value}' is not a valid #{name}"
+        end
+      end
+&nbsp;
+      # TODO Change this to private once we've dropped Ruby 2.2 support.
+      # Workaround for Ruby 2.2 "private attribute?" warning.
+      protected
+&nbsp;
+        attr_reader :name, :mapping, :subtype
+    end
+&nbsp;
+    def enum(definitions)
+      klass = self
+      enum_prefix = definitions.delete(:_prefix)
+      enum_suffix = definitions.delete(:_suffix)
+      definitions.each do |name, values|
+        # statuses = { }
+        enum_values = ActiveSupport::HashWithIndifferentAccess.new
+        name = name.to_s
+&nbsp;
+        # def self.statuses() statuses end
+        detect_enum_conflict!(name, name.pluralize, true)
+        singleton_class.send(:define_method, name.pluralize) { enum_values }
+        defined_enums[name] = enum_values
+&nbsp;
+        detect_enum_conflict!(name, name)
+        detect_enum_conflict!(name, "#{name}=")
+&nbsp;
+        attr = attribute_alias?(name) ? attribute_alias(name) : name
+        decorate_attribute_type(attr, :enum) do |subtype|
+          EnumType.new(attr, enum_values, subtype)
+        end
+&nbsp;
+        _enum_methods_module.module_eval do
+          pairs = values.respond_to?(:each_pair) ? values.each_pair : values.each_with_index
+          pairs.each do |label, value|
+            if enum_prefix == true
+              prefix = "#{name}_"
+            elsif enum_prefix
+              prefix = "#{enum_prefix}_"
+            end
+            if enum_suffix == true
+              suffix = "_#{name}"
+            elsif enum_suffix
+              suffix = "_#{enum_suffix}"
+            end
+&nbsp;
+            value_method_name = "#{prefix}#{label}#{suffix}"
+            enum_values[label] = value
+            label = label.to_s
+&nbsp;
+            # def active?() status == "active" end
+            klass.send(:detect_enum_conflict!, name, "#{value_method_name}?")
+            define_method("#{value_method_name}?") { self[attr] == label }
+&nbsp;
+            # def active!() update!(status: 0) end
+            klass.send(:detect_enum_conflict!, name, "#{value_method_name}!")
+            define_method("#{value_method_name}!") { update!(attr =&gt; value) }
+&nbsp;
+            # scope :active, -&gt; { where(status: 0) }
+            klass.send(:detect_enum_conflict!, name, value_method_name, true)
+            klass.scope value_method_name, -&gt; { where(attr =&gt; value) }
+          end
+        end
+      end
+    end
+&nbsp;
+    private
+      def _enum_methods_module
+        @_enum_methods_module ||= begin
+          mod = Module.new
+          include mod
+          mod
+        end
+      end
+&nbsp;
+      ENUM_CONFLICT_MESSAGE = \
+        "You tried to define an enum named \"%{enum}\" on the model \"%{klass}\", but " \
+        "this will generate a %{type} method \"%{method}\", which is already defined " \
+        "by %{source}."
+&nbsp;
+      def detect_enum_conflict!(enum_name, method_name, klass_method = false)
+        if klass_method &amp;&amp; dangerous_class_method?(method_name)
+          raise_conflict_error(enum_name, method_name, type: "class")
+        elsif !klass_method &amp;&amp; dangerous_attribute_method?(method_name)
+          raise_conflict_error(enum_name, method_name)
+        elsif !klass_method &amp;&amp; method_defined_within?(method_name, _enum_methods_module, Module)
+          raise_conflict_error(enum_name, method_name, source: "another enum")
+        end
+      end
+&nbsp;
+      def raise_conflict_error(enum_name, method_name, type: "instance", source: "Active Record")
+        raise ArgumentError, ENUM_CONFLICT_MESSAGE % {
+          enum: enum_name,
+          klass: name,
+          type: type,
+          method: method_name,
+          source: source
+        }
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/associations/association_scope.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/associations</a> association_scope.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>96/96</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>22/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>94/94</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17141x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18427x</span>
+<span class="cline-any cline-yes">1136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-yes">368x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-yes">931x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5014x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">1332x</span>
+<span class="cline-any cline-yes">1332x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">19684x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">83x</span>
+<span class="cline-any cline-yes">83x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">400x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">5037x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23306x</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-yes">5136x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-yes">5837x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18269x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">19684x</span>
+<span class="cline-any cline-yes">14346x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5338x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-yes">6237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Associations
+    class AssociationScope #:nodoc:
+      def self.scope(association)
+        INSTANCE.scope(association)
+      end
+&nbsp;
+      def self.create(&amp;block)
+        block ||= lambda { |val| val }
+        new(block)
+      end
+&nbsp;
+      def initialize(value_transformation)
+        @value_transformation = value_transformation
+      end
+&nbsp;
+      INSTANCE = create
+&nbsp;
+      def scope(association)
+        klass = association.klass
+        reflection = association.reflection
+        scope = klass.unscoped
+        owner = association.owner
+        chain = get_chain(reflection, association, scope.alias_tracker)
+&nbsp;
+        scope.extending! reflection.extensions
+        add_constraints(scope, owner, chain)
+      end
+&nbsp;
+      def self.get_bind_values(owner, chain)
+        binds = []
+        last_reflection = chain.last
+&nbsp;
+        binds &lt;&lt; last_reflection.join_id_for(owner)
+        if last_reflection.type
+          binds &lt;&lt; owner.class.base_class.name
+        end
+&nbsp;
+        chain.each_cons(2).each do |reflection, next_reflection|
+          if reflection.type
+            binds &lt;&lt; next_reflection.klass.base_class.name
+          end
+        end
+        binds
+      end
+&nbsp;
+      # TODO Change this to private once we've dropped Ruby 2.2 support.
+      # Workaround for Ruby 2.2 "private attribute?" warning.
+      protected
+&nbsp;
+        attr_reader :value_transformation
+&nbsp;
+      private
+        def join(table, constraint)
+          table.create_join(table, table.create_on(constraint))
+        end
+&nbsp;
+        def last_chain_scope(scope, reflection, owner)
+          join_keys = reflection.join_keys
+          key = join_keys.key
+          foreign_key = join_keys.foreign_key
+&nbsp;
+          table = reflection.aliased_table
+          value = transform_value(owner[foreign_key])
+          scope = apply_scope(scope, table, key, value)
+&nbsp;
+          if reflection.type
+            polymorphic_type = transform_value(owner.class.base_class.name)
+            scope = apply_scope(scope, table, reflection.type, polymorphic_type)
+          end
+&nbsp;
+          scope
+        end
+&nbsp;
+        def transform_value(value)
+          value_transformation.call(value)
+        end
+&nbsp;
+        def next_chain_scope(scope, reflection, next_reflection)
+          join_keys = reflection.join_keys
+          key = join_keys.key
+          foreign_key = join_keys.foreign_key
+&nbsp;
+          table = reflection.aliased_table
+          foreign_table = next_reflection.aliased_table
+          constraint = table[key].eq(foreign_table[foreign_key])
+&nbsp;
+          if reflection.type
+            value = transform_value(next_reflection.klass.base_class.name)
+            scope = apply_scope(scope, table, reflection.type, value)
+          end
+&nbsp;
+          scope.joins!(join(foreign_table, constraint))
+        end
+&nbsp;
+        class ReflectionProxy &lt; SimpleDelegator # :nodoc:
+          attr_reader :aliased_table
+&nbsp;
+          def initialize(reflection, aliased_table)
+            super(reflection)
+            @aliased_table = aliased_table
+          end
+&nbsp;
+          def all_includes; nil; end
+        end
+&nbsp;
+        def get_chain(reflection, association, tracker)
+          name = reflection.name
+          chain = [Reflection::RuntimeReflection.new(reflection, association)]
+          reflection.chain.drop(1).each do |refl|
+            aliased_table = tracker.aliased_table_for(
+              refl.table_name,
+              refl.alias_candidate(name),
+              refl.klass.type_caster
+            )
+            chain &lt;&lt; ReflectionProxy.new(refl, aliased_table)
+          end
+          chain
+        end
+&nbsp;
+        def add_constraints(scope, owner, chain)
+          scope = last_chain_scope(scope, chain.last, owner)
+&nbsp;
+          chain.each_cons(2) do |reflection, next_reflection|
+            scope = next_chain_scope(scope, reflection, next_reflection)
+          end
+&nbsp;
+          chain_head = chain.first
+          chain.reverse_each do |reflection|
+            # Exclude the scope of the association itself, because that
+            # was already merged in the #scope method.
+            reflection.constraints.each do |scope_chain_item|
+              item = eval_scope(reflection, scope_chain_item, owner)
+&nbsp;
+              if scope_chain_item == chain_head.scope
+                scope.merge! item.except(:where, :includes)
+              end
+&nbsp;
+              reflection.all_includes do
+                scope.includes! item.includes_values
+              end
+&nbsp;
+              scope.unscope!(*item.unscope_values)
+              scope.where_clause += item.where_clause
+              scope.order_values |= item.order_values
+            end
+          end
+&nbsp;
+          scope
+        end
+&nbsp;
+        def apply_scope(scope, table, key, value)
+          if scope.table == table
+            scope.where!(key =&gt; value)
+          else
+            scope.where!(table.name =&gt; { key =&gt; value })
+          end
+        end
+&nbsp;
+        def eval_scope(reflection, scope, owner)
+          relation = reflection.build_scope(reflection.aliased_table)
+          relation.instance_exec(owner, &amp;scope) || relation
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

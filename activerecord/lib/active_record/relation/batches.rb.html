@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/relation/batches.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/relation</a> batches.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>80/80</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>36/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>71/71</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">77x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-yes">441x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">393x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">284x</span>
+<span class="cline-any cline-yes">284x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">254x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">236x</span>
+<span class="cline-any cline-yes">1065x</span>
+<span class="cline-any cline-yes">624x</span>
+<span class="cline-any cline-yes">624x</span>
+<span class="cline-any cline-yes">624x</span>
+<span class="cline-any cline-yes">624x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">441x</span>
+<span class="cline-any cline-yes">441x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1065x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">966x</span>
+<span class="cline-any cline-yes">966x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">963x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">954x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">841x</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">817x</span>
+<span class="cline-any cline-yes">817x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">272x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">272x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">272x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_record/relation/batches/batch_enumerator"
+&nbsp;
+module ActiveRecord
+  module Batches
+    ORDER_IGNORE_MESSAGE = "Scoped order is ignored, it's forced to be batch order."
+&nbsp;
+    # Looping through a collection of records from the database
+    # (using the Scoping::Named::ClassMethods.all method, for example)
+    # is very inefficient since it will try to instantiate all the objects at once.
+    #
+    # In that case, batch processing methods allow you to work
+    # with the records in batches, thereby greatly reducing memory consumption.
+    #
+    # The #find_each method uses #find_in_batches with a batch size of 1000 (or as
+    # specified by the +:batch_size+ option).
+    #
+    #   Person.find_each do |person|
+    #     person.do_awesome_stuff
+    #   end
+    #
+    #   Person.where("age &gt; 21").find_each do |person|
+    #     person.party_all_night!
+    #   end
+    #
+    # If you do not provide a block to #find_each, it will return an Enumerator
+    # for chaining with other methods:
+    #
+    #   Person.find_each.with_index do |person, index|
+    #     person.award_trophy(index + 1)
+    #   end
+    #
+    # ==== Options
+    # * &lt;tt&gt;:batch_size&lt;/tt&gt; - Specifies the size of the batch. Defaults to 1000.
+    # * &lt;tt&gt;:start&lt;/tt&gt; - Specifies the primary key value to start from, inclusive of the value.
+    # * &lt;tt&gt;:finish&lt;/tt&gt; - Specifies the primary key value to end at, inclusive of the value.
+    # * &lt;tt&gt;:error_on_ignore&lt;/tt&gt; - Overrides the application config to specify if an error should be raised when
+    #   an order is present in the relation.
+    #
+    # Limits are honored, and if present there is no requirement for the batch
+    # size: it can be less than, equal to, or greater than the limit.
+    #
+    # The options +start+ and +finish+ are especially useful if you want
+    # multiple workers dealing with the same processing queue. You can make
+    # worker 1 handle all the records between id 1 and 9999 and worker 2
+    # handle from 10000 and beyond by setting the +:start+ and +:finish+
+    # option on each worker.
+    #
+    #   # In worker 1, let's process until 9999 records.
+    #   Person.find_each(finish: 9_999) do |person|
+    #     person.party_all_night!
+    #   end
+    #
+    #   # In worker 2, let's process from record 10_000 and onwards.
+    #   Person.find_each(start: 10_000) do |person|
+    #     person.party_all_night!
+    #   end
+    #
+    # NOTE: It's not possible to set the order. That is automatically set to
+    # ascending on the primary key ("id ASC") to make the batch ordering
+    # work. This also means that this method only works when the primary key is
+    # orderable (e.g. an integer or string).
+    #
+    # NOTE: By its nature, batch processing is subject to race conditions if
+    # other processes are modifying the database.
+    def find_each(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil)
+      if block_given?
+        find_in_batches(start: start, finish: finish, batch_size: batch_size, error_on_ignore: error_on_ignore) do |records|
+          records.each { |record| yield record }
+        end
+      else
+        enum_for(:find_each, start: start, finish: finish, batch_size: batch_size, error_on_ignore: error_on_ignore) do
+          relation = self
+          apply_limits(relation, start, finish).size
+        end
+      end
+    end
+&nbsp;
+    # Yields each batch of records that was found by the find options as
+    # an array.
+    #
+    #   Person.where("age &gt; 21").find_in_batches do |group|
+    #     sleep(50) # Make sure it doesn't get too crowded in there!
+    #     group.each { |person| person.party_all_night! }
+    #   end
+    #
+    # If you do not provide a block to #find_in_batches, it will return an Enumerator
+    # for chaining with other methods:
+    #
+    #   Person.find_in_batches.with_index do |group, batch|
+    #     puts "Processing group ##{batch}"
+    #     group.each(&amp;:recover_from_last_night!)
+    #   end
+    #
+    # To be yielded each record one by one, use #find_each instead.
+    #
+    # ==== Options
+    # * &lt;tt&gt;:batch_size&lt;/tt&gt; - Specifies the size of the batch. Defaults to 1000.
+    # * &lt;tt&gt;:start&lt;/tt&gt; - Specifies the primary key value to start from, inclusive of the value.
+    # * &lt;tt&gt;:finish&lt;/tt&gt; - Specifies the primary key value to end at, inclusive of the value.
+    # * &lt;tt&gt;:error_on_ignore&lt;/tt&gt; - Overrides the application config to specify if an error should be raised when
+    #   an order is present in the relation.
+    #
+    # Limits are honored, and if present there is no requirement for the batch
+    # size: it can be less than, equal to, or greater than the limit.
+    #
+    # The options +start+ and +finish+ are especially useful if you want
+    # multiple workers dealing with the same processing queue. You can make
+    # worker 1 handle all the records between id 1 and 9999 and worker 2
+    # handle from 10000 and beyond by setting the +:start+ and +:finish+
+    # option on each worker.
+    #
+    #   # Let's process from record 10_000 on.
+    #   Person.find_in_batches(start: 10_000) do |group|
+    #     group.each { |person| person.party_all_night! }
+    #   end
+    #
+    # NOTE: It's not possible to set the order. That is automatically set to
+    # ascending on the primary key ("id ASC") to make the batch ordering
+    # work. This also means that this method only works when the primary key is
+    # orderable (e.g. an integer or string).
+    #
+    # NOTE: By its nature, batch processing is subject to race conditions if
+    # other processes are modifying the database.
+    def find_in_batches(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil)
+      relation = self
+      unless block_given?
+        return to_enum(:find_in_batches, start: start, finish: finish, batch_size: batch_size, error_on_ignore: error_on_ignore) do
+          total = apply_limits(relation, start, finish).size
+          (total - 1).div(batch_size) + 1
+        end
+      end
+&nbsp;
+      in_batches(of: batch_size, start: start, finish: finish, load: true, error_on_ignore: error_on_ignore) do |batch|
+        yield batch.to_a
+      end
+    end
+&nbsp;
+    # Yields ActiveRecord::Relation objects to work with a batch of records.
+    #
+    #   Person.where("age &gt; 21").in_batches do |relation|
+    #     relation.delete_all
+    #     sleep(10) # Throttle the delete queries
+    #   end
+    #
+    # If you do not provide a block to #in_batches, it will return a
+    # BatchEnumerator which is enumerable.
+    #
+    #   Person.in_batches.each_with_index do |relation, batch_index|
+    #     puts "Processing relation ##{batch_index}"
+    #     relation.delete_all
+    #   end
+    #
+    # Examples of calling methods on the returned BatchEnumerator object:
+    #
+    #   Person.in_batches.delete_all
+    #   Person.in_batches.update_all(awesome: true)
+    #   Person.in_batches.each_record(&amp;:party_all_night!)
+    #
+    # ==== Options
+    # * &lt;tt&gt;:of&lt;/tt&gt; - Specifies the size of the batch. Defaults to 1000.
+    # * &lt;tt&gt;:load&lt;/tt&gt; - Specifies if the relation should be loaded. Defaults to false.
+    # * &lt;tt&gt;:start&lt;/tt&gt; - Specifies the primary key value to start from, inclusive of the value.
+    # * &lt;tt&gt;:finish&lt;/tt&gt; - Specifies the primary key value to end at, inclusive of the value.
+    # * &lt;tt&gt;:error_on_ignore&lt;/tt&gt; - Overrides the application config to specify if an error should be raised when
+    #   an order is present in the relation.
+    #
+    # Limits are honored, and if present there is no requirement for the batch
+    # size, it can be less than, equal, or greater than the limit.
+    #
+    # The options +start+ and +finish+ are especially useful if you want
+    # multiple workers dealing with the same processing queue. You can make
+    # worker 1 handle all the records between id 1 and 9999 and worker 2
+    # handle from 10000 and beyond by setting the +:start+ and +:finish+
+    # option on each worker.
+    #
+    #   # Let's process from record 10_000 on.
+    #   Person.in_batches(start: 10_000).update_all(awesome: true)
+    #
+    # An example of calling where query method on the relation:
+    #
+    #   Person.in_batches.each do |relation|
+    #     relation.update_all('age = age + 1')
+    #     relation.where('age &gt; 21').update_all(should_party: true)
+    #     relation.where('age &lt;= 21').delete_all
+    #   end
+    #
+    # NOTE: If you are going to iterate through each record, you should call
+    # #each_record on the yielded BatchEnumerator:
+    #
+    #   Person.in_batches.each_record(&amp;:party_all_night!)
+    #
+    # NOTE: It's not possible to set the order. That is automatically set to
+    # ascending on the primary key ("id ASC") to make the batch ordering
+    # consistent. Therefore the primary key must be orderable, e.g. an integer
+    # or a string.
+    #
+    # NOTE: By its nature, batch processing is subject to race conditions if
+    # other processes are modifying the database.
+    def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil)
+      relation = self
+      unless block_given?
+        return BatchEnumerator.new(of: of, start: start, finish: finish, relation: self)
+      end
+&nbsp;
+      if arel.orders.present?
+        act_on_ignored_order(error_on_ignore)
+      end
+&nbsp;
+      batch_limit = of
+      if limit_value
+        remaining   = limit_value
+        batch_limit = remaining if remaining &lt; batch_limit
+      end
+&nbsp;
+      relation = relation.reorder(batch_order).limit(batch_limit)
+      relation = apply_limits(relation, start, finish)
+      relation.skip_query_cache! # Retaining the results in the query cache would undermine the point of batching
+      batch_relation = relation
+&nbsp;
+      loop do
+        if load
+          records = batch_relation.records
+          ids = records.map(&amp;:id)
+          yielded_relation = where(primary_key =&gt; ids)
+          yielded_relation.load_records(records)
+        else
+          ids = batch_relation.pluck(primary_key)
+          yielded_relation = where(primary_key =&gt; ids)
+        end
+&nbsp;
+        break if ids.empty?
+&nbsp;
+        primary_key_offset = ids.last
+        raise ArgumentError.new("Primary key not included in the custom select clause") unless primary_key_offset
+&nbsp;
+        yield yielded_relation
+&nbsp;
+        break if ids.length &lt; batch_limit
+&nbsp;
+        if limit_value
+          remaining -= ids.length
+&nbsp;
+          if remaining == 0
+            # Saves a useless iteration when the limit is a multiple of the
+            # batch size.
+            break
+          elsif remaining &lt; batch_limit
+            relation = relation.limit(remaining)
+          end
+        end
+&nbsp;
+        attr = Relation::QueryAttribute.new(primary_key, primary_key_offset, klass.type_for_attribute(primary_key))
+        batch_relation = relation.where(arel_attribute(primary_key).gt(Arel::Nodes::BindParam.new(attr)))
+      end
+    end
+&nbsp;
+    private
+&nbsp;
+      def apply_limits(relation, start, finish)
+        if start
+          attr = Relation::QueryAttribute.new(primary_key, start, klass.type_for_attribute(primary_key))
+          relation = relation.where(arel_attribute(primary_key).gteq(Arel::Nodes::BindParam.new(attr)))
+        end
+        if finish
+          attr = Relation::QueryAttribute.new(primary_key, finish, klass.type_for_attribute(primary_key))
+          relation = relation.where(arel_attribute(primary_key).lteq(Arel::Nodes::BindParam.new(attr)))
+        end
+        relation
+      end
+&nbsp;
+      def batch_order
+        arel_attribute(primary_key).asc
+      end
+&nbsp;
+      def act_on_ignored_order(error_on_ignore)
+        raise_error = (error_on_ignore.nil? ? klass.error_on_ignored_order : error_on_ignore)
+&nbsp;
+        if raise_error
+          raise ArgumentError.new(ORDER_IGNORE_MESSAGE)
+        elsif logger
+          logger.warn(ORDER_IGNORE_MESSAGE)
+        end
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

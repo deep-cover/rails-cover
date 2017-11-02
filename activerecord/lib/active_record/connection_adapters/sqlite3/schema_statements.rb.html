@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/sqlite3/schema_statements.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters/sqlite3</a> schema_statements.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.64% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>53/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.33% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.87% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>46/47</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4381x</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-yes">6124x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-yes">5915x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5941x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2776x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2780x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">101099x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37889x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">908x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62302x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">101099x</span>
+<span class="cline-any cline-yes">101099x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">969x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-yes">4910x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionAdapters
+    module SQLite3
+      module SchemaStatements # :nodoc:
+        # Returns an array of indexes for the given table.
+        def indexes(table_name)
+          exec_query("PRAGMA index_list(#{quote_table_name(table_name)})", "SCHEMA").map do |row|
+            index_sql = query_value(&lt;&lt;-SQL, "SCHEMA")
+              SELECT sql
+              FROM sqlite_master
+              WHERE name = #{quote(row['name'])} AND type = 'index'
+              UNION ALL
+              SELECT sql
+              FROM sqlite_temp_master
+              WHERE name = #{quote(row['name'])} AND type = 'index'
+            SQL
+&nbsp;
+            /\sWHERE\s+(?&lt;where&gt;.+)$/i =~ index_sql
+&nbsp;
+            columns = exec_query("PRAGMA index_info(#{quote(row['name'])})", "SCHEMA").map do |col|
+              col["name"]
+            end
+&nbsp;
+            # Add info on sort order for columns (only desc order is explicitly specified, asc is
+            # the default)
+            orders = {}
+            if index_sql # index_sql can be null in case of primary key indexes
+              index_sql.scan(/"(\w+)" DESC/).flatten.each { |order_column|
+                orders[order_column] = :desc
+              }
+            end
+&nbsp;
+            IndexDefinition.new(
+              table_name,
+              row["name"],
+              row["unique"] != 0,
+              columns,
+              where: where,
+              orders: orders
+            )
+          end
+        end
+&nbsp;
+        def create_schema_dumper(options)
+          SQLite3::SchemaDumper.create(self, options)
+        end
+&nbsp;
+        private
+          def schema_creation
+            SQLite3::SchemaCreation.new(self)
+          end
+&nbsp;
+          def create_table_definition(*args)
+            SQLite3::TableDefinition.new(*args)
+          end
+&nbsp;
+          def new_column_from_field(table_name, field)
+            default = \
+              case field["dflt_value"]
+              when /^null$/i
+                nil
+              when /^'(.*)'$/m
+                $1.gsub("''", "'")
+              when /^"(.*)"$/m
+<span class="cstat-no" title="statement not covered" ><span class="branch-2 cbranch-no" title="branch not covered" >                $1.gsub('""', '"')</span></span>
+              else
+                field["dflt_value"]
+              end
+&nbsp;
+            type_metadata = fetch_type_metadata(field["type"])
+            Column.new(field["name"], default, type_metadata, field["notnull"].to_i == 0, table_name, nil, field["collation"])
+          end
+&nbsp;
+          def data_source_sql(name = nil, type: nil)
+            scope = quoted_scope(name, type: type)
+            scope[:type] ||= "'table','view'"
+&nbsp;
+            sql = "SELECT name FROM sqlite_master WHERE name &lt;&gt; 'sqlite_sequence'".dup
+            sql &lt;&lt; " AND name = #{scope[:name]}" if scope[:name]
+            sql &lt;&lt; " AND type IN (#{scope[:type]})"
+            sql
+          end
+&nbsp;
+          def quoted_scope(name = <span class="cstat-no" title="statement not covered" >nil</span>, type: <span class="cstat-no" title="statement not covered" >nil</span>)
+            type = \
+              case type
+              when "BASE TABLE"
+                "'table'"
+              when "VIEW"
+                "'view'"
+              end
+            scope = {}
+            scope[:name] = quote(name) if name
+            scope[:type] = type if type
+            scope
+          end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>

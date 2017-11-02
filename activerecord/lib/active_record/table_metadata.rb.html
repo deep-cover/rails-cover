@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/table_metadata.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> table_metadata.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>42/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>22/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>9/9</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>41/41</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20841x</span>
+<span class="cline-any cline-yes">20841x</span>
+<span class="cline-any cline-yes">20841x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">65609x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">65869x</span>
+<span class="cline-any cline-yes">64313x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1556x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">131665x</span>
+<span class="cline-any cline-yes">130053x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1612x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6480x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">66483x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7050x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7050x</span>
+<span class="cline-any cline-yes">209x</span>
+<span class="cline-any cline-yes">6841x</span>
+<span class="cline-any cline-yes">5159x</span>
+<span class="cline-any cline-yes">5159x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-yes">1682x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6841x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  class TableMetadata # :nodoc:
+    delegate :foreign_type, :foreign_key, :join_keys, :join_foreign_key, to: :association, prefix: true
+    delegate :association_primary_key, to: :association
+&nbsp;
+    def initialize(klass, arel_table, association = nil)
+      @klass = klass
+      @arel_table = arel_table
+      @association = association
+    end
+&nbsp;
+    def resolve_column_aliases(hash)
+      new_hash = hash.dup
+      hash.each do |key, _|
+        if (key.is_a?(Symbol)) &amp;&amp; klass.attribute_alias?(key)
+          new_hash[klass.attribute_alias(key)] = new_hash.delete(key)
+        end
+      end
+      new_hash
+    end
+&nbsp;
+    def arel_attribute(column_name)
+      if klass
+        klass.arel_attribute(column_name, arel_table)
+      else
+        arel_table[column_name]
+      end
+    end
+&nbsp;
+    def type(column_name)
+      if klass
+        klass.type_for_attribute(column_name.to_s)
+      else
+        Type.default_value
+      end
+    end
+&nbsp;
+    def has_column?(column_name)
+<span class="branch-1 cbranch-no" title="branch not covered" >      klass &amp;&amp; klass.columns_hash.key?(column_name.to_s)</span>
+    end
+&nbsp;
+    def associated_with?(association_name)
+      klass &amp;&amp; klass._reflect_on_association(association_name)
+    end
+&nbsp;
+    def associated_table(table_name)
+      association = klass._reflect_on_association(table_name) || klass._reflect_on_association(table_name.to_s.singularize)
+&nbsp;
+      if !association &amp;&amp; table_name == arel_table.name
+        return self
+      elsif association &amp;&amp; !association.polymorphic?
+        association_klass = association.klass
+        arel_table = association_klass.arel_table.alias(table_name)
+      else
+        type_caster = TypeCaster::Connection.new(klass, table_name)
+        association_klass = nil
+        arel_table = Arel::Table.new(table_name, type_caster: type_caster)
+      end
+&nbsp;
+      TableMetadata.new(association_klass, arel_table, association)
+    end
+&nbsp;
+    def polymorphic_association?
+<span class="branch-1 cbranch-no" title="branch not covered" >      association &amp;&amp; association.polymorphic?</span>
+    end
+&nbsp;
+    # TODO Change this to private once we've dropped Ruby 2.2 support.
+    # Workaround for Ruby 2.2 "private attribute?" warning.
+    protected
+&nbsp;
+      attr_reader :klass, :arel_table, :association
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

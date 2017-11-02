@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/result.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> result.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.45% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>63/66</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">87.5% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>7/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.24% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>20/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.21% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>55/56</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">134331x</span>
+<span class="cline-any cline-yes">134331x</span>
+<span class="cline-any cline-yes">134331x</span>
+<span class="cline-any cline-yes">134331x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">47154x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">77862x</span>
+<span class="cline-any cline-yes">217272x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">13766x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">21187x</span>
+<span class="cline-any cline-yes">21167x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2380x</span>
+<span class="cline-any cline-yes">2278x</span>
+<span class="cline-any cline-yes">4375x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2278x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-yes">564x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2380x</span>
+<span class="cline-any cline-yes">567x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">77888x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">589948x</span>
+<span class="cline-any cline-yes">77858x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">217266x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">217266x</span>
+<span class="cline-any cline-yes">217266x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1793959x</span>
+<span class="cline-any cline-yes">1576693x</span>
+<span class="cline-any cline-yes">1576693x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">217266x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  ###
+  # This class encapsulates a result returned from calling
+  # {#exec_query}[rdoc-ref:ConnectionAdapters::DatabaseStatements#exec_query]
+  # on any database connection adapter. For example:
+  #
+  #   result = ActiveRecord::Base.connection.exec_query('SELECT id, title, body FROM posts')
+  #   result # =&gt; #&lt;ActiveRecord::Result:0xdeadbeef&gt;
+  #
+  #   # Get the column names of the result:
+  #   result.columns
+  #   # =&gt; ["id", "title", "body"]
+  #
+  #   # Get the record values of the result:
+  #   result.rows
+  #   # =&gt; [[1, "title_1", "body_1"],
+  #         [2, "title_2", "body_2"],
+  #         ...
+  #        ]
+  #
+  #   # Get an array of hashes representing the result (column =&gt; value):
+  #   result.to_hash
+  #   # =&gt; [{"id" =&gt; 1, "title" =&gt; "title_1", "body" =&gt; "body_1"},
+  #         {"id" =&gt; 2, "title" =&gt; "title_2", "body" =&gt; "body_2"},
+  #         ...
+  #        ]
+  #
+  #   # ActiveRecord::Result also includes Enumerable.
+  #   result.each do |row|
+  #     puts row['title'] + " " + row['body']
+  #   end
+  class Result
+    include Enumerable
+&nbsp;
+    attr_reader :columns, :rows, :column_types
+&nbsp;
+    def initialize(columns, rows, column_types = {})
+      @columns      = columns
+      @rows         = rows
+      @hash_rows    = nil
+      @column_types = column_types
+    end
+&nbsp;
+    # Returns the number of elements in the rows array.
+    def length
+      @rows.length
+    end
+&nbsp;
+    # Calls the given block once for each element in row collection, passing
+    # row as parameter.
+    #
+    # Returns an +Enumerator+ if no block is given.
+    def each
+      if block_given?
+        hash_rows.each { |row| yield row }
+      else
+        hash_rows.to_enum { @rows.size }
+      end
+    end
+&nbsp;
+    # Returns an array of hashes representing each row record.
+    def to_hash
+      hash_rows
+    end
+&nbsp;
+    alias :map! :map
+    alias :collect! :map
+&nbsp;
+    # Returns true if there are no records, otherwise false.
+    def empty?
+      rows.empty?
+    end
+&nbsp;
+    # Returns an array of hashes representing each row record.
+<span class="fstat-no" title="function not covered" >    def to_ary</span>
+<span class="cstat-no" title="statement not covered" >      hash_rows</span>
+    end
+&nbsp;
+    def [](idx)
+      hash_rows[idx]
+    end
+&nbsp;
+    # Returns the first record from the rows collection.
+    # If the rows collection is empty, returns +nil+.
+    def first
+      return nil if @rows.empty?
+      Hash[@columns.zip(@rows.first)]
+    end
+&nbsp;
+    # Returns the last record from the rows collection.
+    # If the rows collection is empty, returns +nil+.
+    def last
+<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>return nil</span> if @rows.empty?
+      Hash[@columns.zip(@rows.last)]
+    end
+&nbsp;
+    def cast_values(type_overrides = {}) # :nodoc:
+      types = columns.map { |name| column_type(name, type_overrides) }
+      result = rows.map do |values|
+        types.zip(values).map { |type, value| type.deserialize(value) }
+      end
+&nbsp;
+      columns.one? ? result.map!(&amp;:first) : result
+    end
+&nbsp;
+    def initialize_copy(other)
+      @columns      = columns.dup
+      @rows         = rows.dup
+      @column_types = column_types.dup
+      @hash_rows    = nil
+    end
+&nbsp;
+    private
+&nbsp;
+      def column_type(name, type_overrides = <span class="cstat-no" title="statement not covered" >{}</span>)
+        type_overrides.fetch(name) do
+          column_types.fetch(name, Type.default_value)
+        end
+      end
+&nbsp;
+      def hash_rows
+        @hash_rows ||=
+          begin
+            # We freeze the strings to prevent them getting duped when
+            # used as keys in ActiveRecord::Base's @attributes hash
+            columns = @columns.map { |c| c.dup.freeze }
+            @rows.map { |row|
+              # In the past we used Hash[columns.zip(row)]
+              #  though elegant, the verbose way is much more efficient
+              #  both time and memory wise cause it avoids a big array allocation
+              #  this method is called a lot and needs to be micro optimised
+              hash = {}
+&nbsp;
+              index = 0
+              length = columns.length
+&nbsp;
+              while index &lt; length
+                hash[columns[index]] = row[index]
+                index += 1
+              end
+&nbsp;
+              hash
+            }
+          end
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

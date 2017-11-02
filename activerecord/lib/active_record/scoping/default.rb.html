@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/scoping/default.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/scoping</a> default.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.15% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>53/54</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.15% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>25/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>43/43</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">73908x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">50536x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">343x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">343x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">336x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">78150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">78145x</span>
+<span class="cline-any cline-yes">2199x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">78145x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-yes">105x</span>
+<span class="cline-any cline-yes">105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">77935x</span>
+<span class="cline-any cline-yes">8255x</span>
+<span class="cline-any cline-yes">8255x</span>
+<span class="cline-any cline-yes">8234x</span>
+<span class="cline-any cline-yes">8561x</span>
+<span class="cline-any cline-yes">8561x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20789x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16678x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8465x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8339x</span>
+<span class="cline-any cline-yes">8339x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8339x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Scoping
+    module Default
+      extend ActiveSupport::Concern
+&nbsp;
+      included do
+        # Stores the default scope for the class.
+        class_attribute :default_scopes, instance_writer: false, instance_predicate: false, default: []
+        class_attribute :default_scope_override, instance_writer: false, instance_predicate: false, default: nil
+      end
+&nbsp;
+      module ClassMethods
+        # Returns a scope for the model without the previously set scopes.
+        #
+        #   class Post &lt; ActiveRecord::Base
+        #     def self.default_scope
+        #       where(published: true)
+        #     end
+        #   end
+        #
+        #   Post.all                                  # Fires "SELECT * FROM posts WHERE published = true"
+        #   Post.unscoped.all                         # Fires "SELECT * FROM posts"
+        #   Post.where(published: false).unscoped.all # Fires "SELECT * FROM posts"
+        #
+        # This method also accepts a block. All queries inside the block will
+        # not use the previously set scopes.
+        #
+        #   Post.unscoped {
+        #     Post.limit(10) # Fires "SELECT * FROM posts LIMIT 10"
+        #   }
+        def unscoped
+          block_given? ? relation.scoping { yield } : relation
+        end
+&nbsp;
+        # Are there attributes associated with this scope?
+        def scope_attributes? # :nodoc:
+          super || default_scopes.any? || respond_to?(:default_scope)
+        end
+&nbsp;
+        def before_remove_const #:nodoc:
+          self.current_scope = nil
+        end
+&nbsp;
+        private
+&nbsp;
+          # Use this macro in your model to set a default scope for all operations on
+          # the model.
+          #
+          #   class Article &lt; ActiveRecord::Base
+          #     default_scope { where(published: true) }
+          #   end
+          #
+          #   Article.all # =&gt; SELECT * FROM articles WHERE published = true
+          #
+          # The #default_scope is also applied while creating/building a record.
+          # It is not applied while updating a record.
+          #
+          #   Article.new.published    # =&gt; true
+          #   Article.create.published # =&gt; true
+          #
+          # (You can also pass any object which responds to +call+ to the
+          # +default_scope+ macro, and it will be called when building the
+          # default scope.)
+          #
+          # If you use multiple #default_scope declarations in your model then
+          # they will be merged together:
+          #
+          #   class Article &lt; ActiveRecord::Base
+          #     default_scope { where(published: true) }
+          #     default_scope { where(rating: 'G') }
+          #   end
+          #
+          #   Article.all # =&gt; SELECT * FROM articles WHERE published = true AND rating = 'G'
+          #
+          # This is also the case with inheritance and module includes where the
+          # parent or module defines a #default_scope and the child or including
+          # class defines a second one.
+          #
+          # If you need to do more complex things with a default scope, you can
+          # alternatively define it as a class method:
+          #
+          #   class Article &lt; ActiveRecord::Base
+          #     def self.default_scope
+          #       # Should return a scope, you can call 'super' here etc.
+          #     end
+          #   end
+          def default_scope(scope = nil) # :doc:
+            scope = Proc.new if block_given?
+&nbsp;
+            if scope.is_a?(Relation) || !scope.respond_to?(:call)
+              raise ArgumentError,
+                "Support for calling #default_scope without a block is removed. For example instead " \
+                "of `default_scope where(color: 'red')`, please use " \
+                "`default_scope { where(color: 'red') }`. (Alternatively you can just redefine " \
+                "self.default_scope.)"
+            end
+&nbsp;
+            self.default_scopes += [scope]
+          end
+&nbsp;
+          def build_default_scope(base_rel = nil)
+            return if abstract_class?
+&nbsp;
+            if default_scope_override.nil?
+              self.default_scope_override = !Base.is_a?(method(:default_scope).owner)
+            end
+&nbsp;
+            if default_scope_override
+              # The user has defined their own default scope method, so call that
+              evaluate_default_scope do
+                <span class="missing-if-branch" title="else path not taken" >E</span>if scope = default_scope
+                  (base_rel ||= <span class="cstat-no" title="statement not covered" >relation</span>).merge(scope)
+                end
+              end
+            elsif default_scopes.any?
+              base_rel ||= relation
+              evaluate_default_scope do
+                default_scopes.inject(base_rel) do |default_scope, scope|
+                  scope = scope.respond_to?(:to_proc) ? scope : scope.method(:call)
+                  default_scope.merge(base_rel.instance_exec(&amp;scope))
+                end
+              end
+            end
+          end
+&nbsp;
+          def ignore_default_scope?
+            ScopeRegistry.value_for(:ignore_default_scope, base_class)
+          end
+&nbsp;
+          def ignore_default_scope=(ignore)
+            ScopeRegistry.set_value_for(:ignore_default_scope, base_class, ignore)
+          end
+&nbsp;
+          # The ignore_default_scope flag is used to prevent an infinite recursion
+          # situation where a default scope references a scope which has a default
+          # scope which references a scope...
+          def evaluate_default_scope
+            return if ignore_default_scope?
+&nbsp;
+            begin
+              self.ignore_default_scope = true
+              yield
+            ensure
+              self.ignore_default_scope = false
+            end
+          end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/attribute_methods.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> attribute_methods.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>148/148</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.01% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>65/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>41/41</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>136/136</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">51975x</span>
+<span class="cline-any cline-yes">51975x</span>
+<span class="cline-any cline-yes">2300x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6014x</span>
+<span class="cline-any cline-yes">6014x</span>
+<span class="cline-any cline-yes">6014x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6014x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">186921x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4155x</span>
+<span class="cline-any cline-yes">4164x</span>
+<span class="cline-any cline-yes">4155x</span>
+<span class="cline-any cline-yes">4155x</span>
+<span class="cline-any cline-yes">4155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2484x</span>
+<span class="cline-any cline-yes">2484x</span>
+<span class="cline-any cline-yes">2484x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">535813x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">535803x</span>
+<span class="cline-any cline-yes">395110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">140693x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">140693x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">544622x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">686323x</span>
+<span class="cline-any cline-yes">154279x</span>
+<span class="cline-any cline-yes">5231x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149048x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">532044x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1538x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1419x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1353x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4573x</span>
+<span class="cline-any cline-yes">4112x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">68163x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">39321x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36300x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36205x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36300x</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36140x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">35015x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2790x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1292x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3740x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3740x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3735x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3624x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17988x</span>
+<span class="cline-any cline-yes">17988x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">108216x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">24030x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1470x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17373x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4556x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">21929x</span>
+<span class="cline-any cline-yes">21929x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21929x</span>
+<span class="cline-any cline-yes">47615x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21929x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4741x</span>
+<span class="cline-any cline-yes">4391x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">17373x</span>
+<span class="cline-any cline-yes">43815x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4391x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">43815x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">47615x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "mutex_m"
+&nbsp;
+module ActiveRecord
+  # = Active Record Attribute Methods
+  module AttributeMethods
+    extend ActiveSupport::Concern
+    include ActiveModel::AttributeMethods
+&nbsp;
+    included do
+      initialize_generated_modules
+      include Read
+      include Write
+      include BeforeTypeCast
+      include Query
+      include PrimaryKey
+      include TimeZoneConversion
+      include Dirty
+      include Serialization
+&nbsp;
+      delegate :column_for_attribute, to: :class
+    end
+&nbsp;
+    AttrNames = Module.new {
+      def self.set_name_cache(name, value)
+        const_name = "ATTR_#{name}"
+        unless const_defined? const_name
+          const_set const_name, value.dup.freeze
+        end
+      end
+    }
+&nbsp;
+    BLACKLISTED_CLASS_METHODS = %w(private public protected allocate new name parent superclass)
+&nbsp;
+    class GeneratedAttributeMethods &lt; Module #:nodoc:
+      include Mutex_m
+    end
+&nbsp;
+    module ClassMethods
+      def inherited(child_class) #:nodoc:
+        child_class.initialize_generated_modules
+        super
+      end
+&nbsp;
+      def initialize_generated_modules # :nodoc:
+        @generated_attribute_methods = GeneratedAttributeMethods.new
+        @attribute_methods_generated = false
+        include @generated_attribute_methods
+&nbsp;
+        super
+      end
+&nbsp;
+      # Generates all the attribute related methods for columns in the database
+      # accessors, mutators and query methods.
+      def define_attribute_methods # :nodoc:
+        return false if @attribute_methods_generated
+        # Use a mutex; we don't want two threads simultaneously trying to define
+        # attribute methods.
+        generated_attribute_methods.synchronize do
+          return false if @attribute_methods_generated
+          superclass.define_attribute_methods unless self == base_class
+          super(attribute_names)
+          @attribute_methods_generated = true
+        end
+      end
+&nbsp;
+      def undefine_attribute_methods # :nodoc:
+        generated_attribute_methods.synchronize do
+          super if <span class="branch-1 cbranch-no" title="branch not covered" >defined?(@attribute_methods_generated) &amp;&amp; @attribute_methods_generated</span>
+          @attribute_methods_generated = false
+        end
+      end
+&nbsp;
+      # Raises an ActiveRecord::DangerousAttributeError exception when an
+      # \Active \Record method is defined in the model, otherwise +false+.
+      #
+      #   class Person &lt; ActiveRecord::Base
+      #     def save
+      #       'already defined by Active Record'
+      #     end
+      #   end
+      #
+      #   Person.instance_method_already_implemented?(:save)
+      #   # =&gt; ActiveRecord::DangerousAttributeError: save is defined by Active Record. Check to make sure that you don't have an attribute or method with the same name.
+      #
+      #   Person.instance_method_already_implemented?(:name)
+      #   # =&gt; false
+      def instance_method_already_implemented?(method_name)
+        if dangerous_attribute_method?(method_name)
+          raise DangerousAttributeError, "#{method_name} is defined by Active Record. Check to make sure that you don't have an attribute or method with the same name."
+        end
+&nbsp;
+        if superclass == Base
+          super
+        else
+          # If ThisClass &lt; ... &lt; SomeSuperClass &lt; ... &lt; Base and SomeSuperClass
+          # defines its own attribute method, then we don't want to overwrite that.
+          defined = method_defined_within?(method_name, superclass, Base) &amp;&amp;
+            ! superclass.instance_method(method_name).owner.is_a?(GeneratedAttributeMethods)
+          defined || super
+        end
+      end
+&nbsp;
+      # A method name is 'dangerous' if it is already (re)defined by Active Record, but
+      # not by any ancestors. (So 'puts' is not dangerous but 'save' is.)
+      def dangerous_attribute_method?(name) # :nodoc:
+        method_defined_within?(name, Base)
+      end
+&nbsp;
+      def method_defined_within?(name, klass, superklass = klass.superclass) # :nodoc:
+        if klass.method_defined?(name) || klass.private_method_defined?(name)
+          if superklass.method_defined?(name) || superklass.private_method_defined?(name)
+            klass.instance_method(name).owner != superklass.instance_method(name).owner
+          else
+            true
+          end
+        else
+          false
+        end
+      end
+&nbsp;
+      # A class method is 'dangerous' if it is already (re)defined by Active Record, but
+      # not by any ancestors. (So 'puts' is not dangerous but 'new' is.)
+      def dangerous_class_method?(method_name)
+        BLACKLISTED_CLASS_METHODS.include?(method_name.to_s) || class_method_defined_within?(method_name, Base)
+      end
+&nbsp;
+      def class_method_defined_within?(name, klass, superklass = klass.superclass) # :nodoc:
+        if klass.respond_to?(name, true)
+          if superklass.respond_to?(name, true)
+            klass.method(name).owner != superklass.method(name).owner
+          else
+            true
+          end
+        else
+          false
+        end
+      end
+&nbsp;
+      # Returns +true+ if +attribute+ is an attribute method and table exists,
+      # +false+ otherwise.
+      #
+      #   class Person &lt; ActiveRecord::Base
+      #   end
+      #
+      #   Person.attribute_method?('name')   # =&gt; true
+      #   Person.attribute_method?(:age=)    # =&gt; true
+      #   Person.attribute_method?(:nothing) # =&gt; false
+      def attribute_method?(attribute)
+<span class="branch-1 cbranch-no" title="branch not covered" >        super || (table_exists? &amp;&amp; column_names.include?(attribute.to_s.sub(/=$/, "")))</span>
+      end
+&nbsp;
+      # Returns an array of column names as strings if it's not an abstract class and
+      # table exists. Otherwise it returns an empty array.
+      #
+      #   class Person &lt; ActiveRecord::Base
+      #   end
+      #
+      #   Person.attribute_names
+      #   # =&gt; ["id", "created_at", "updated_at", "name", "age"]
+      def attribute_names
+        @attribute_names ||= if !abstract_class? &amp;&amp; table_exists?
+          attribute_types.keys
+        else
+          []
+        end
+      end
+&nbsp;
+      # Returns true if the given attribute exists, otherwise false.
+      #
+      #   class Person &lt; ActiveRecord::Base
+      #   end
+      #
+      #   Person.has_attribute?('name')   # =&gt; true
+      #   Person.has_attribute?(:age)     # =&gt; true
+      #   Person.has_attribute?(:nothing) # =&gt; false
+      def has_attribute?(attr_name)
+        attribute_types.key?(attr_name.to_s)
+      end
+&nbsp;
+      # Returns the column object for the named attribute.
+      # Returns a +ActiveRecord::ConnectionAdapters::NullColumn+ if the
+      # named attribute does not exist.
+      #
+      #   class Person &lt; ActiveRecord::Base
+      #   end
+      #
+      #   person = Person.new
+      #   person.column_for_attribute(:name) # the result depends on the ConnectionAdapter
+      #   # =&gt; #&lt;ActiveRecord::ConnectionAdapters::Column:0x007ff4ab083980 @name="name", @sql_type="varchar(255)", @null=true, ...&gt;
+      #
+      #   person.column_for_attribute(:nothing)
+      #   # =&gt; #&lt;ActiveRecord::ConnectionAdapters::NullColumn:0xXXX @name=nil, @sql_type=nil, @cast_type=#&lt;Type::Value&gt;, ...&gt;
+      def column_for_attribute(name)
+        name = name.to_s
+        columns_hash.fetch(name) do
+          ConnectionAdapters::NullColumn.new(name)
+        end
+      end
+    end
+&nbsp;
+    # A Person object with a name attribute can ask &lt;tt&gt;person.respond_to?(:name)&lt;/tt&gt;,
+    # &lt;tt&gt;person.respond_to?(:name=)&lt;/tt&gt;, and &lt;tt&gt;person.respond_to?(:name?)&lt;/tt&gt;
+    # which will all return +true+. It also defines the attribute methods if they have
+    # not been generated.
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #   end
+    #
+    #   person = Person.new
+    #   person.respond_to?(:name)    # =&gt; true
+    #   person.respond_to?(:name=)   # =&gt; true
+    #   person.respond_to?(:name?)   # =&gt; true
+    #   person.respond_to?('age')    # =&gt; true
+    #   person.respond_to?('age=')   # =&gt; true
+    #   person.respond_to?('age?')   # =&gt; true
+    #   person.respond_to?(:nothing) # =&gt; false
+    def respond_to?(name, include_private = false)
+      return false unless super
+&nbsp;
+      case name
+      when :to_partial_path
+        name = "to_partial_path".freeze
+      when :to_model
+        name = "to_model".freeze
+      else
+        name = name.to_s
+      end
+&nbsp;
+      # If the result is true then check for the select case.
+      # For queries selecting a subset of columns, return false for unselected columns.
+      # We check defined?(@attributes) not to issue warnings if called on objects that
+      # have been allocated but not yet initialized.
+      if defined?(@attributes) &amp;&amp; self.class.column_names.include?(name)
+        return has_attribute?(name)
+      end
+&nbsp;
+      true
+    end
+&nbsp;
+    # Returns +true+ if the given attribute is in the attributes hash, otherwise +false+.
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #   end
+    #
+    #   person = Person.new
+    #   person.has_attribute?(:name)    # =&gt; true
+    #   person.has_attribute?('age')    # =&gt; true
+    #   person.has_attribute?(:nothing) # =&gt; false
+    def has_attribute?(attr_name)
+      @attributes.key?(attr_name.to_s)
+    end
+&nbsp;
+    # Returns an array of names for the attributes available on this object.
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #   end
+    #
+    #   person = Person.new
+    #   person.attribute_names
+    #   # =&gt; ["id", "created_at", "updated_at", "name", "age"]
+    def attribute_names
+      @attributes.keys
+    end
+&nbsp;
+    # Returns a hash of all the attributes with their names as keys and the values of the attributes as values.
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #   end
+    #
+    #   person = Person.create(name: 'Francesco', age: 22)
+    #   person.attributes
+    #   # =&gt; {"id"=&gt;3, "created_at"=&gt;Sun, 21 Oct 2012 04:53:04, "updated_at"=&gt;Sun, 21 Oct 2012 04:53:04, "name"=&gt;"Francesco", "age"=&gt;22}
+    def attributes
+      @attributes.to_hash
+    end
+&nbsp;
+    # Returns an &lt;tt&gt;#inspect&lt;/tt&gt;-like string for the value of the
+    # attribute +attr_name+. String attributes are truncated up to 50
+    # characters, Date and Time attributes are returned in the
+    # &lt;tt&gt;:db&lt;/tt&gt; format. Other attributes return the value of
+    # &lt;tt&gt;#inspect&lt;/tt&gt; without modification.
+    #
+    #   person = Person.create!(name: 'David Heinemeier Hansson ' * 3)
+    #
+    #   person.attribute_for_inspect(:name)
+    #   # =&gt; "\"David Heinemeier Hansson David Heinemeier Hansson ...\""
+    #
+    #   person.attribute_for_inspect(:created_at)
+    #   # =&gt; "\"2012-10-22 00:15:07\""
+    #
+    #   person.attribute_for_inspect(:tag_ids)
+    #   # =&gt; "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+    def attribute_for_inspect(attr_name)
+      value = read_attribute(attr_name)
+&nbsp;
+      if value.is_a?(String) &amp;&amp; value.length &gt; 50
+        "#{value[0, 50]}...".inspect
+      elsif value.is_a?(Date) || value.is_a?(Time)
+        %("#{value.to_s(:db)}")
+      else
+        value.inspect
+      end
+    end
+&nbsp;
+    # Returns +true+ if the specified +attribute+ has been set by the user or by a
+    # database load and is neither +nil+ nor &lt;tt&gt;empty?&lt;/tt&gt; (the latter only applies
+    # to objects that respond to &lt;tt&gt;empty?&lt;/tt&gt;, most notably Strings). Otherwise, +false+.
+    # Note that it always returns +true+ with boolean attributes.
+    #
+    #   class Task &lt; ActiveRecord::Base
+    #   end
+    #
+    #   task = Task.new(title: '', is_done: false)
+    #   task.attribute_present?(:title)   # =&gt; false
+    #   task.attribute_present?(:is_done) # =&gt; true
+    #   task.title = 'Buy milk'
+    #   task.is_done = true
+    #   task.attribute_present?(:title)   # =&gt; true
+    #   task.attribute_present?(:is_done) # =&gt; true
+    def attribute_present?(attribute)
+      value = _read_attribute(attribute)
+      !value.nil? &amp;&amp; !(value.respond_to?(:empty?) &amp;&amp; value.empty?)
+    end
+&nbsp;
+    # Returns the value of the attribute identified by &lt;tt&gt;attr_name&lt;/tt&gt; after it has been typecast (for example,
+    # "2004-12-12" in a date column is cast to a date object, like Date.new(2004, 12, 12)). It raises
+    # &lt;tt&gt;ActiveModel::MissingAttributeError&lt;/tt&gt; if the identified attribute is missing.
+    #
+    # Note: +:id+ is always present.
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #     belongs_to :organization
+    #   end
+    #
+    #   person = Person.new(name: 'Francesco', age: '22')
+    #   person[:name] # =&gt; "Francesco"
+    #   person[:age]  # =&gt; 22
+    #
+    #   person = Person.select('id').first
+    #   person[:name]            # =&gt; ActiveModel::MissingAttributeError: missing attribute: name
+    #   person[:organization_id] # =&gt; ActiveModel::MissingAttributeError: missing attribute: organization_id
+    def [](attr_name)
+      read_attribute(attr_name) { |n| missing_attribute(n, caller) }
+    end
+&nbsp;
+    # Updates the attribute identified by &lt;tt&gt;attr_name&lt;/tt&gt; with the specified +value+.
+    # (Alias for the protected #write_attribute method).
+    #
+    #   class Person &lt; ActiveRecord::Base
+    #   end
+    #
+    #   person = Person.new
+    #   person[:age] = '22'
+    #   person[:age] # =&gt; 22
+    #   person[:age].class # =&gt; Integer
+    def []=(attr_name, value)
+      write_attribute(attr_name, value)
+    end
+&nbsp;
+    # Returns the name of all database fields which have been read from this
+    # model. This can be useful in development mode to determine which fields
+    # need to be selected. For performance critical pages, selecting only the
+    # required fields can be an easy performance win (assuming you aren't using
+    # all of the fields on the model).
+    #
+    # For example:
+    #
+    #   class PostsController &lt; ActionController::Base
+    #     after_action :print_accessed_fields, only: :index
+    #
+    #     def index
+    #       @posts = Post.all
+    #     end
+    #
+    #     private
+    #
+    #     def print_accessed_fields
+    #       p @posts.first.accessed_fields
+    #     end
+    #   end
+    #
+    # Which allows you to quickly change your code to:
+    #
+    #   class PostsController &lt; ActionController::Base
+    #     def index
+    #       @posts = Post.select(:id, :title, :author_id, :updated_at)
+    #     end
+    #   end
+    def accessed_fields
+      @attributes.accessed
+    end
+&nbsp;
+    protected
+&nbsp;
+      def attribute_method?(attr_name) # :nodoc:
+        # We check defined? because Syck calls respond_to? before actually calling initialize.
+        defined?(@attributes) &amp;&amp; @attributes.key?(attr_name)
+      end
+&nbsp;
+    private
+&nbsp;
+      def arel_attributes_with_values_for_create(attribute_names)
+        arel_attributes_with_values(attributes_for_create(attribute_names))
+      end
+&nbsp;
+      def arel_attributes_with_values_for_update(attribute_names)
+        arel_attributes_with_values(attributes_for_update(attribute_names))
+      end
+&nbsp;
+      # Returns a Hash of the Arel::Attributes and attribute values that have been
+      # typecasted for use in an Arel insert/update method.
+      def arel_attributes_with_values(attribute_names)
+        attrs = {}
+        arel_table = self.class.arel_table
+&nbsp;
+        attribute_names.each do |name|
+          attrs[arel_table[name]] = typecasted_attribute_value(name)
+        end
+        attrs
+      end
+&nbsp;
+      # Filters the primary keys and readonly attributes from the attribute names.
+      def attributes_for_update(attribute_names)
+        attribute_names.reject do |name|
+          readonly_attribute?(name)
+        end
+      end
+&nbsp;
+      # Filters out the primary keys, from the attribute names, when the primary
+      # key is to be generated (e.g. the id attribute has no value).
+      def attributes_for_create(attribute_names)
+        attribute_names.reject do |name|
+          pk_attribute?(name) &amp;&amp; id.nil?
+        end
+      end
+&nbsp;
+      def readonly_attribute?(name)
+        self.class.readonly_attributes.include?(name)
+      end
+&nbsp;
+      def pk_attribute?(name)
+        name == self.class.primary_key
+      end
+&nbsp;
+      def typecasted_attribute_value(name)
+        _read_attribute(name)
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

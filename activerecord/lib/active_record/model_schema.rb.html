@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/model_schema.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> model_schema.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.75% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>174/178</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.94% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>62/66</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.73% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>43/44</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">99.35% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>152/153</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">210x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">87931x</span>
+<span class="cline-any cline-yes">87931x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5289x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5289x</span>
+<span class="cline-any cline-yes">906x</span>
+<span class="cline-any cline-yes">340x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4723x</span>
+<span class="cline-any cline-yes">4723x</span>
+<span class="cline-any cline-yes">4723x</span>
+<span class="cline-any cline-yes">4723x</span>
+<span class="cline-any cline-yes">4723x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3223x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">3170x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3097x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3491x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3504x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">621071x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-yes">110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">12100x</span>
+<span class="cline-any cline-yes">5299x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6801x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">317x</span>
+<span class="cline-any cline-yes">317x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">15257x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6944x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">81592x</span>
+<span class="cline-any cline-yes">1719x</span>
+<span class="cline-any cline-yes">948x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">92739x</span>
+<span class="cline-any cline-yes">92739x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">11779x</span>
+<span class="cline-any cline-yes">11779x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">371507x</span>
+<span class="cline-any cline-yes">371492x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">81782x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">202377x</span>
+<span class="cline-any cline-yes">1010x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">201367x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5181x</span>
+<span class="cline-any cline-yes">5181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">151406x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">135797x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-yes">2189x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6002x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-yes">5994x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">481206x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">481206x</span>
+<span class="cline-any cline-yes">5285x</span>
+<span class="cline-any cline-yes">94913x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5300x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5285x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5293x</span>
+<span class="cline-any cline-yes">5293x</span>
+<span class="cline-any cline-yes">41632x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">23863x</span>
+<span class="cline-any cline-yes">8629x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2183x</span>
+<span class="cline-any cline-yes">2183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3148x</span>
+<span class="cline-any cline-yes">3148x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2183x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2183x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">965x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "monitor"
+&nbsp;
+module ActiveRecord
+  module ModelSchema
+    extend ActiveSupport::Concern
+&nbsp;
+    ##
+    # :singleton-method: primary_key_prefix_type
+    # :call-seq: primary_key_prefix_type
+    #
+    # The prefix type that will be prepended to every primary key column name.
+    # The options are +:table_name+ and +:table_name_with_underscore+. If the first is specified,
+    # the Product class will look for "productid" instead of "id" as the primary column. If the
+    # latter is specified, the Product class will look for "product_id" instead of "id". Remember
+    # that this is a global setting for all Active Records.
+&nbsp;
+    ##
+    # :singleton-method: primary_key_prefix_type=
+    # :call-seq: primary_key_prefix_type=(prefix_type)
+    #
+    # Sets the prefix type that will be prepended to every primary key column name.
+    # The options are +:table_name+ and +:table_name_with_underscore+. If the first is specified,
+    # the Product class will look for "productid" instead of "id" as the primary column. If the
+    # latter is specified, the Product class will look for "product_id" instead of "id". Remember
+    # that this is a global setting for all Active Records.
+&nbsp;
+    ##
+    # :singleton-method: table_name_prefix
+    # :call-seq: table_name_prefix
+    #
+    # The prefix string to prepend to every table name.
+&nbsp;
+    ##
+    # :singleton-method: table_name_prefix=
+    # :call-seq: table_name_prefix=(prefix)
+    #
+    # Sets the prefix string to prepend to every table name. So if set to "basecamp_", all table
+    # names will be named like "basecamp_projects", "basecamp_people", etc. This is a convenient
+    # way of creating a namespace for tables in a shared database. By default, the prefix is the
+    # empty string.
+    #
+    # If you are organising your models within modules you can add a prefix to the models within
+    # a namespace by defining a singleton method in the parent module called table_name_prefix which
+    # returns your chosen prefix.
+&nbsp;
+    ##
+    # :singleton-method: table_name_suffix
+    # :call-seq: table_name_suffix
+    #
+    # The suffix string to append to every table name.
+&nbsp;
+    ##
+    # :singleton-method: table_name_suffix=
+    # :call-seq: table_name_suffix=(suffix)
+    #
+    # Works like +table_name_prefix=+, but appends instead of prepends (set to "_basecamp" gives "projects_basecamp",
+    # "people_basecamp"). By default, the suffix is the empty string.
+    #
+    # If you are organising your models within modules, you can add a suffix to the models within
+    # a namespace by defining a singleton method in the parent module called table_name_suffix which
+    # returns your chosen suffix.
+&nbsp;
+    ##
+    # :singleton-method: schema_migrations_table_name
+    # :call-seq: schema_migrations_table_name
+    #
+    # The name of the schema migrations table. By default, the value is &lt;tt&gt;"schema_migrations"&lt;/tt&gt;.
+&nbsp;
+    ##
+    # :singleton-method: schema_migrations_table_name=
+    # :call-seq: schema_migrations_table_name=(table_name)
+    #
+    # Sets the name of the schema migrations table.
+&nbsp;
+    ##
+    # :singleton-method: internal_metadata_table_name
+    # :call-seq: internal_metadata_table_name
+    #
+    # The name of the internal metadata table. By default, the value is &lt;tt&gt;"ar_internal_metadata"&lt;/tt&gt;.
+&nbsp;
+    ##
+    # :singleton-method: internal_metadata_table_name=
+    # :call-seq: internal_metadata_table_name=(table_name)
+    #
+    # Sets the name of the internal metadata table.
+&nbsp;
+    ##
+    # :singleton-method: protected_environments
+    # :call-seq: protected_environments
+    #
+    # The array of names of environments where destructive actions should be prohibited. By default,
+    # the value is &lt;tt&gt;["production"]&lt;/tt&gt;.
+&nbsp;
+    ##
+    # :singleton-method: protected_environments=
+    # :call-seq: protected_environments=(environments)
+    #
+    # Sets an array of names of environments where destructive actions should be prohibited.
+&nbsp;
+    ##
+    # :singleton-method: pluralize_table_names
+    # :call-seq: pluralize_table_names
+    #
+    # Indicates whether table names should be the pluralized versions of the corresponding class names.
+    # If true, the default table name for a Product class will be "products". If false, it would just be "product".
+    # See table_name for the full rules on table/class naming. This is true, by default.
+&nbsp;
+    ##
+    # :singleton-method: pluralize_table_names=
+    # :call-seq: pluralize_table_names=(value)
+    #
+    # Set whether table names should be the pluralized versions of the corresponding class names.
+    # If true, the default table name for a Product class will be "products". If false, it would just be "product".
+    # See table_name for the full rules on table/class naming. This is true, by default.
+&nbsp;
+    included do
+      mattr_accessor :primary_key_prefix_type, instance_writer: false
+&nbsp;
+      class_attribute :table_name_prefix, instance_writer: false, default: ""
+      class_attribute :table_name_suffix, instance_writer: false, default: ""
+      class_attribute :schema_migrations_table_name, instance_accessor: false, default: "schema_migrations"
+      class_attribute :internal_metadata_table_name, instance_accessor: false, default: "ar_internal_metadata"
+      class_attribute :protected_environments, instance_accessor: false, default: [ "production" ]
+      class_attribute :pluralize_table_names, instance_writer: false, default: true
+&nbsp;
+      self.inheritance_column = "type"
+      self.ignored_columns = [].freeze
+&nbsp;
+      delegate :type_for_attribute, to: :class
+&nbsp;
+      initialize_load_schema_monitor
+    end
+&nbsp;
+    # Derives the join table name for +first_table+ and +second_table+. The
+    # table names appear in alphabetical order. A common prefix is removed
+    # (useful for namespaced models like Music::Artist and Music::Record):
+    #
+    #   artists, records =&gt; artists_records
+    #   records, artists =&gt; artists_records
+    #   music_artists, music_records =&gt; music_artists_records
+    def self.derive_join_table_name(first_table, second_table) # :nodoc:
+      [first_table.to_s, second_table.to_s].sort.join("\0").gsub(/^(.*_)(.+)\0\1(.+)/, '\1\2_\3').tr("\0", "_")
+    end
+&nbsp;
+    module ClassMethods
+      # Guesses the table name (in forced lower-case) based on the name of the class in the
+      # inheritance hierarchy descending directly from ActiveRecord::Base. So if the hierarchy
+      # looks like: Reply &lt; Message &lt; ActiveRecord::Base, then Message is used
+      # to guess the table name even when called on Reply. The rules used to do the guess
+      # are handled by the Inflector class in Active Support, which knows almost all common
+      # English inflections. You can add new inflections in config/initializers/inflections.rb.
+      #
+      # Nested classes are given table names prefixed by the singular form of
+      # the parent's table name. Enclosing modules are not considered.
+      #
+      # ==== Examples
+      #
+      #   class Invoice &lt; ActiveRecord::Base
+      #   end
+      #
+      #   file                  class               table_name
+      #   invoice.rb            Invoice             invoices
+      #
+      #   class Invoice &lt; ActiveRecord::Base
+      #     class Lineitem &lt; ActiveRecord::Base
+      #     end
+      #   end
+      #
+      #   file                  class               table_name
+      #   invoice.rb            Invoice::Lineitem   invoice_lineitems
+      #
+      #   module Invoice
+      #     class Lineitem &lt; ActiveRecord::Base
+      #     end
+      #   end
+      #
+      #   file                  class               table_name
+      #   invoice/lineitem.rb   Invoice::Lineitem   lineitems
+      #
+      # Additionally, the class-level +table_name_prefix+ is prepended and the
+      # +table_name_suffix+ is appended. So if you have "myapp_" as a prefix,
+      # the table name guess for an Invoice class becomes "myapp_invoices".
+      # Invoice::Lineitem becomes "myapp_invoice_lineitems".
+      #
+      # You can also set your own table name explicitly:
+      #
+      #   class Mouse &lt; ActiveRecord::Base
+      #     self.table_name = "mice"
+      #   end
+      def table_name
+        reset_table_name unless defined?(@table_name)
+        @table_name
+      end
+&nbsp;
+      # Sets the table name explicitly. Example:
+      #
+      #   class Project &lt; ActiveRecord::Base
+      #     self.table_name = "project"
+      #   end
+      def table_name=(value)
+        value = value &amp;&amp; value.to_s
+&nbsp;
+        if defined?(@table_name)
+          return if value == @table_name
+          <span class="missing-if-branch" title="else path not taken" >E</span>reset_column_information if connected?
+        end
+&nbsp;
+        @table_name        = value
+        @quoted_table_name = nil
+        @arel_table        = nil
+        @sequence_name     = nil unless defined?(@explicit_sequence_name) &amp;&amp; @explicit_sequence_name
+        @predicate_builder = nil
+      end
+&nbsp;
+      # Returns a quoted version of the table name, used to construct SQL statements.
+      def quoted_table_name
+        @quoted_table_name ||= connection.quote_table_name(table_name)
+      end
+&nbsp;
+      # Computes the table name, (re)sets it internally, and returns it.
+      def reset_table_name #:nodoc:
+        self.table_name = if abstract_class?
+          superclass == Base ? nil : superclass.table_name
+        elsif superclass.abstract_class?
+          superclass.table_name || compute_table_name
+        else
+          compute_table_name
+        end
+      end
+&nbsp;
+      def full_table_name_prefix #:nodoc:
+        (parents.detect { |p| p.respond_to?(:table_name_prefix) } || self).table_name_prefix
+      end
+&nbsp;
+      def full_table_name_suffix #:nodoc:
+        (parents.detect { |p| p.respond_to?(:table_name_suffix) } || self).table_name_suffix
+      end
+&nbsp;
+      # Defines the name of the table column which will store the class name on single-table
+      # inheritance situations.
+      #
+      # The default inheritance column name is +type+, which means it's a
+      # reserved word inside Active Record. To be able to use single-table
+      # inheritance with another column name, or to use the column +type+ in
+      # your own model for something else, you can set +inheritance_column+:
+      #
+      #     self.inheritance_column = 'zoink'
+      def inheritance_column
+        (@inheritance_column ||= nil) || superclass.inheritance_column
+      end
+&nbsp;
+      # Sets the value of inheritance_column
+      def inheritance_column=(value)
+        @inheritance_column = value.to_s
+        @explicit_inheritance_column = true
+      end
+&nbsp;
+      # The list of columns names the model should ignore. Ignored columns won't have attribute
+      # accessors defined, and won't be referenced in SQL queries.
+      def ignored_columns
+        if defined?(@ignored_columns)
+          @ignored_columns
+        else
+          superclass.ignored_columns
+        end
+      end
+&nbsp;
+      # Sets the columns names the model should ignore. Ignored columns won't have attribute
+      # accessors defined, and won't be referenced in SQL queries.
+      def ignored_columns=(columns)
+        @ignored_columns = columns.map(&amp;:to_s)
+      end
+&nbsp;
+      def sequence_name
+        if base_class == self
+          @sequence_name ||= reset_sequence_name
+        else
+          (@sequence_name ||= <span class="cstat-no" title="statement not covered" >nil</span>) || <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >base_class.sequence_name</span></span>
+        end
+      end
+&nbsp;
+      def reset_sequence_name #:nodoc:
+        @explicit_sequence_name = false
+        @sequence_name          = connection.default_sequence_name(table_name, primary_key)
+      end
+&nbsp;
+      # Sets the name of the sequence to use when generating ids to the given
+      # value, or (if the value is +nil+ or +false+) to the value returned by the
+      # given block. This is required for Oracle and is useful for any
+      # database which relies on sequences for primary key generation.
+      #
+      # If a sequence name is not explicitly set when using Oracle,
+      # it will default to the commonly used pattern of: #{table_name}_seq
+      #
+      # If a sequence name is not explicitly set when using PostgreSQL, it
+      # will discover the sequence corresponding to your primary key for you.
+      #
+      #   class Project &lt; ActiveRecord::Base
+      #     self.sequence_name = "projectseq"   # default would have been "project_seq"
+      #   end
+      def sequence_name=(value)
+        @sequence_name          = value.to_s
+        @explicit_sequence_name = true
+      end
+&nbsp;
+      # Determines if the primary key values should be selected from their
+      # corresponding sequence before the insert statement.
+      def prefetch_primary_key?
+        connection.prefetch_primary_key?(table_name)
+      end
+&nbsp;
+      # Returns the next value that will be used as the primary key on
+      # an insert statement.
+<span class="fstat-no" title="function not covered" >      def next_sequence_value</span>
+<span class="cstat-no" title="statement not covered" >        connection.next_sequence_value(sequence_name)</span>
+      end
+&nbsp;
+      # Indicates whether the table associated with this class exists
+      def table_exists?
+        connection.schema_cache.data_source_exists?(table_name)
+      end
+&nbsp;
+      def attributes_builder # :nodoc:
+        @attributes_builder ||= AttributeSet::Builder.new(attribute_types, primary_key) do |name|
+          unless columns_hash.key?(name)
+            _default_attributes[name].dup
+          end
+        end
+      end
+&nbsp;
+      def columns_hash # :nodoc:
+        load_schema
+        @columns_hash
+      end
+&nbsp;
+      def columns
+        load_schema
+        @columns ||= columns_hash.values
+      end
+&nbsp;
+      def attribute_types # :nodoc:
+        load_schema
+        @attribute_types ||= Hash.new(Type.default_value)
+      end
+&nbsp;
+      def yaml_encoder # :nodoc:
+        @yaml_encoder ||= AttributeSet::YAMLEncoder.new(attribute_types)
+      end
+&nbsp;
+      # Returns the type of the attribute with the given name, after applying
+      # all modifiers. This method is the only valid source of information for
+      # anything related to the types of a model's attributes. This method will
+      # access the database and load the model's schema if it is required.
+      #
+      # The return value of this method will implement the interface described
+      # by ActiveModel::Type::Value (though the object itself may not subclass
+      # it).
+      #
+      # +attr_name+ The name of the attribute to retrieve the type for. Must be
+      # a string
+      def type_for_attribute(attr_name, &amp;block)
+        if block
+          attribute_types.fetch(attr_name, &amp;block)
+        else
+          attribute_types[attr_name]
+        end
+      end
+&nbsp;
+      # Returns a hash where the keys are column names and the values are
+      # default values when instantiating the Active Record object for this table.
+      def column_defaults
+        load_schema
+        @column_defaults ||= _default_attributes.to_hash
+      end
+&nbsp;
+      def _default_attributes # :nodoc:
+        @default_attributes ||= AttributeSet.new({})
+      end
+&nbsp;
+      # Returns an array of column names as strings.
+      def column_names
+        @column_names ||= columns.map(&amp;:name)
+      end
+&nbsp;
+      # Returns an array of column objects where the primary id, all columns ending in "_id" or "_count",
+      # and columns used for single table inheritance have been removed.
+      def content_columns
+        @content_columns ||= columns.reject do |c|
+          c.name == primary_key ||
+          c.name == inheritance_column ||
+          c.name.end_with?("_id") ||
+          c.name.end_with?("_count")
+        end
+      end
+&nbsp;
+      # Resets all the cached information about columns, which will cause them
+      # to be reloaded on the next request.
+      #
+      # The most common usage pattern for this method is probably in a migration,
+      # when just after creating a table you want to populate it with some default
+      # values, eg:
+      #
+      #  class CreateJobLevels &lt; ActiveRecord::Migration[5.0]
+      #    def up
+      #      create_table :job_levels do |t|
+      #        t.integer :id
+      #        t.string :name
+      #
+      #        t.timestamps
+      #      end
+      #
+      #      JobLevel.reset_column_information
+      #      %w{assistant executive manager director}.each do |type|
+      #        JobLevel.create(name: type)
+      #      end
+      #    end
+      #
+      #    def down
+      #      drop_table :job_levels
+      #    end
+      #  end
+      def reset_column_information
+        connection.clear_cache!
+        undefine_attribute_methods
+        connection.schema_cache.clear_data_source_cache!(table_name)
+&nbsp;
+        reload_schema_from_cache
+        initialize_find_by_cache
+      end
+&nbsp;
+      protected
+&nbsp;
+        def initialize_load_schema_monitor
+          @load_schema_monitor = Monitor.new
+        end
+&nbsp;
+      private
+&nbsp;
+        def inherited(child_class)
+          super
+          child_class.initialize_load_schema_monitor
+        end
+&nbsp;
+        def schema_loaded?
+<span class="branch-1 cbranch-no" title="branch not covered" >          defined?(@schema_loaded) &amp;&amp; @schema_loaded</span>
+        end
+&nbsp;
+        def load_schema
+          return if schema_loaded?
+          @load_schema_monitor.synchronize do
+            return if <span class="branch-1 cbranch-no" title="branch not covered" >defined?(@columns_hash) &amp;&amp; @columns_hash</span>
+&nbsp;
+            load_schema!
+&nbsp;
+            @schema_loaded = true
+          end
+        end
+&nbsp;
+        def load_schema!
+          @columns_hash = connection.schema_cache.columns_hash(table_name).except(*ignored_columns)
+          @columns_hash.each do |name, column|
+            define_attribute(
+              name,
+              connection.lookup_cast_type_from_column(column),
+              default: column.default,
+              user_provided_default: false
+            )
+          end
+        end
+&nbsp;
+        def reload_schema_from_cache
+          @arel_table = nil
+          @column_names = nil
+          @attribute_types = nil
+          @content_columns = nil
+          @default_attributes = nil
+          @column_defaults = nil
+          @inheritance_column = nil unless defined?(@explicit_inheritance_column) &amp;&amp; @explicit_inheritance_column
+          @attributes_builder = nil
+          @columns = nil
+          @columns_hash = nil
+          @schema_loaded = false
+          @attribute_names = nil
+          @yaml_encoder = nil
+          direct_descendants.each do |descendant|
+            descendant.send(:reload_schema_from_cache)
+          end
+        end
+&nbsp;
+        # Guesses the table name, but does not decorate it with prefix and suffix information.
+        def undecorated_table_name(class_name = <span class="cstat-no" title="statement not covered" >base_class.name</span>)
+          table_name = class_name.to_s.demodulize.underscore
+          pluralize_table_names ? table_name.pluralize : table_name
+        end
+&nbsp;
+        # Computes and returns a table name according to default conventions.
+        def compute_table_name
+          base = base_class
+          if self == base
+            # Nested classes are prefixed with singular parent table name.
+            if parent &lt; Base &amp;&amp; !parent.abstract_class?
+              contained = parent.table_name
+              contained = contained.singularize if parent.pluralize_table_names
+              contained += "_"
+            end
+&nbsp;
+            "#{full_table_name_prefix}#{contained}#{undecorated_table_name(name)}#{full_table_name_suffix}"
+          else
+            # STI subclasses always use their superclass' table.
+            base.table_name
+          end
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

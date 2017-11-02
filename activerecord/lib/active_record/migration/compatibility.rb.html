@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/migration/compatibility.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/migration</a> compatibility.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84.43% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>103/122</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.83% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>34/48</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>22/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.11% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>93/108</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">109x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">105x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-yes">34x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">114x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  class Migration
+    module Compatibility # :nodoc: all
+      def self.find(version)
+        version = version.to_s
+        name = "V#{version.tr('.', '_')}"
+        unless const_defined?(name)
+          versions = constants.grep(/\AV[0-9_]+\z/).map { |s| s.to_s.delete("V").tr("_", ".").inspect }
+          raise ArgumentError, "Unknown migration version #{version.inspect}; expected one of #{versions.sort.join(', ')}"
+        end
+        const_get(name)
+      end
+&nbsp;
+      V5_2 = Current
+&nbsp;
+      class V5_1 &lt; V5_2
+      end
+&nbsp;
+      class V5_0 &lt; V5_1
+        module TableDefinition
+          def primary_key(name, type = :primary_key, **options)
+            <span class="missing-if-branch" title="else path not taken" >E</span>type = :integer if type == :primary_key
+            super
+          end
+&nbsp;
+          def references(*args, **options)
+            super(*args, type: :integer, **options)
+          end
+          alias :belongs_to :references
+        end
+&nbsp;
+        def create_table(table_name, options = {})
+          if adapter_name == "PostgreSQL"
+            if options[:id] == :uuid &amp;&amp; !options.key?(:default)
+              options[:default] = "uuid_generate_v4()"
+            end
+          end
+&nbsp;
+          unless adapter_name == "Mysql2" &amp;&amp; options[:id] == :bigint
+            if [:integer, :bigint].include?(options[:id]) &amp;&amp; !options.key?(:default)
+              options[:default] = nil
+            end
+          end
+&nbsp;
+          # Since 5.1 PostgreSQL adapter uses bigserial type for primary
+          # keys by default and MySQL uses bigint. This compat layer makes old migrations utilize
+          # serial/int type instead -- the way it used to work before 5.1.
+          unless options.key?(:id)
+            options[:id] = :integer
+          end
+&nbsp;
+          if block_given?
+            super do |t|
+              yield compatible_table_definition(t)
+            end
+          else
+            super
+          end
+        end
+&nbsp;
+        def change_table(table_name, options = {})
+          if block_given?
+            super do |t|
+              yield compatible_table_definition(t)
+            end
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>super</span>
+          end
+        end
+&nbsp;
+        def create_join_table(table_1, table_2, column_options: {}, **options)
+          column_options.reverse_merge!(type: :integer)
+&nbsp;
+          if block_given?
+            super do |t|
+              yield compatible_table_definition(t)
+            end
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>super</span>
+          end
+        end
+&nbsp;
+        def add_column(table_name, column_name, type, options = {})
+          <span class="missing-if-branch" title="else path not taken" >E</span>if type == :primary_key
+            type = :integer
+            options[:primary_key] = true
+          end
+          super
+        end
+&nbsp;
+<span class="fstat-no" title="function not covered" >        def add_reference(table_name, ref_name, **options)</span>
+<span class="cstat-no" title="statement not covered" >          super(table_name, ref_name, type: :integer, **options)</span>
+        end
+        alias :add_belongs_to :add_reference
+&nbsp;
+        private
+          def compatible_table_definition(t)
+            class &lt;&lt; t
+              prepend TableDefinition
+            end
+            t
+          end
+      end
+&nbsp;
+      class V4_2 &lt; V5_0
+        module TableDefinition
+          def references(*, **options)
+            options[:index] ||= false
+            super
+          end
+          alias :belongs_to :references
+&nbsp;
+          def timestamps(**options)
+            <span class="missing-if-branch" title="else path not taken" >E</span>options[:null] = true if options[:null].nil?
+            super
+          end
+        end
+&nbsp;
+        def create_table(table_name, options = {})
+          if block_given?
+            super do |t|
+              yield compatible_table_definition(t)
+            end
+          else
+            super
+          end
+        end
+&nbsp;
+        def change_table(table_name, options = {})
+          if block_given?
+            super do |t|
+              yield compatible_table_definition(t)
+            end
+          else
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>super</span>
+          end
+        end
+&nbsp;
+<span class="fstat-no" title="function not covered" >        def add_reference(*, **options)</span>
+<span class="cstat-no" title="statement not covered" >          options[:index] ||= false</span>
+<span class="cstat-no" title="statement not covered" >          super</span>
+        end
+        alias :add_belongs_to :add_reference
+&nbsp;
+        def add_timestamps(_, **options)
+          <span class="missing-if-branch" title="else path not taken" >E</span>options[:null] = true if options[:null].nil?
+          super
+        end
+&nbsp;
+<span class="fstat-no" title="function not covered" >        def index_exists?(table_name, column_name, options = <span class="cstat-no" title="statement not covered" >{}</span>)</span>
+<span class="cstat-no" title="statement not covered" >          column_names = Array(column_name).map(&amp;:to_s)</span>
+<span class="cstat-no" title="statement not covered" >          options[:name] =</span>
+            if options[:name].present?
+<span class="cstat-no" title="statement not covered" >              options[:name].to_s</span>
+            else
+<span class="cstat-no" title="statement not covered" >              index_name(table_name, column: column_names)</span>
+            end
+<span class="cstat-no" title="statement not covered" >          super</span>
+        end
+&nbsp;
+        def remove_index(table_name, options = <span class="cstat-no" title="statement not covered" >{}</span>)
+          <span class="missing-if-branch" title="if path not taken" >I</span>options = { column: options } unless options.is_a?(Hash)
+          options[:name] = index_name_for_remove(table_name, options)
+          super(table_name, options)
+        end
+&nbsp;
+        private
+          def compatible_table_definition(t)
+            class &lt;&lt; t
+              prepend TableDefinition
+            end
+            super
+          end
+&nbsp;
+          def index_name_for_remove(table_name, options = <span class="cstat-no" title="statement not covered" >{}</span>)
+            index_name = index_name(table_name, options)
+&nbsp;
+            unless index_name_exists?(table_name, index_name)
+              if <span class="branch-1 cbranch-no" title="branch not covered" >options.is_a?(Hash) &amp;&amp; options.has_key?(:name)</span>
+<span class="cstat-no" title="statement not covered" >                <span class="missing-if-branch" title="if path not taken" >I</span>options_without_column = options.dup</span>
+<span class="cstat-no" title="statement not covered" >                options_without_column.delete :column</span>
+<span class="cstat-no" title="statement not covered" >                index_name_without_column = index_name(table_name, options_without_column)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >                return index_name_without_column</span> if index_name_exists?(table_name, index_name_without_column)</span>
+              end
+&nbsp;
+              raise ArgumentError, "Index name '#{index_name}' on table '#{table_name}' does not exist"
+            end
+&nbsp;
+            index_name
+          end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/connection_adapters/postgresql/oid/range.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">All files</a> / <a href="index.html">lib/active_record/connection_adapters/postgresql/oid</a> range.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.88% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>62/64</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>30/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.11% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>52/53</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1251x</span>
+<span class="cline-any cline-yes">1251x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">492x</span>
+<span class="cline-any cline-yes">462x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">380x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">471x</span>
+<span class="cline-any cline-yes">313x</span>
+<span class="cline-any cline-yes">312x</span>
+<span class="cline-any cline-yes">312x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">788x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">626x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-yes">394x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1808x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module ConnectionAdapters
+    module PostgreSQL
+      module OID # :nodoc:
+        class Range &lt; Type::Value # :nodoc:
+          attr_reader :subtype, :type
+          delegate :user_input_in_time_zone, to: :subtype
+&nbsp;
+          def initialize(subtype, type = :range)
+            @subtype = subtype
+            @type = type
+          end
+&nbsp;
+<span class="fstat-no" title="function not covered" >          def type_cast_for_schema(value)</span>
+<span class="cstat-no" title="statement not covered" >            value.inspect.gsub("Infinity", "::Float::INFINITY")</span>
+          end
+&nbsp;
+          def cast_value(value)
+            return if value == "empty"
+            return value unless value.is_a?(::String)
+&nbsp;
+            extracted = extract_bounds(value)
+            from = type_cast_single extracted[:from]
+            to = type_cast_single extracted[:to]
+&nbsp;
+            if !infinity?(from) &amp;&amp; extracted[:exclude_start]
+              raise ArgumentError, "The Ruby Range object does not support excluding the beginning of a Range. (unsupported value: '#{value}')"
+            end
+            ::Range.new(from, to, extracted[:exclude_end])
+          end
+&nbsp;
+          def serialize(value)
+            if value.is_a?(::Range)
+              from = type_cast_single_for_database(value.begin)
+              to = type_cast_single_for_database(value.end)
+              ::Range.new(from, to, value.exclude_end?)
+            else
+              super
+            end
+          end
+&nbsp;
+          def ==(other)
+<span class="branch-1 cbranch-no" title="branch not covered" >            other.is_a?(Range) &amp;&amp;</span>
+              other.subtype == subtype &amp;&amp;
+              other.type == type
+          end
+&nbsp;
+          def map(value) # :nodoc:
+            new_begin = yield(value.begin)
+            new_end = yield(value.end)
+            ::Range.new(new_begin, new_end, value.exclude_end?)
+          end
+&nbsp;
+          private
+&nbsp;
+            def type_cast_single(value)
+              infinity?(value) ? value : @subtype.deserialize(value)
+            end
+&nbsp;
+            def type_cast_single_for_database(value)
+              infinity?(value) ? <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>""</span> : @subtype.serialize(value)
+            end
+&nbsp;
+            def extract_bounds(value)
+              from, to = value[1..-2].split(",")
+              {
+                from:          (value[1] == "," || from == "-infinity") ? infinity(negative: true) : from,
+                to:            (value[-2] == "," || to == "infinity") ? infinity : to,
+                exclude_start: (value[0] == "("),
+                exclude_end:   (value[-1] == ")")
+              }
+            end
+&nbsp;
+            def infinity(negative: false)
+              if subtype.respond_to?(:infinity)
+                subtype.infinity(negative: negative)
+              elsif negative
+                -::Float::INFINITY
+              else
+                ::Float::INFINITY
+              end
+            end
+&nbsp;
+            def infinity?(value)
+              value.respond_to?(:infinite?) &amp;&amp; value.infinite?
+            end
+        end
+      end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

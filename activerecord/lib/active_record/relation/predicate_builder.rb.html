@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/relation/predicate_builder.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/relation</a> predicate_builder.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>76/76</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>28/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>69/69</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-yes">20436x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">65609x</span>
+<span class="cline-any cline-yes">6021x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">59588x</span>
+<span class="cline-any cline-yes">59588x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">122620x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">69194x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">124583x</span>
+<span class="cline-any cline-yes">124583x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">72160x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">72148x</span>
+<span class="cline-any cline-yes">72919x</span>
+<span class="cline-any cline-yes">6436x</span>
+<span class="cline-any cline-yes">66483x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-yes">126x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-yes">626x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">614x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65869x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65866x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6436x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">65739x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-yes">470x</span>
+<span class="cline-any cline-yes">470x</span>
+<span class="cline-any cline-yes">470x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">470x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">65098x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">387771x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  class PredicateBuilder # :nodoc:
+    delegate :resolve_column_aliases, to: :table
+&nbsp;
+    def initialize(table)
+      @table = table
+      @handlers = []
+&nbsp;
+      register_handler(BasicObject, BasicObjectHandler.new(self))
+      register_handler(Base, BaseHandler.new(self))
+      register_handler(Range, RangeHandler.new(self))
+      register_handler(Relation, RelationHandler.new)
+      register_handler(Array, ArrayHandler.new(self))
+      register_handler(Set, ArrayHandler.new(self))
+    end
+&nbsp;
+    def build_from_hash(attributes)
+      attributes = convert_dot_notation_to_hash(attributes)
+      expand_from_hash(attributes)
+    end
+&nbsp;
+    def self.references(attributes)
+      attributes.map do |key, value|
+        if value.is_a?(Hash)
+          key
+        else
+          key = key.to_s
+          key.split(".".freeze).first if key.include?(".".freeze)
+        end
+      end.compact
+    end
+&nbsp;
+    # Define how a class is converted to Arel nodes when passed to +where+.
+    # The handler can be any object that responds to +call+, and will be used
+    # for any value that +===+ the class given. For example:
+    #
+    #     MyCustomDateRange = Struct.new(:start, :end)
+    #     handler = proc do |column, range|
+    #       Arel::Nodes::Between.new(column,
+    #         Arel::Nodes::And.new([range.start, range.end])
+    #       )
+    #     end
+    #     ActiveRecord::PredicateBuilder.new("users").register_handler(MyCustomDateRange, handler)
+    def register_handler(klass, handler)
+      @handlers.unshift([klass, handler])
+    end
+&nbsp;
+    def build(attribute, value)
+      handler_for(value).call(attribute, value)
+    end
+&nbsp;
+    def build_bind_attribute(column_name, value)
+      attr = Relation::QueryAttribute.new(column_name.to_s, value, table.type(column_name))
+      Arel::Nodes::BindParam.new(attr)
+    end
+&nbsp;
+    protected
+&nbsp;
+      attr_reader :table
+&nbsp;
+      def expand_from_hash(attributes)
+        return ["1=0"] if attributes.empty?
+&nbsp;
+        attributes.flat_map do |key, value|
+          if value.is_a?(Hash) &amp;&amp; !table.has_column?(key)
+            associated_predicate_builder(key).expand_from_hash(value)
+          elsif table.associated_with?(key)
+            # Find the foreign key when using queries such as:
+            # Post.where(author: author)
+            #
+            # For polymorphic relationships, find the foreign key and type:
+            # PriceEstimate.where(estimate_of: treasure)
+            associated_table = table.associated_table(key)
+            if associated_table.polymorphic_association?
+              case value.is_a?(Array) ? value.first : value
+              when Base, Relation
+                value = [value] unless value.is_a?(Array)
+                klass = PolymorphicArrayValue
+              end
+            end
+&nbsp;
+            klass ||= AssociationQueryValue
+            queries = klass.new(associated_table, value).queries.map do |query|
+              expand_from_hash(query).reduce(&amp;:and)
+            end
+            queries.reduce(&amp;:or)
+          # FIXME: Deprecate this and provide a public API to force equality
+          elsif (value.is_a?(Range) || value.is_a?(Array)) &amp;&amp;
+            table.type(key.to_s).respond_to?(:subtype)
+            BasicObjectHandler.new(self).call(table.arel_attribute(key), value)
+          else
+            build(table.arel_attribute(key), value)
+          end
+        end
+      end
+&nbsp;
+    private
+&nbsp;
+      def associated_predicate_builder(association_name)
+        self.class.new(table.associated_table(association_name))
+      end
+&nbsp;
+      def convert_dot_notation_to_hash(attributes)
+        dot_notation = attributes.select do |k, v|
+          k.include?(".".freeze) &amp;&amp; !v.is_a?(Hash)
+        end
+&nbsp;
+        dot_notation.each_key do |key|
+          table_name, column_name = key.split(".".freeze)
+          value = attributes.delete(key)
+          attributes[table_name] ||= {}
+&nbsp;
+          attributes[table_name] = attributes[table_name].merge(column_name =&gt; value)
+        end
+&nbsp;
+        attributes
+      end
+&nbsp;
+      def handler_for(object)
+        @handlers.detect { |klass, _| klass === object }.last
+      end
+  end
+end
+&nbsp;
+require "active_record/relation/predicate_builder/array_handler"
+require "active_record/relation/predicate_builder/base_handler"
+require "active_record/relation/predicate_builder/basic_object_handler"
+require "active_record/relation/predicate_builder/range_handler"
+require "active_record/relation/predicate_builder/relation_handler"
+&nbsp;
+require "active_record/relation/predicate_builder/association_query_value"
+require "active_record/relation/predicate_builder/polymorphic_array_value"
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

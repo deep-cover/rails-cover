@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/associations/preloader.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">lib/active_record/associations</a> preloader.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>75/75</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>17/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>66/66</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4909x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4909x</span>
+<span class="cline-any cline-yes">220x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4689x</span>
+<span class="cline-any cline-yes">4625x</span>
+<span class="cline-any cline-yes">4689x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5006x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4676x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">299x</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-yes">317x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">307x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4950x</span>
+<span class="cline-any cline-yes">4908x</span>
+<span class="cline-any cline-yes">4934x</span>
+<span class="cline-any cline-yes">4934x</span>
+<span class="cline-any cline-yes">4934x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5006x</span>
+<span class="cline-any cline-yes">4974x</span>
+<span class="cline-any cline-yes">18320x</span>
+<span class="cline-any cline-yes">18280x</span>
+<span class="cline-any cline-yes">18280x</span>
+<span class="cline-any cline-yes">18157x</span>
+<span class="cline-any cline-yes">18157x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4974x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">214x</span>
+<span class="cline-any cline-yes">214x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">221x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4958x</span>
+<span class="cline-any cline-yes">214x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4744x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4720x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2588x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">762x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1370x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+module ActiveRecord
+  module Associations
+    # Implements the details of eager loading of Active Record associations.
+    #
+    # Suppose that you have the following two Active Record models:
+    #
+    #   class Author &lt; ActiveRecord::Base
+    #     # columns: name, age
+    #     has_many :books
+    #   end
+    #
+    #   class Book &lt; ActiveRecord::Base
+    #     # columns: title, sales, author_id
+    #   end
+    #
+    # When you load an author with all associated books Active Record will make
+    # multiple queries like this:
+    #
+    #   Author.includes(:books).where(name: ['bell hooks', 'Homer']).to_a
+    #
+    #   =&gt; SELECT `authors`.* FROM `authors` WHERE `name` IN ('bell hooks', 'Homer')
+    #   =&gt; SELECT `books`.* FROM `books` WHERE `author_id` IN (2, 5)
+    #
+    # Active Record saves the ids of the records from the first query to use in
+    # the second. Depending on the number of associations involved there can be
+    # arbitrarily many SQL queries made.
+    #
+    # However, if there is a WHERE clause that spans across tables Active
+    # Record will fall back to a slightly more resource-intensive single query:
+    #
+    #   Author.includes(:books).where(books: {title: 'Illiad'}).to_a
+    #   =&gt; SELECT `authors`.`id` AS t0_r0, `authors`.`name` AS t0_r1, `authors`.`age` AS t0_r2,
+    #             `books`.`id`   AS t1_r0, `books`.`title`  AS t1_r1, `books`.`sales` AS t1_r2
+    #      FROM `authors`
+    #      LEFT OUTER JOIN `books` ON `authors`.`id` =  `books`.`author_id`
+    #      WHERE `books`.`title` = 'Illiad'
+    #
+    # This could result in many rows that contain redundant data and it performs poorly at scale
+    # and is therefore only used when necessary.
+    #
+    class Preloader #:nodoc:
+      extend ActiveSupport::Autoload
+&nbsp;
+      eager_autoload do
+        autoload :Association,           "active_record/associations/preloader/association"
+        autoload :SingularAssociation,   "active_record/associations/preloader/singular_association"
+        autoload :CollectionAssociation, "active_record/associations/preloader/collection_association"
+        autoload :ThroughAssociation,    "active_record/associations/preloader/through_association"
+&nbsp;
+        autoload :HasMany,             "active_record/associations/preloader/has_many"
+        autoload :HasManyThrough,      "active_record/associations/preloader/has_many_through"
+        autoload :HasOne,              "active_record/associations/preloader/has_one"
+        autoload :HasOneThrough,       "active_record/associations/preloader/has_one_through"
+        autoload :BelongsTo,           "active_record/associations/preloader/belongs_to"
+      end
+&nbsp;
+      # Eager loads the named associations for the given Active Record record(s).
+      #
+      # In this description, 'association name' shall refer to the name passed
+      # to an association creation method. For example, a model that specifies
+      # &lt;tt&gt;belongs_to :author&lt;/tt&gt;, &lt;tt&gt;has_many :buyers&lt;/tt&gt; has association
+      # names +:author+ and +:buyers+.
+      #
+      # == Parameters
+      # +records+ is an array of ActiveRecord::Base. This array needs not be flat,
+      # i.e. +records+ itself may also contain arrays of records. In any case,
+      # +preload_associations+ will preload the all associations records by
+      # flattening +records+.
+      #
+      # +associations+ specifies one or more associations that you want to
+      # preload. It may be:
+      # - a Symbol or a String which specifies a single association name. For
+      #   example, specifying +:books+ allows this method to preload all books
+      #   for an Author.
+      # - an Array which specifies multiple association names. This array
+      #   is processed recursively. For example, specifying &lt;tt&gt;[:avatar, :books]&lt;/tt&gt;
+      #   allows this method to preload an author's avatar as well as all of his
+      #   books.
+      # - a Hash which specifies multiple association names, as well as
+      #   association names for the to-be-preloaded association objects. For
+      #   example, specifying &lt;tt&gt;{ author: :avatar }&lt;/tt&gt; will preload a
+      #   book's author, as well as that author's avatar.
+      #
+      # +:associations+ has the same format as the +:include+ option for
+      # &lt;tt&gt;ActiveRecord::Base.find&lt;/tt&gt;. So +associations+ could look like this:
+      #
+      #   :books
+      #   [ :books, :author ]
+      #   { author: :avatar }
+      #   [ :books, { author: :avatar } ]
+      def preload(records, associations, preload_scope = nil)
+        records = records.compact
+&nbsp;
+        if records.empty?
+          []
+        else
+          records.uniq!
+          Array.wrap(associations).flat_map { |association|
+            preloaders_on association, records, preload_scope
+          }
+        end
+      end
+&nbsp;
+      private
+&nbsp;
+        # Loads all the given data into +records+ for the +association+.
+        def preloaders_on(association, records, scope)
+          case association
+          when Hash
+            preloaders_for_hash(association, records, scope)
+          when Symbol
+            preloaders_for_one(association, records, scope)
+          when String
+            preloaders_for_one(association.to_sym, records, scope)
+          else
+            raise ArgumentError, "#{association.inspect} was not recognized for preload"
+          end
+        end
+&nbsp;
+        def preloaders_for_hash(association, records, scope)
+          association.flat_map { |parent, child|
+            loaders = preloaders_for_one parent, records, scope
+&nbsp;
+            recs = loaders.flat_map(&amp;:preloaded_records).uniq
+            loaders.concat Array.wrap(child).flat_map { |assoc|
+              preloaders_on assoc, recs, scope
+            }
+            loaders
+          }
+        end
+&nbsp;
+        # Loads all the given data into +records+ for a singular +association+.
+        #
+        # Functions by instantiating a preloader class such as Preloader::HasManyThrough and
+        # call the +run+ method for each passed in class in the +records+ argument.
+        #
+        # Not all records have the same class, so group then preload group on the reflection
+        # itself so that if various subclass share the same association then we do not split
+        # them unnecessarily
+        #
+        # Additionally, polymorphic belongs_to associations can have multiple associated
+        # classes, depending on the polymorphic_type field. So we group by the classes as
+        # well.
+        def preloaders_for_one(association, records, scope)
+          grouped_records(association, records).flat_map do |reflection, klasses|
+            klasses.map do |rhs_klass, rs|
+              loader = preloader_for(reflection, rs).new(rhs_klass, rs, reflection, scope)
+              loader.run self
+              loader
+            end
+          end
+        end
+&nbsp;
+        def grouped_records(association, records)
+          h = {}
+          records.each do |record|
+            next unless record
+            assoc = record.association(association)
+            next unless assoc.klass
+            klasses = h[assoc.reflection] ||= {}
+            (klasses[assoc.klass] ||= []) &lt;&lt; record
+          end
+          h
+        end
+&nbsp;
+        class AlreadyLoaded # :nodoc:
+          attr_reader :owners, :reflection
+&nbsp;
+          def initialize(klass, owners, reflection, preload_scope)
+            @owners = owners
+            @reflection = reflection
+          end
+&nbsp;
+          def run(preloader); end
+&nbsp;
+          def preloaded_records
+            owners.flat_map { |owner| owner.association(reflection.name).target }
+          end
+        end
+&nbsp;
+        # Returns a class containing the logic needed to load preload the data
+        # and attach it to a relation. For example +Preloader::Association+ or
+        # +Preloader::HasManyThrough+. The class returned implements a `run` method
+        # that accepts a preloader.
+        def preloader_for(reflection, owners)
+          if owners.first.association(reflection.name).loaded?
+            return AlreadyLoaded
+          end
+          reflection.check_preloadable!
+&nbsp;
+          case reflection.macro
+          when :has_many
+            reflection.options[:through] ? HasManyThrough : HasMany
+          when :has_one
+            reflection.options[:through] ? HasOneThrough : HasOne
+          when :belongs_to
+            BelongsTo
+          end
+        end
+    end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

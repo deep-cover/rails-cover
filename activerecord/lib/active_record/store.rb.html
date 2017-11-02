@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/store.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> store.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.45% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>84/88</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.96% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>20/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>23/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">97.44% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>76/78</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">750x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">136x</span>
+<span class="cline-any cline-yes">175x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">181x</span>
+<span class="cline-any cline-yes">181x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">756x</span>
+<span class="cline-any cline-yes">756x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">937x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">937x</span>
+<span class="cline-any cline-yes">937x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">756x</span>
+<span class="cline-any cline-yes">756x</span>
+<span class="cline-any cline-yes">750x</span>
+<span class="cline-any cline-yes">750x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">161x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">119x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1532x</span>
+<span class="cline-any cline-yes">1532x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1532x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1404x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5494x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6898x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1512x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2460x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2926x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_support/core_ext/hash/indifferent_access"
+&nbsp;
+module ActiveRecord
+  # Store gives you a thin wrapper around serialize for the purpose of storing hashes in a single column.
+  # It's like a simple key/value store baked into your record when you don't care about being able to
+  # query that store outside the context of a single record.
+  #
+  # You can then declare accessors to this store that are then accessible just like any other attribute
+  # of the model. This is very helpful for easily exposing store keys to a form or elsewhere that's
+  # already built around just accessing attributes on the model.
+  #
+  # Make sure that you declare the database column used for the serialized store as a text, so there's
+  # plenty of room.
+  #
+  # You can set custom coder to encode/decode your serialized attributes to/from different formats.
+  # JSON, YAML, Marshal are supported out of the box. Generally it can be any wrapper that provides +load+ and +dump+.
+  #
+  # NOTE: If you are using PostgreSQL specific columns like +hstore+ or +json+ there is no need for
+  # the serialization provided by {.store}[rdoc-ref:rdoc-ref:ClassMethods#store].
+  # Simply use {.store_accessor}[rdoc-ref:ClassMethods#store_accessor] instead to generate
+  # the accessor methods. Be aware that these columns use a string keyed hash and do not allow access
+  # using a symbol.
+  #
+  # NOTE: The default validations with the exception of +uniqueness+ will work.
+  # For example, if you want to check for +uniqueness+ with +hstore+ you will
+  # need to use a custom validation to handle it.
+  #
+  # Examples:
+  #
+  #   class User &lt; ActiveRecord::Base
+  #     store :settings, accessors: [ :color, :homepage ], coder: JSON
+  #   end
+  #
+  #   u = User.new(color: 'black', homepage: '37signals.com')
+  #   u.color                          # Accessor stored attribute
+  #   u.settings[:country] = 'Denmark' # Any attribute, even if not specified with an accessor
+  #
+  #   # There is no difference between strings and symbols for accessing custom attributes
+  #   u.settings[:country]  # =&gt; 'Denmark'
+  #   u.settings['country'] # =&gt; 'Denmark'
+  #
+  #   # Add additional accessors to an existing store through store_accessor
+  #   class SuperUser &lt; User
+  #     store_accessor :settings, :privileges, :servants
+  #   end
+  #
+  # The stored attribute names can be retrieved using {.stored_attributes}[rdoc-ref:rdoc-ref:ClassMethods#stored_attributes].
+  #
+  #   User.stored_attributes[:settings] # [:color, :homepage]
+  #
+  # == Overwriting default accessors
+  #
+  # All stored values are automatically available through accessors on the Active Record
+  # object, but sometimes you want to specialize this behavior. This can be done by overwriting
+  # the default accessors (using the same name as the attribute) and calling &lt;tt&gt;super&lt;/tt&gt;
+  # to actually change things.
+  #
+  #   class Song &lt; ActiveRecord::Base
+  #     # Uses a stored integer to hold the volume adjustment of the song
+  #     store :settings, accessors: [:volume_adjustment]
+  #
+  #     def volume_adjustment=(decibels)
+  #       super(decibels.to_i)
+  #     end
+  #
+  #     def volume_adjustment
+  #       super.to_i
+  #     end
+  #   end
+  module Store
+    extend ActiveSupport::Concern
+&nbsp;
+    included do
+      class &lt;&lt; self
+        attr_accessor :local_stored_attributes
+      end
+    end
+&nbsp;
+    module ClassMethods
+      def store(store_attribute, options = <span class="cstat-no" title="statement not covered" >{}</span>)
+        serialize store_attribute, IndifferentCoder.new(store_attribute, options[:coder])
+        <span class="missing-if-branch" title="else path not taken" >E</span>store_accessor(store_attribute, options[:accessors]) if options.has_key? :accessors
+      end
+&nbsp;
+      def store_accessor(store_attribute, *keys)
+        keys = keys.flatten
+&nbsp;
+        _store_accessors_module.module_eval do
+          keys.each do |key|
+            define_method("#{key}=") do |value|
+              write_store_attribute(store_attribute, key, value)
+            end
+&nbsp;
+            define_method(key) do
+              read_store_attribute(store_attribute, key)
+            end
+          end
+        end
+&nbsp;
+        # assign new store attribute and create new hash to ensure that each class in the hierarchy
+        # has its own hash of stored attributes.
+        self.local_stored_attributes ||= {}
+        self.local_stored_attributes[store_attribute] ||= []
+        self.local_stored_attributes[store_attribute] |= keys
+      end
+&nbsp;
+      def _store_accessors_module # :nodoc:
+        @_store_accessors_module ||= begin
+          mod = Module.new
+          include mod
+          mod
+        end
+      end
+&nbsp;
+      def stored_attributes
+        parent = superclass.respond_to?(:stored_attributes) ? superclass.stored_attributes : {}
+        if local_stored_attributes
+          parent.merge!(local_stored_attributes) { |k, a, b| a | b }
+        end
+        parent
+      end
+    end
+&nbsp;
+    private
+      def read_store_attribute(store_attribute, key) # :doc:
+        accessor = store_accessor_for(store_attribute)
+        accessor.read(self, store_attribute, key)
+      end
+&nbsp;
+      def write_store_attribute(store_attribute, key, value) # :doc:
+        accessor = store_accessor_for(store_attribute)
+        accessor.write(self, store_attribute, key, value)
+      end
+&nbsp;
+      def store_accessor_for(store_attribute)
+        type_for_attribute(store_attribute.to_s).accessor
+      end
+&nbsp;
+      class HashAccessor # :nodoc:
+        def self.read(object, attribute, key)
+          prepare(object, attribute)
+          object.public_send(attribute)[key]
+        end
+&nbsp;
+        def self.write(object, attribute, key, value)
+          prepare(object, attribute)
+          if value != read(object, attribute, key)
+            object.public_send :"#{attribute}_will_change!"
+            object.public_send(attribute)[key] = value
+          end
+        end
+&nbsp;
+        def self.prepare(object, attribute)
+          object.public_send :"#{attribute}=", {} unless object.send(attribute)
+        end
+      end
+&nbsp;
+      class StringKeyedHashAccessor &lt; HashAccessor # :nodoc:
+        def self.read(object, attribute, key)
+          super object, attribute, key.to_s
+        end
+&nbsp;
+        def self.write(object, attribute, key, value)
+          super object, attribute, key.to_s, value
+        end
+      end
+&nbsp;
+      class IndifferentHashAccessor &lt; ActiveRecord::Store::HashAccessor # :nodoc:
+        def self.prepare(object, store_attribute)
+          attribute = object.send(store_attribute)
+          unless attribute.is_a?(ActiveSupport::HashWithIndifferentAccess)
+<span class="cstat-no" title="statement not covered" >            <span class="missing-if-branch" title="else path not taken" >E</span>attribute = IndifferentCoder.as_indifferent_hash(attribute)</span>
+<span class="cstat-no" title="statement not covered" >            object.send :"#{<span class="cstat-no" title="statement not covered" >store_attribute</span>}=", attribute</span>
+          end
+          attribute
+        end
+      end
+&nbsp;
+      class IndifferentCoder # :nodoc:
+        def initialize(attr_name, coder_or_class_name)
+          @coder =
+            if coder_or_class_name.respond_to?(:load) &amp;&amp; coder_or_class_name.respond_to?(:dump)
+              coder_or_class_name
+            else
+              ActiveRecord::Coders::YAMLColumn.new(attr_name, <span class="branch-1 cbranch-no" title="branch not covered" >coder_or_class_name || Object</span>)
+            end
+        end
+&nbsp;
+        def dump(obj)
+          @coder.dump self.class.as_indifferent_hash(obj)
+        end
+&nbsp;
+        def load(yaml)
+          self.class.as_indifferent_hash(@coder.load(yaml || ""))
+        end
+&nbsp;
+        def self.as_indifferent_hash(obj)
+          case obj
+          when ActiveSupport::HashWithIndifferentAccess
+            obj
+          when Hash
+            obj.with_indifferent_access
+          else
+            ActiveSupport::HashWithIndifferentAccess.new
+          end
+        end
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

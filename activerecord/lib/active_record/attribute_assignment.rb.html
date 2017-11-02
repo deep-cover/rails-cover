@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/active_record/attribute_assignment.rb</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">lib/active_record</a> attribute_assignment.rb
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>59/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>16/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>46/46</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">381x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">22218x</span>
+<span class="cline-any cline-yes">22218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22218x</span>
+<span class="cline-any cline-yes">28740x</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-yes">27856x</span>
+<span class="cline-any cline-yes">789x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22137x</span>
+<span class="cline-any cline-yes">22113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">789x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">219x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">734x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">884x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"># frozen_string_literal: true
+&nbsp;
+require "active_model/forbidden_attributes_protection"
+&nbsp;
+module ActiveRecord
+  module AttributeAssignment
+    extend ActiveSupport::Concern
+    include ActiveModel::AttributeAssignment
+&nbsp;
+    # Alias for ActiveModel::AttributeAssignment#assign_attributes. See ActiveModel::AttributeAssignment.
+    def attributes=(attributes)
+      assign_attributes(attributes)
+    end
+&nbsp;
+    private
+&nbsp;
+      def _assign_attributes(attributes)
+        multi_parameter_attributes  = {}
+        nested_parameter_attributes = {}
+&nbsp;
+        attributes.each do |k, v|
+          if k.include?("(")
+            multi_parameter_attributes[k] = attributes.delete(k)
+          elsif v.is_a?(Hash)
+            nested_parameter_attributes[k] = attributes.delete(k)
+          end
+        end
+        super(attributes)
+&nbsp;
+        assign_nested_parameter_attributes(nested_parameter_attributes) unless nested_parameter_attributes.empty?
+        assign_multiparameter_attributes(multi_parameter_attributes) unless multi_parameter_attributes.empty?
+      end
+&nbsp;
+      # Assign any deferred nested attributes after the base attributes have been set.
+      def assign_nested_parameter_attributes(pairs)
+        pairs.each { |k, v| _assign_attribute(k, v) }
+      end
+&nbsp;
+      # Instantiates objects for all attribute classes that needs more than one constructor parameter. This is done
+      # by calling new on the column type or aggregation type (through composed_of) object with these parameters.
+      # So having the pairs written_on(1) = "2004", written_on(2) = "6", written_on(3) = "24", will instantiate
+      # written_on (a date type) with Date.new("2004", "6", "24"). You can also specify a typecast character in the
+      # parentheses to have the parameters typecasted before they're used in the constructor. Use i for Integer and
+      # f for Float. If all the values for a given attribute are empty, the attribute will be set to +nil+.
+      def assign_multiparameter_attributes(pairs)
+        execute_callstack_for_multiparameter_attributes(
+          extract_callstack_for_multiparameter_attributes(pairs)
+        )
+      end
+&nbsp;
+      def execute_callstack_for_multiparameter_attributes(callstack)
+        errors = []
+        callstack.each do |name, values_with_empty_parameters|
+          begin
+            if values_with_empty_parameters.each_value.all?(&amp;:nil?)
+              values = nil
+            else
+              values = values_with_empty_parameters
+            end
+            send("#{name}=", values)
+          rescue =&gt; ex
+            errors &lt;&lt; AttributeAssignmentError.new("error on assignment #{values_with_empty_parameters.values.inspect} to #{name} (#{ex.message})", ex, name)
+          end
+        end
+        unless errors.empty?
+          error_descriptions = errors.map(&amp;:message).join(",")
+          raise MultiparameterAssignmentErrors.new(errors), "#{errors.size} error(s) on assignment of multiparameter attributes [#{error_descriptions}]"
+        end
+      end
+&nbsp;
+      def extract_callstack_for_multiparameter_attributes(pairs)
+        attributes = {}
+&nbsp;
+        pairs.each do |(multiparameter_name, value)|
+          attribute_name = multiparameter_name.split("(").first
+          attributes[attribute_name] ||= {}
+&nbsp;
+          parameter_value = value.empty? ? nil : type_cast_attribute_value(multiparameter_name, value)
+          attributes[attribute_name][find_parameter_position(multiparameter_name)] ||= parameter_value
+        end
+&nbsp;
+        attributes
+      end
+&nbsp;
+      def type_cast_attribute_value(multiparameter_name, value)
+        multiparameter_name =~ /\([0-9]*([if])\)/ ? value.send("to_" + $1) : value
+      end
+&nbsp;
+      def find_parameter_position(multiparameter_name)
+        multiparameter_name.scan(/\(([0-9]*).*\)/).first.first.to_i
+      end
+  end
+end
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 16:12:01 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
