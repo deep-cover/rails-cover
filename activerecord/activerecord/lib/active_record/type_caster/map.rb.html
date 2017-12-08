@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">30</span>  / <span class="potentially_executable" title="potentially_executable">32</span></td><td class="per_char"><span class="executed" title="executed">215</span>  / <span class="potentially_executable" title="potentially_executable">226</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">1</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/type_caster/map.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">ActiveRecord</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">TypeCaster</span></td></tr><tr><td id="L5" class="nb">5</td><td>    <span class="node-class kind-keyword run" title="11x">class</span> <span class="node-const kind-name run" title="11x">Map</span> # :nodoc:</td></tr><tr><td id="L6" class="nb">6</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">initialize</span>(types)</td></tr><tr><td id="L7" class="nb">7</td><td>        <span class="node-ivasgn kind-name run" title="48191x">@types</span> <span class="node-ivasgn kind-operator run" title="48191x">=</span> <span class="node-lvar kind-name run" title="48191x">types</span></td></tr><tr><td id="L8" class="nb">8</td><td>      end</td></tr><tr><td id="L9" class="nb">9</td><td></td></tr><tr><td id="L10" class="nb">10</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">type_cast_for_database</span>(attr_name, value)</td></tr><tr><td id="L11" class="nb">11</td><td>        <span class="fork fork-whole fork-not-run fork-with-uncovered-branches" data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="truthy branch not covered"></i><span class="fork fork-branch fork-not-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="never run"></i><span class="node-return kind-keyword not-run" title="never run">return</span> <span class="node-lvar kind-name not-run" title="never run">value</span></span> <span class="node-if kind-keyword run" title="22615x">if</span> <span class="node-lvar kind-name run" title="22615x">value</span><span class="node-send kind-dot run" title="22615x">.</span><span class="node-send kind-selector_begin run" title="22615x">is_a?</span>(<span class="node-const kind-name run" title="22615x">Arel</span><span class="node-const kind-double_colon run" title="22615x">::</span><span class="node-const kind-name run" title="22615x">Nodes</span><span class="node-const kind-double_colon run" title="22615x">::</span><span class="node-const kind-name run" title="22615x">BindParam</span>)</span></td></tr><tr><td id="L12" class="nb">12</td><td>        <span class="node-lvasgn kind-name run" title="22615x">type</span> <span class="node-lvasgn kind-operator run" title="22615x">=</span> <span class="node-send kind-selector_begin run" title="22615x">types</span><span class="node-send kind-dot run" title="22615x">.</span><span class="node-send kind-selector_begin run" title="22615x">type_for_attribute</span>(<span class="node-lvar kind-name run" title="22615x">attr_name</span><span class="node-send kind-dot run" title="22615x">.</span><span class="node-send kind-selector_begin run" title="22615x">to_s</span>)</td></tr><tr><td id="L13" class="nb">13</td><td>        <span class="node-lvar kind-name run" title="22615x">type</span><span class="node-send kind-dot run" title="22615x">.</span><span class="node-send kind-selector_begin run" title="22615x">serialize</span>(<span class="node-lvar kind-name run" title="22615x">value</span>)</td></tr><tr><td id="L14" class="nb">14</td><td>      end</td></tr><tr><td id="L15" class="nb">15</td><td></td></tr><tr><td id="L16" class="nb">16</td><td>      # TODO Change this to private once we've dropped Ruby 2.2 support.</td></tr><tr><td id="L17" class="nb">17</td><td>      # Workaround for Ruby 2.2 "private attribute?" warning.</td></tr><tr><td id="L18" class="nb">18</td><td>      <span class="node-send kind-selector_begin run" title="11x">protected</span></td></tr><tr><td id="L19" class="nb">19</td><td></td></tr><tr><td id="L20" class="nb">20</td><td>        <span class="node-send kind-selector_begin run" title="11x">attr_reader</span> <span class="node-sym kind-expression run" title="11x">:types</span></td></tr><tr><td id="L21" class="nb">21</td><td>    end</td></tr><tr><td id="L22" class="nb">22</td><td>  end</td></tr><tr><td id="L23" class="nb">23</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

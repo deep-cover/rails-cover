@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">33</span>  / <span class="potentially_executable" title="potentially_executable">33</span></td><td class="per_char"><span class="executed" title="executed">202</span>  / <span class="potentially_executable" title="potentially_executable">202</span></td><td class="branch"><span class="executed" title="executed">2</span>  / <span class="potentially_executable" title="potentially_executable">2</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/connection_adapters/postgresql/oid/bytea.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">ActiveRecord</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">ConnectionAdapters</span></td></tr><tr><td id="L5" class="nb">5</td><td>    <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">PostgreSQL</span></td></tr><tr><td id="L6" class="nb">6</td><td>      <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">OID</span> # :nodoc:</td></tr><tr><td id="L7" class="nb">7</td><td>        <span class="node-class kind-keyword run" title="3x">class</span> <span class="node-const kind-name run" title="3x">Bytea</span> &lt; <span class="node-const kind-name run" title="3x">Type</span><span class="node-const kind-double_colon run" title="3x">::</span><span class="node-const kind-name run" title="3x">Binary</span> # :nodoc:</td></tr><tr><td id="L8" class="nb">8</td><td>          <span class="node-def kind-keyword run" title="3x">def</span> <span class="node-def kind-name run" title="3x">deserialize</span>(value)</td></tr><tr><td id="L9" class="nb">9</td><td>            <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="160x"></i><span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="107x"></i><span class="node-return kind-keyword run" title="107x">return</span></span> <span class="node-if kind-keyword run" title="160x">if</span> <span class="node-lvar kind-name run" title="160x">value</span><span class="node-send kind-dot run" title="160x">.</span><span class="node-send kind-selector_begin run" title="160x">nil?</span></span></td></tr><tr><td id="L10" class="nb">10</td><td>            <span class="fork fork-whole fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="53x"></i><span class="fork fork-branch fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="24x"></i><span class="node-return kind-keyword run" title="24x">return</span> <span class="node-lvar kind-name run" title="24x">value</span><span class="node-send kind-dot run" title="24x">.</span><span class="node-send kind-selector_begin run" title="24x">to_s</span></span> <span class="node-if kind-keyword run" title="53x">if</span> <span class="node-lvar kind-name run" title="53x">value</span><span class="node-send kind-dot run" title="53x">.</span><span class="node-send kind-selector_begin run" title="53x">is_a?</span>(<span class="node-const kind-name run" title="53x">Type</span><span class="node-const kind-double_colon run" title="53x">::</span><span class="node-const kind-name run" title="53x">Binary</span><span class="node-const kind-double_colon run" title="53x">::</span><span class="node-const kind-name run" title="53x">Data</span>)</span></td></tr><tr><td id="L11" class="nb">11</td><td>            <span class="node-const kind-name run" title="29x">PG</span><span class="node-const kind-double_colon run" title="29x">::</span><span class="node-const kind-name run" title="29x">Connection</span><span class="node-send kind-dot run" title="29x">.</span><span class="node-send kind-selector_begin run" title="29x">unescape_bytea</span>(<span class="node-zsuper kind-keyword run" title="29x">super</span>)</td></tr><tr><td id="L12" class="nb">12</td><td>          end</td></tr><tr><td id="L13" class="nb">13</td><td>        end</td></tr><tr><td id="L14" class="nb">14</td><td>      end</td></tr><tr><td id="L15" class="nb">15</td><td>    end</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

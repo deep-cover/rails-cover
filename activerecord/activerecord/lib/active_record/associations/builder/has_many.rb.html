@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">35</span>  / <span class="potentially_executable" title="potentially_executable">35</span></td><td class="per_char"><span class="executed" title="executed">343</span>  / <span class="potentially_executable" title="potentially_executable">343</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/associations/builder/has_many.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">ActiveRecord</span><span class="node-const kind-double_colon run" title="11x">::</span><span class="node-const kind-name run" title="11x">Associations</span><span class="node-const kind-double_colon run" title="11x">::</span><span class="node-const kind-name run" title="11x">Builder</span> # :nodoc:</td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-class kind-keyword run" title="11x">class</span> <span class="node-const kind-name run" title="11x">HasMany</span> &lt; <span class="node-const kind-name run" title="11x">CollectionAssociation</span> #:nodoc:</td></tr><tr><td id="L5" class="nb">5</td><td>    <span class="node-defs kind-keyword run" title="11x">def</span> <span class="node-self kind-expression run" title="11x">self</span><span class="node-defs kind-operator run" title="11x">.</span><span class="node-defs kind-name run" title="11x">macro</span></td></tr><tr><td id="L6" class="nb">6</td><td>      <span class="node-sym kind-expression run" title="5952x">:has_many</span></td></tr><tr><td id="L7" class="nb">7</td><td>    end</td></tr><tr><td id="L8" class="nb">8</td><td></td></tr><tr><td id="L9" class="nb">9</td><td>    <span class="node-defs kind-keyword run" title="11x">def</span> <span class="node-self kind-expression run" title="11x">self</span><span class="node-defs kind-operator run" title="11x">.</span><span class="node-defs kind-name run" title="11x">valid_options</span>(options)</td></tr><tr><td id="L10" class="nb">10</td><td>      <span class="node-zsuper kind-keyword run" title="5961x">super</span> <span class="node-send kind-selector_begin run" title="5961x">+</span> <span class="node-array kind-begin run" title="5961x">[</span><span class="node-sym kind-expression run" title="5961x">:primary_key</span>, <span class="node-sym kind-expression run" title="5961x">:dependent</span>, <span class="node-sym kind-expression run" title="5961x">:as</span>, <span class="node-sym kind-expression run" title="5961x">:through</span>, <span class="node-sym kind-expression run" title="5961x">:source</span>, <span class="node-sym kind-expression run" title="5961x">:source_type</span>, <span class="node-sym kind-expression run" title="5961x">:inverse_of</span>, <span class="node-sym kind-expression run" title="5961x">:counter_cache</span>, <span class="node-sym kind-expression run" title="5961x">:join_table</span>, <span class="node-sym kind-expression run" title="5961x">:foreign_type</span>, <span class="node-sym kind-expression run" title="5961x">:index_errors</span><span class="node-array kind-end run" title="5961x">]</span></td></tr><tr><td id="L11" class="nb">11</td><td>    end</td></tr><tr><td id="L12" class="nb">12</td><td></td></tr><tr><td id="L13" class="nb">13</td><td>    <span class="node-defs kind-keyword run" title="11x">def</span> <span class="node-self kind-expression run" title="11x">self</span><span class="node-defs kind-operator run" title="11x">.</span><span class="node-defs kind-name run" title="11x">valid_dependent_options</span></td></tr><tr><td id="L14" class="nb">14</td><td>      <span class="node-array kind-begin run" title="495x">[</span><span class="node-sym kind-expression run" title="495x">:destroy</span>, <span class="node-sym kind-expression run" title="495x">:delete_all</span>, <span class="node-sym kind-expression run" title="495x">:nullify</span>, <span class="node-sym kind-expression run" title="495x">:restrict_with_error</span>, <span class="node-sym kind-expression run" title="495x">:restrict_with_exception</span><span class="node-array kind-end run" title="495x">]</span></td></tr><tr><td id="L15" class="nb">15</td><td>    end</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

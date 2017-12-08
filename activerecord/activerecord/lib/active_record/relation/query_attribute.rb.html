@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">37</span>  / <span class="potentially_executable" title="potentially_executable">37</span></td><td class="per_char"><span class="executed" title="executed">333</span>  / <span class="potentially_executable" title="potentially_executable">333</span></td><td class="branch"><span class="executed" title="executed">2</span>  / <span class="potentially_executable" title="potentially_executable">2</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/relation/query_attribute.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-send kind-selector_begin run" title="11x">require</span> <span class="node-str kind-expression run" title="11x">"active_model/attribute"</span></td></tr><tr><td id="L4" class="nb">4</td><td></td></tr><tr><td id="L5" class="nb">5</td><td><span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">ActiveRecord</span></td></tr><tr><td id="L6" class="nb">6</td><td>  <span class="node-class kind-keyword run" title="11x">class</span> <span class="node-const kind-name run" title="11x">Relation</span></td></tr><tr><td id="L7" class="nb">7</td><td>    <span class="node-class kind-keyword run" title="11x">class</span> <span class="node-const kind-name run" title="11x">QueryAttribute</span> &lt; <span class="node-const kind-name run" title="11x">ActiveModel</span><span class="node-const kind-double_colon run" title="11x">::</span><span class="node-const kind-name run" title="11x">Attribute</span> # :nodoc:</td></tr><tr><td id="L8" class="nb">8</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">type_cast</span>(value)</td></tr><tr><td id="L9" class="nb">9</td><td>        <span class="node-lvar kind-name run" title="585787x">value</span></td></tr><tr><td id="L10" class="nb">10</td><td>      end</td></tr><tr><td id="L11" class="nb">11</td><td></td></tr><tr><td id="L12" class="nb">12</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">value_for_database</span></td></tr><tr><td id="L13" class="nb">13</td><td>        <span class="node-ivasgn kind-name run" title="660467x">@value_for_database</span> <span class="node-or_asgn kind-operator run" title="660396x">||=</span> <span class="node-zsuper kind-keyword run" title="583292x">super</span></td></tr><tr><td id="L14" class="nb">14</td><td>      end</td></tr><tr><td id="L15" class="nb">15</td><td></td></tr><tr><td id="L16" class="nb">16</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">with_cast_value</span>(value)</td></tr><tr><td id="L17" class="nb">17</td><td>        <span class="node-const kind-name run" title="10652x">QueryAttribute</span><span class="node-send kind-dot run" title="10652x">.</span><span class="node-send kind-selector_begin run" title="10652x">new</span>(<span class="node-send kind-selector_begin run" title="10652x">name</span>, <span class="node-lvar kind-name run" title="10652x">value</span>, <span class="node-send kind-selector_begin run" title="10652x">type</span>)</td></tr><tr><td id="L18" class="nb">18</td><td>      end</td></tr><tr><td id="L19" class="nb">19</td><td></td></tr><tr><td id="L20" class="nb">20</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">nil?</span></td></tr><tr><td id="L21" class="nb">21</td><td>        <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="76279x"></i><span class="node-send kind-selector_begin run" title="76279x">!</span><span class="node-send kind-selector_begin run" title="76279x">value_before_type_cast</span><span class="node-send kind-dot run" title="76279x">.</span><span class="node-send kind-selector_begin run" title="76279x">is_a?</span>(<span class="node-const kind-name run" title="76279x">StatementCache</span><span class="node-const kind-double_colon run" title="76279x">::</span><span class="node-const kind-name run" title="76279x">Substitute</span>) <span class="node-and kind-operator run" title="76279x">&amp;&amp;</span></span></td></tr><tr><td id="L22" class="nb">22</td><td>          <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="73640x"></i>(<span class="fork fork-whole fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="73640x"></i><span class="node-send kind-selector_begin run" title="73640x">value_before_type_cast</span><span class="node-send kind-dot run" title="73640x">.</span><span class="node-send kind-selector_begin run" title="73640x">nil?</span> <span class="node-or kind-operator run" title="73640x">||</span> <span class="fork fork-branch fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="72938x"></i><span class="node-send kind-selector_begin run" title="72989x">value_for_database</span><span class="node-send kind-dot run" title="72938x">.</span><span class="node-send kind-selector_begin run" title="72938x">nil?</span></span></span>)</span></td></tr><tr><td id="L23" class="nb">23</td><td>      end</td></tr><tr><td id="L24" class="nb">24</td><td>    end</td></tr><tr><td id="L25" class="nb">25</td><td>  end</td></tr><tr><td id="L26" class="nb">26</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

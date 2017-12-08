@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">23</span>  / <span class="potentially_executable" title="potentially_executable">24</span></td><td class="per_char"><span class="executed" title="executed">162</span>  / <span class="potentially_executable" title="potentially_executable">167</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/connection_adapters/postgresql/oid/vector.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">ActiveRecord</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">ConnectionAdapters</span></td></tr><tr><td id="L5" class="nb">5</td><td>    <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">PostgreSQL</span></td></tr><tr><td id="L6" class="nb">6</td><td>      <span class="node-module kind-keyword run" title="3x">module</span> <span class="node-const kind-name run" title="3x">OID</span> # :nodoc:</td></tr><tr><td id="L7" class="nb">7</td><td>        <span class="node-class kind-keyword run" title="3x">class</span> <span class="node-const kind-name run" title="3x">Vector</span> &lt; <span class="node-const kind-name run" title="3x">Type</span><span class="node-const kind-double_colon run" title="3x">::</span><span class="node-const kind-name run" title="3x">Value</span> # :nodoc:</td></tr><tr><td id="L8" class="nb">8</td><td>          <span class="node-send kind-selector_begin run" title="3x">attr_reader</span> <span class="node-sym kind-expression run" title="3x">:delim</span>, <span class="node-sym kind-expression run" title="3x">:subtype</span></td></tr><tr><td id="L9" class="nb">9</td><td></td></tr><tr><td id="L10" class="nb">10</td><td>          # +delim+ corresponds to the `typdelim` column in the pg_types</td></tr><tr><td id="L11" class="nb">11</td><td>          # table.  +subtype+ is derived from the `typelem` column in the</td></tr><tr><td id="L12" class="nb">12</td><td>          # pg_types table.</td></tr><tr><td id="L13" class="nb">13</td><td>          <span class="node-def kind-keyword run" title="3x">def</span> <span class="node-def kind-name run" title="3x">initialize</span>(delim, subtype)</td></tr><tr><td id="L14" class="nb">14</td><td>            <span class="node-ivasgn kind-name run" title="1608x">@delim</span>   <span class="node-ivasgn kind-operator run" title="1608x">=</span> <span class="node-lvar kind-name run" title="1608x">delim</span></td></tr><tr><td id="L15" class="nb">15</td><td>            <span class="node-ivasgn kind-name run" title="1608x">@subtype</span> <span class="node-ivasgn kind-operator run" title="1608x">=</span> <span class="node-lvar kind-name run" title="1608x">subtype</span></td></tr><tr><td id="L16" class="nb">16</td><td>          end</td></tr><tr><td id="L17" class="nb">17</td><td></td></tr><tr><td id="L18" class="nb">18</td><td>          # FIXME: this should probably split on +delim+ and use +subtype+</td></tr><tr><td id="L19" class="nb">19</td><td>          # to cast the values.  Unfortunately, the current Rails behavior</td></tr><tr><td id="L20" class="nb">20</td><td>          # is to just return the string.</td></tr><tr><td id="L21" class="nb">21</td><td>          <span class="node-def kind-keyword run" title="3x">def</span> <span class="node-def kind-name run" title="3x">cast</span>(value)</td></tr><tr><td id="L22" class="nb">22</td><td>            <span class="node-lvar kind-name not-run" title="never run">value</span></td></tr><tr><td id="L23" class="nb">23</td><td>          end</td></tr><tr><td id="L24" class="nb">24</td><td>        end</td></tr><tr><td id="L25" class="nb">25</td><td>      end</td></tr><tr><td id="L26" class="nb">26</td><td>    end</td></tr><tr><td id="L27" class="nb">27</td><td>  end</td></tr><tr><td id="L28" class="nb">28</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

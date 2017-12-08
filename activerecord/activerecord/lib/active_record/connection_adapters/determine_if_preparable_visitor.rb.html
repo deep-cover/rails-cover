@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">24</span>  / <span class="potentially_executable" title="potentially_executable">24</span></td><td class="per_char"><span class="executed" title="executed">224</span>  / <span class="potentially_executable" title="potentially_executable">224</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activerecord/lib/active_record/connection_adapters/determine_if_preparable_visitor.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">ActiveRecord</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">ConnectionAdapters</span></td></tr><tr><td id="L5" class="nb">5</td><td>    <span class="node-module kind-keyword run" title="11x">module</span> <span class="node-const kind-name run" title="11x">DetermineIfPreparableVisitor</span></td></tr><tr><td id="L6" class="nb">6</td><td>      <span class="node-send kind-selector_begin run" title="11x">attr_reader</span> <span class="node-sym kind-expression run" title="11x">:preparable</span></td></tr><tr><td id="L7" class="nb">7</td><td></td></tr><tr><td id="L8" class="nb">8</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">accept</span>(*)</td></tr><tr><td id="L9" class="nb">9</td><td>        <span class="node-ivasgn kind-name run" title="169862x">@preparable</span> <span class="node-ivasgn kind-operator run" title="169862x">=</span> <span class="node-true kind-expression run" title="169862x">true</span></td></tr><tr><td id="L10" class="nb">10</td><td>        <span class="node-zsuper kind-keyword run" title="169862x">super</span></td></tr><tr><td id="L11" class="nb">11</td><td>      end</td></tr><tr><td id="L12" class="nb">12</td><td></td></tr><tr><td id="L13" class="nb">13</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">visit_Arel_Nodes_In</span>(*)</td></tr><tr><td id="L14" class="nb">14</td><td>        <span class="node-ivasgn kind-name run" title="13103x">@preparable</span> <span class="node-ivasgn kind-operator run" title="13103x">=</span> <span class="node-false kind-expression run" title="13103x">false</span></td></tr><tr><td id="L15" class="nb">15</td><td>        <span class="node-zsuper kind-keyword run" title="13103x">super</span></td></tr><tr><td id="L16" class="nb">16</td><td>      end</td></tr><tr><td id="L17" class="nb">17</td><td></td></tr><tr><td id="L18" class="nb">18</td><td>      <span class="node-def kind-keyword run" title="11x">def</span> <span class="node-def kind-name run" title="11x">visit_Arel_Nodes_SqlLiteral</span>(*)</td></tr><tr><td id="L19" class="nb">19</td><td>        <span class="node-ivasgn kind-name run" title="217304x">@preparable</span> <span class="node-ivasgn kind-operator run" title="217304x">=</span> <span class="node-false kind-expression run" title="217304x">false</span></td></tr><tr><td id="L20" class="nb">20</td><td>        <span class="node-zsuper kind-keyword run" title="217304x">super</span></td></tr><tr><td id="L21" class="nb">21</td><td>      end</td></tr><tr><td id="L22" class="nb">22</td><td>    end</td></tr><tr><td id="L23" class="nb">23</td><td>  end</td></tr><tr><td id="L24" class="nb">24</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>
