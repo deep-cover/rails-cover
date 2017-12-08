@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">25</span>  / <span class="potentially_executable" title="potentially_executable">30</span></td><td class="per_char"><span class="executed" title="executed">124</span>  / <span class="potentially_executable" title="potentially_executable">155</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/gem_version.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">ActiveSupport</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # Returns the version of the currently loaded Active Support as a &lt;tt&gt;Gem::Version&lt;/tt&gt;.</td></tr><tr><td id="L5" class="nb">5</td><td>  <span class="node-defs kind-keyword run" title="2x">def</span> <span class="node-self kind-expression run" title="2x">self</span><span class="node-defs kind-operator run" title="2x">.</span><span class="node-defs kind-name run" title="2x">gem_version</span></td></tr><tr><td id="L6" class="nb">6</td><td>    <span class="node-const kind-name not-run" title="never run">Gem</span><span class="node-const kind-double_colon not-run" title="never run">::</span><span class="node-const kind-name not-run" title="never run">Version</span><span class="node-send kind-dot not-run" title="never run">.</span><span class="node-send kind-selector_begin not-run" title="never run">new</span> <span class="node-const kind-name not-run" title="never run">VERSION</span><span class="node-const kind-double_colon not-run" title="never run">::</span><span class="node-const kind-name not-run" title="never run">STRING</span></td></tr><tr><td id="L7" class="nb">7</td><td>  end</td></tr><tr><td id="L8" class="nb">8</td><td></td></tr><tr><td id="L9" class="nb">9</td><td>  <span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">VERSION</span></td></tr><tr><td id="L10" class="nb">10</td><td>    <span class="node-casgn kind-name run" title="2x">MAJOR</span> <span class="node-casgn kind-operator run" title="2x">=</span> <span class="node-int kind-expression run" title="2x">5</span></td></tr><tr><td id="L11" class="nb">11</td><td>    <span class="node-casgn kind-name run" title="2x">MINOR</span> <span class="node-casgn kind-operator run" title="2x">=</span> <span class="node-int kind-expression run" title="2x">2</span></td></tr><tr><td id="L12" class="nb">12</td><td>    <span class="node-casgn kind-name run" title="2x">TINY</span>  <span class="node-casgn kind-operator run" title="2x">=</span> <span class="node-int kind-expression run" title="2x">0</span></td></tr><tr><td id="L13" class="nb">13</td><td>    <span class="node-casgn kind-name run" title="2x">PRE</span>   <span class="node-casgn kind-operator run" title="2x">=</span> <span class="node-str kind-expression run" title="2x">"beta2"</span></td></tr><tr><td id="L14" class="nb">14</td><td></td></tr><tr><td id="L15" class="nb">15</td><td>    <span class="node-casgn kind-name run" title="2x">STRING</span> <span class="node-casgn kind-operator run" title="2x">=</span> <span class="node-array kind-begin run" title="2x">[</span><span class="node-const kind-name run" title="2x">MAJOR</span>, <span class="node-const kind-name run" title="2x">MINOR</span>, <span class="node-const kind-name run" title="2x">TINY</span>, <span class="node-const kind-name run" title="2x">PRE</span><span class="node-array kind-end run" title="2x">]</span><span class="node-send kind-dot run" title="2x">.</span><span class="node-send kind-selector_begin run" title="2x">compact</span><span class="node-send kind-dot run" title="2x">.</span><span class="node-send kind-selector_begin run" title="2x">join</span>(<span class="node-str kind-expression run" title="2x">"."</span>)</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

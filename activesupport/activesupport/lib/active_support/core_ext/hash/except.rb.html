@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">16</span>  / <span class="potentially_executable" title="potentially_executable">16</span></td><td class="per_char"><span class="executed" title="executed">66</span>  / <span class="potentially_executable" title="potentially_executable">66</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/hash/except.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Hash</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # Returns a hash that includes everything except given keys.</td></tr><tr><td id="L5" class="nb">5</td><td>  #   hash = { a: true, b: false, c: nil }</td></tr><tr><td id="L6" class="nb">6</td><td>  #   hash.except(:c)     # =&gt; { a: true, b: false }</td></tr><tr><td id="L7" class="nb">7</td><td>  #   hash.except(:a, :b) # =&gt; { c: nil }</td></tr><tr><td id="L8" class="nb">8</td><td>  #   hash                # =&gt; { a: true, b: false, c: nil }</td></tr><tr><td id="L9" class="nb">9</td><td>  #</td></tr><tr><td id="L10" class="nb">10</td><td>  # This is useful for limiting a set of parameters to everything but a few known toggles:</td></tr><tr><td id="L11" class="nb">11</td><td>  #   @person.update(params[:person].except(:admin))</td></tr><tr><td id="L12" class="nb">12</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">except</span>(*keys)</td></tr><tr><td id="L13" class="nb">13</td><td>    <span class="node-send kind-selector_begin run" title="3921x">dup</span><span class="node-send kind-dot run" title="3921x">.</span><span class="node-send kind-selector_begin run" title="3921x">except!</span>(<span class="node-splat kind-operator run" title="3921x">*</span><span class="node-lvar kind-name run" title="3921x">keys</span>)</td></tr><tr><td id="L14" class="nb">14</td><td>  end</td></tr><tr><td id="L15" class="nb">15</td><td></td></tr><tr><td id="L16" class="nb">16</td><td>  # Removes the given keys from hash and returns it.</td></tr><tr><td id="L17" class="nb">17</td><td>  #   hash = { a: true, b: false, c: nil }</td></tr><tr><td id="L18" class="nb">18</td><td>  #   hash.except!(:c) # =&gt; { a: true, b: false }</td></tr><tr><td id="L19" class="nb">19</td><td>  #   hash             # =&gt; { a: true, b: false }</td></tr><tr><td id="L20" class="nb">20</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">except!</span>(*keys)</td></tr><tr><td id="L21" class="nb">21</td><td>    <span class="node-lvar kind-name run" title="3924x">keys</span><span class="node-send kind-dot run" title="3924x">.</span><span class="node-send kind-selector_begin run" title="3924x">each</span> { |key| <span class="node-send kind-selector_begin run" title="46993x">delete</span>(<span class="node-lvar kind-name run" title="46993x">key</span>) }</td></tr><tr><td id="L22" class="nb">22</td><td>    <span class="node-self kind-expression run" title="3923x">self</span></td></tr><tr><td id="L23" class="nb">23</td><td>  end</td></tr><tr><td id="L24" class="nb">24</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

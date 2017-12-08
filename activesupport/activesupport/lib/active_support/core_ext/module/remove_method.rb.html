@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">17</span>  / <span class="potentially_executable" title="potentially_executable">20</span></td><td class="per_char"><span class="executed" title="executed">213</span>  / <span class="potentially_executable" title="potentially_executable">242</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">2</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/module/remove_method.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-send kind-selector_begin run" title="2x">require</span> <span class="node-str kind-expression run" title="2x">"active_support/core_ext/module/redefine_method"</span></td></tr><tr><td id="L4" class="nb">4</td><td></td></tr><tr><td id="L5" class="nb">5</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Module</span></td></tr><tr><td id="L6" class="nb">6</td><td>  # Removes the named method, if it exists.</td></tr><tr><td id="L7" class="nb">7</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">remove_possible_method</span>(method)</td></tr><tr><td id="L8" class="nb">8</td><td>    <span class="fork fork-whole fork-not-run fork-with-uncovered-branches" data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="implicit falsy branch not covered"></i><span class="node-if kind-keyword run" title="2x">if</span> <span class="fork fork-whole fork-not-run fork-with-uncovered-branches" data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="left-hand side not covered"></i><span class="node-send kind-selector_begin run" title="2x">method_defined?</span>(<span class="node-lvar kind-name run" title="2x">method</span>) <span class="node-or kind-operator run" title="2x">||</span> <span class="fork fork-branch fork-not-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="never run"></i><span class="node-send kind-selector_begin not-run" title="never run">private_method_defined?</span>(<span class="node-lvar kind-name not-run" title="never run">method</span>)</span></span></span></td></tr><tr><td id="L9" class="nb">9</td><td>      <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="2x"></i><span class="node-send kind-selector_begin run" title="2x">undef_method</span>(<span class="node-lvar kind-name run" title="2x">method</span>)</span></td></tr><tr><td id="L10" class="nb">10</td><td>    end</td></tr><tr><td id="L11" class="nb">11</td><td>  end</td></tr><tr><td id="L12" class="nb">12</td><td></td></tr><tr><td id="L13" class="nb">13</td><td>  # Removes the named singleton method, if it exists.</td></tr><tr><td id="L14" class="nb">14</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">remove_possible_singleton_method</span>(method)</td></tr><tr><td id="L15" class="nb">15</td><td>    <span class="node-send kind-selector_begin run" title="1x">singleton_class</span><span class="node-send kind-dot run" title="1x">.</span><span class="node-send kind-selector_begin run" title="1x">remove_possible_method</span>(<span class="node-lvar kind-name run" title="1x">method</span>)</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

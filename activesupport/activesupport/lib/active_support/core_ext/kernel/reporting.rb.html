@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">33</span>  / <span class="potentially_executable" title="potentially_executable">36</span></td><td class="per_char"><span class="executed" title="executed">208</span>  / <span class="potentially_executable" title="potentially_executable">226</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/kernel/reporting.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">Kernel</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-send kind-selector_begin run" title="2x">module_function</span></td></tr><tr><td id="L5" class="nb">5</td><td></td></tr><tr><td id="L6" class="nb">6</td><td>  # Sets $VERBOSE to +nil+ for the duration of the block and back to its original</td></tr><tr><td id="L7" class="nb">7</td><td>  # value afterwards.</td></tr><tr><td id="L8" class="nb">8</td><td>  #</td></tr><tr><td id="L9" class="nb">9</td><td>  #   silence_warnings do</td></tr><tr><td id="L10" class="nb">10</td><td>  #     value = noisy_call # no warning voiced</td></tr><tr><td id="L11" class="nb">11</td><td>  #   end</td></tr><tr><td id="L12" class="nb">12</td><td>  #</td></tr><tr><td id="L13" class="nb">13</td><td>  #   noisy_call # warning voiced</td></tr><tr><td id="L14" class="nb">14</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">silence_warnings</span></td></tr><tr><td id="L15" class="nb">15</td><td>    <span class="node-send kind-selector_begin run" title="93x">with_warnings</span>(<span class="node-nil kind-expression run" title="93x">nil</span>) { <span class="node-yield kind-keyword run" title="93x">yield</span> }</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td></td></tr><tr><td id="L18" class="nb">18</td><td>  # Sets $VERBOSE to +true+ for the duration of the block and back to its</td></tr><tr><td id="L19" class="nb">19</td><td>  # original value afterwards.</td></tr><tr><td id="L20" class="nb">20</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">enable_warnings</span></td></tr><tr><td id="L21" class="nb">21</td><td>    <span class="node-send kind-selector_begin run" title="10x">with_warnings</span>(<span class="node-true kind-expression run" title="10x">true</span>) { <span class="node-yield kind-keyword run" title="10x">yield</span> }</td></tr><tr><td id="L22" class="nb">22</td><td>  end</td></tr><tr><td id="L23" class="nb">23</td><td></td></tr><tr><td id="L24" class="nb">24</td><td>  # Sets $VERBOSE for the duration of the block and back to its original</td></tr><tr><td id="L25" class="nb">25</td><td>  # value afterwards.</td></tr><tr><td id="L26" class="nb">26</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">with_warnings</span>(flag)</td></tr><tr><td id="L27" class="nb">27</td><td>    <span class="node-lvasgn kind-name run" title="103x">old_verbose</span>, <span class="node-gvasgn kind-name run" title="103x">$VERBOSE</span> <span class="node-masgn kind-operator run" title="103x">=</span> <span class="node-gvar kind-name run" title="103x">$VERBOSE</span>, <span class="node-lvar kind-name run" title="103x">flag</span></td></tr><tr><td id="L28" class="nb">28</td><td>    <span class="node-yield kind-keyword run" title="103x">yield</span></td></tr><tr><td id="L29" class="nb">29</td><td>  <span class="node-ensure kind-keyword run" title="103x">ensure</span></td></tr><tr><td id="L30" class="nb">30</td><td>    <span class="node-gvasgn kind-name run" title="103x">$VERBOSE</span> <span class="node-gvasgn kind-operator run" title="103x">=</span> <span class="node-lvar kind-name run" title="103x">old_verbose</span></td></tr><tr><td id="L31" class="nb">31</td><td>  end</td></tr><tr><td id="L32" class="nb">32</td><td></td></tr><tr><td id="L33" class="nb">33</td><td>  # Blocks and ignores any exception passed as argument if raised within the block.</td></tr><tr><td id="L34" class="nb">34</td><td>  #</td></tr><tr><td id="L35" class="nb">35</td><td>  #   suppress(ZeroDivisionError) do</td></tr><tr><td id="L36" class="nb">36</td><td>  #     1/0</td></tr><tr><td id="L37" class="nb">37</td><td>  #     puts 'This code is NOT reached'</td></tr><tr><td id="L38" class="nb">38</td><td>  #   end</td></tr><tr><td id="L39" class="nb">39</td><td>  #</td></tr><tr><td id="L40" class="nb">40</td><td>  #   puts 'This code gets executed and nothing related to ZeroDivisionError was seen'</td></tr><tr><td id="L41" class="nb">41</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">suppress</span>(*exception_classes)</td></tr><tr><td id="L42" class="nb">42</td><td>    <span class="node-yield kind-keyword run" title="10x">yield</span></td></tr><tr><td id="L43" class="nb">43</td><td>  <span class="node-resbody kind-keyword run" title="8x">rescue</span> <span class="node-splat kind-operator not-run" title="never run">*</span><span class="node-lvar kind-name not-run" title="never run">exception_classes</span></td></tr><tr><td id="L44" class="nb">44</td><td>  end</td></tr><tr><td id="L45" class="nb">45</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">10</span></td><td class="per_char"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">62</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-const kind-name not-run" title="never run">Dir</span><span class="node-send kind-dot not-run" title="never run">.</span><span class="node-send kind-selector_begin not-run" title="never run">glob</span>(<span class="node-const kind-name not-run" title="never run">File</span><span class="node-send kind-dot not-run" title="never run">.</span><span class="node-send kind-selector_begin not-run" title="never run">expand_path</span>(<span class="node-str kind-expression not-run" title="never run">"core_ext/*.rb"</span>, <span class="node-send kind-selector_begin not-run" title="never run">__dir__</span>))<span class="node-send kind-dot not-run" title="never run">.</span><span class="node-send kind-selector_begin not-run" title="never run">each</span> do |path|</td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-lvar kind-name not-run" title="never run">path</span></td></tr><tr><td id="L5" class="nb">5</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

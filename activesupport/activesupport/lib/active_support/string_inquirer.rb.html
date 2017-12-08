@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">31</span>  / <span class="potentially_executable" title="potentially_executable">32</span></td><td class="per_char"><span class="executed" title="executed">172</span>  / <span class="potentially_executable" title="potentially_executable">177</span></td><td class="branch"><span class="executed" title="executed">2</span>  / <span class="potentially_executable" title="potentially_executable">2</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/string_inquirer.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">ActiveSupport</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # Wrapping a string in this class gives you a prettier way to test</td></tr><tr><td id="L5" class="nb">5</td><td>  # for equality. The value returned by &lt;tt&gt;Rails.env&lt;/tt&gt; is wrapped</td></tr><tr><td id="L6" class="nb">6</td><td>  # in a StringInquirer object, so instead of calling this:</td></tr><tr><td id="L7" class="nb">7</td><td>  #</td></tr><tr><td id="L8" class="nb">8</td><td>  #   Rails.env == 'production'</td></tr><tr><td id="L9" class="nb">9</td><td>  #</td></tr><tr><td id="L10" class="nb">10</td><td>  # you can call this:</td></tr><tr><td id="L11" class="nb">11</td><td>  #</td></tr><tr><td id="L12" class="nb">12</td><td>  #   Rails.env.production?</td></tr><tr><td id="L13" class="nb">13</td><td>  #</td></tr><tr><td id="L14" class="nb">14</td><td>  # == Instantiating a new StringInquirer</td></tr><tr><td id="L15" class="nb">15</td><td>  #</td></tr><tr><td id="L16" class="nb">16</td><td>  #   vehicle = ActiveSupport::StringInquirer.new('car')</td></tr><tr><td id="L17" class="nb">17</td><td>  #   vehicle.car?   # =&gt; true</td></tr><tr><td id="L18" class="nb">18</td><td>  #   vehicle.bike?  # =&gt; false</td></tr><tr><td id="L19" class="nb">19</td><td>  <span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">StringInquirer</span> &lt; <span class="node-const kind-name run" title="2x">String</span></td></tr><tr><td id="L20" class="nb">20</td><td>    <span class="node-send kind-selector_begin run" title="2x">private</span></td></tr><tr><td id="L21" class="nb">21</td><td></td></tr><tr><td id="L22" class="nb">22</td><td>      <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">respond_to_missing?</span>(method_name, include_private = <span class="node-false kind-expression not-run" title="never run">false</span>)</td></tr><tr><td id="L23" class="nb">23</td><td>        <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="4x"></i>(<span class="node-lvar kind-name run" title="4x">method_name</span><span class="node-send kind-selector_begin run" title="4x">[</span><span class="node-int kind-expression run" title="4x">-1</span><span class="node-send kind-selector_end run" title="4x">]</span> <span class="node-send kind-selector_begin run" title="4x">==</span> <span class="node-str kind-expression run" title="4x">"?"</span>) <span class="node-or kind-operator run" title="4x">||</span> <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="2x"></i><span class="node-zsuper kind-keyword run" title="2x">super</span></span></span></td></tr><tr><td id="L24" class="nb">24</td><td>      end</td></tr><tr><td id="L25" class="nb">25</td><td></td></tr><tr><td id="L26" class="nb">26</td><td>      <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">method_missing</span>(method_name, *arguments)</td></tr><tr><td id="L27" class="nb">27</td><td>        <span class="fork fork-whole fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="5x"></i><span class="node-if kind-keyword run" title="5x">if</span> <span class="node-lvar kind-name run" title="5x">method_name</span><span class="node-send kind-selector_begin run" title="5x">[</span><span class="node-int kind-expression run" title="5x">-1</span><span class="node-send kind-selector_end run" title="5x">]</span> <span class="node-send kind-selector_begin run" title="5x">==</span> <span class="node-str kind-expression run" title="5x">"?"</span></span></td></tr><tr><td id="L28" class="nb">28</td><td>          <span class="fork fork-branch fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="4x"></i><span class="node-self kind-expression run" title="4x">self</span> <span class="node-send kind-selector_begin run" title="4x">==</span> <span class="node-lvar kind-name run" title="4x">method_name</span><span class="node-send kind-selector_begin run" title="4x">[</span><span class="node-int kind-expression run" title="4x">0</span><span class="node-irange kind-operator run" title="4x">..</span><span class="node-int kind-expression run" title="4x">-2</span><span class="node-send kind-selector_end run" title="4x">]</span></span></td></tr><tr><td id="L29" class="nb">29</td><td>        <span class="node-zsuper kind-else run" title="1x">else</span></td></tr><tr><td id="L30" class="nb">30</td><td>          <span class="fork fork-branch fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="1x"></i><span class="node-zsuper kind-keyword run" title="1x">super</span></span></td></tr><tr><td id="L31" class="nb">31</td><td>        end</td></tr><tr><td id="L32" class="nb">32</td><td>      end</td></tr><tr><td id="L33" class="nb">33</td><td>  end</td></tr><tr><td id="L34" class="nb">34</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

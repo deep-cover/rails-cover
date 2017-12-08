@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">22</span>  / <span class="potentially_executable" title="potentially_executable">22</span></td><td class="per_char"><span class="executed" title="executed">181</span>  / <span class="potentially_executable" title="potentially_executable">181</span></td><td class="branch"><span class="executed" title="executed">1</span>  / <span class="potentially_executable" title="potentially_executable">1</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/object/inclusion.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Object</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # Returns true if this object is included in the argument. Argument must be</td></tr><tr><td id="L5" class="nb">5</td><td>  # any object which responds to +#include?+. Usage:</td></tr><tr><td id="L6" class="nb">6</td><td>  #</td></tr><tr><td id="L7" class="nb">7</td><td>  #   characters = ["Konata", "Kagami", "Tsukasa"]</td></tr><tr><td id="L8" class="nb">8</td><td>  #   "Konata".in?(characters) # =&gt; true</td></tr><tr><td id="L9" class="nb">9</td><td>  #</td></tr><tr><td id="L10" class="nb">10</td><td>  # This will throw an +ArgumentError+ if the argument doesn't respond</td></tr><tr><td id="L11" class="nb">11</td><td>  # to +#include?+.</td></tr><tr><td id="L12" class="nb">12</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">in?</span>(another_object)</td></tr><tr><td id="L13" class="nb">13</td><td>    <span class="node-lvar kind-name run" title="19x">another_object</span><span class="node-send kind-dot run" title="19x">.</span><span class="node-send kind-selector_begin run" title="19x">include?</span>(<span class="node-self kind-expression run" title="19x">self</span>)</td></tr><tr><td id="L14" class="nb">14</td><td>  <span class="node-resbody kind-keyword run" title="2x">rescue</span> <span class="node-const kind-name run" title="2x">NoMethodError</span></td></tr><tr><td id="L15" class="nb">15</td><td>    <span class="node-send kind-selector_begin run" title="2x">raise</span> <span class="node-const kind-name run" title="2x">ArgumentError</span><span class="node-send kind-dot run" title="2x">.</span><span class="node-send kind-selector_begin run" title="2x">new</span>(<span class="node-str kind-expression run" title="2x">"The parameter passed to #in? must respond to #include?"</span>)</td></tr><tr><td id="L16" class="nb">16</td><td>  end</td></tr><tr><td id="L17" class="nb">17</td><td></td></tr><tr><td id="L18" class="nb">18</td><td>  # Returns the receiver if it's included in the argument otherwise returns +nil+.</td></tr><tr><td id="L19" class="nb">19</td><td>  # Argument must be any object which responds to +#include?+. Usage:</td></tr><tr><td id="L20" class="nb">20</td><td>  #</td></tr><tr><td id="L21" class="nb">21</td><td>  #   params[:bucket_type].presence_in %w( project calendar )</td></tr><tr><td id="L22" class="nb">22</td><td>  #</td></tr><tr><td id="L23" class="nb">23</td><td>  # This will throw an +ArgumentError+ if the argument doesn't respond to +#include?+.</td></tr><tr><td id="L24" class="nb">24</td><td>  #</td></tr><tr><td id="L25" class="nb">25</td><td>  # @return [Object]</td></tr><tr><td id="L26" class="nb">26</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">presence_in</span>(another_object)</td></tr><tr><td id="L27" class="nb">27</td><td>    <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="2x"></i><span class="node-send kind-selector_begin run" title="3x">in?</span>(<span class="node-lvar kind-name run" title="3x">another_object</span>) <span class="node-if kind-question run" title="2x">?</span> <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="1x"></i><span class="node-self kind-expression run" title="1x">self</span></span> <span class="node-nil kind-colon run" title="1x">:</span> <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="1x"></i><span class="node-nil kind-expression run" title="1x">nil</span></span></span></td></tr><tr><td id="L28" class="nb">28</td><td>  end</td></tr><tr><td id="L29" class="nb">29</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

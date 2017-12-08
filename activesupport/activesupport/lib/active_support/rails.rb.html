@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">15</span></td><td class="per_char"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">293</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/rails.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td># This is private interface.</td></tr><tr><td id="L4" class="nb">4</td><td>#</td></tr><tr><td id="L5" class="nb">5</td><td># Rails components cherry pick from Active Support as needed, but there are a</td></tr><tr><td id="L6" class="nb">6</td><td># few features that are used for sure in some way or another and it is not worth</td></tr><tr><td id="L7" class="nb">7</td><td># putting individual requires absolutely everywhere. Think blank? for example.</td></tr><tr><td id="L8" class="nb">8</td><td>#</td></tr><tr><td id="L9" class="nb">9</td><td># This file is loaded by every Rails component except Active Support itself,</td></tr><tr><td id="L10" class="nb">10</td><td># but it does not belong to the Rails public interface. It is internal to</td></tr><tr><td id="L11" class="nb">11</td><td># Rails and can change anytime.</td></tr><tr><td id="L12" class="nb">12</td><td></td></tr><tr><td id="L13" class="nb">13</td><td># Defines Object#blank? and Object#present?.</td></tr><tr><td id="L14" class="nb">14</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/core_ext/object/blank"</span></td></tr><tr><td id="L15" class="nb">15</td><td></td></tr><tr><td id="L16" class="nb">16</td><td># Rails own autoload, eager_load, etc.</td></tr><tr><td id="L17" class="nb">17</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/dependencies/autoload"</span></td></tr><tr><td id="L18" class="nb">18</td><td></td></tr><tr><td id="L19" class="nb">19</td><td># Support for ClassMethods and the included macro.</td></tr><tr><td id="L20" class="nb">20</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/concern"</span></td></tr><tr><td id="L21" class="nb">21</td><td></td></tr><tr><td id="L22" class="nb">22</td><td># Defines Class#class_attribute.</td></tr><tr><td id="L23" class="nb">23</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/core_ext/class/attribute"</span></td></tr><tr><td id="L24" class="nb">24</td><td></td></tr><tr><td id="L25" class="nb">25</td><td># Defines Module#delegate.</td></tr><tr><td id="L26" class="nb">26</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/core_ext/module/delegation"</span></td></tr><tr><td id="L27" class="nb">27</td><td></td></tr><tr><td id="L28" class="nb">28</td><td># Defines ActiveSupport::Deprecation.</td></tr><tr><td id="L29" class="nb">29</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/deprecation"</span></td></tr><tr><td id="L30" class="nb">30</td><td></td></tr><tr><td id="L31" class="nb">31</td><td># Defines Regexp#match?.</td></tr><tr><td id="L32" class="nb">32</td><td>#</td></tr><tr><td id="L33" class="nb">33</td><td># This should be removed when Rails needs Ruby 2.4 or later, and the require</td></tr><tr><td id="L34" class="nb">34</td><td># added where other Regexp extensions are being used (easy to grep).</td></tr><tr><td id="L35" class="nb">35</td><td><span class="node-send kind-selector_begin not-run" title="never run">require</span> <span class="node-str kind-expression not-run" title="never run">"active_support/core_ext/regexp"</span></td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

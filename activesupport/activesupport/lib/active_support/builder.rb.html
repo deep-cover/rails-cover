@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">5</span>  / <span class="potentially_executable" title="potentially_executable">15</span></td><td class="per_char"><span class="executed" title="executed">24</span>  / <span class="potentially_executable" title="potentially_executable">168</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/builder.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-kwbegin kind-begin run" title="2x">begin</span></td></tr><tr><td id="L4" class="nb">4</td><td>  <span class="node-send kind-selector_begin run" title="2x">require</span> <span class="node-str kind-expression run" title="2x">"builder"</span></td></tr><tr><td id="L5" class="nb">5</td><td><span class="node-resbody kind-keyword not-run" title="never run">rescue</span> <span class="node-const kind-name not-run" title="never run">LoadError</span> <span class="node-resbody kind-assoc not-run" title="never run">=&gt;</span> <span class="node-lvasgn kind-name not-run" title="never run">e</span></td></tr><tr><td id="L6" class="nb">6</td><td>  <span class="node-gvar kind-name not-run" title="never run">$stderr</span><span class="node-send kind-dot not-run" title="never run">.</span><span class="node-send kind-selector_begin not-run" title="never run">puts</span> <span class="node-str kind-expression not-run" title="never run">"You don't have builder installed in your application. Please add it to your Gemfile and run bundle install"</span></td></tr><tr><td id="L7" class="nb">7</td><td>  <span class="node-send kind-selector_begin not-run" title="never run">raise</span> <span class="node-lvar kind-name not-run" title="never run">e</span></td></tr><tr><td id="L8" class="nb">8</td><td><span class="node-kwbegin kind-end run" title="2x">end</span></td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

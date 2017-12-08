@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">17</span>  / <span class="potentially_executable" title="potentially_executable">17</span></td><td class="per_char"><span class="executed" title="executed">178</span>  / <span class="potentially_executable" title="potentially_executable">178</span></td><td class="branch"><span class="executed" title="executed">0</span>  / <span class="potentially_executable" title="potentially_executable">0</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/big_decimal/conversions.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-send kind-selector_begin run" title="2x">require</span> <span class="node-str kind-expression run" title="2x">"bigdecimal"</span></td></tr><tr><td id="L4" class="nb">4</td><td><span class="node-send kind-selector_begin run" title="2x">require</span> <span class="node-str kind-expression run" title="2x">"bigdecimal/util"</span></td></tr><tr><td id="L5" class="nb">5</td><td></td></tr><tr><td id="L6" class="nb">6</td><td><span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">ActiveSupport</span></td></tr><tr><td id="L7" class="nb">7</td><td>  <span class="node-module kind-keyword run" title="2x">module</span> <span class="node-const kind-name run" title="2x">BigDecimalWithDefaultFormat</span> #:nodoc:</td></tr><tr><td id="L8" class="nb">8</td><td>    <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">to_s</span>(format = <span class="node-str kind-expression run" title="11x">"F"</span>)</td></tr><tr><td id="L9" class="nb">9</td><td>      <span class="node-super kind-keyword run" title="195x">super</span><span class="node-super kind-begin run" title="195x">(</span><span class="node-lvar kind-name run" title="195x">format</span><span class="node-super kind-end run" title="195x">)</span></td></tr><tr><td id="L10" class="nb">10</td><td>    end</td></tr><tr><td id="L11" class="nb">11</td><td>  end</td></tr><tr><td id="L12" class="nb">12</td><td>end</td></tr><tr><td id="L13" class="nb">13</td><td></td></tr><tr><td id="L14" class="nb">14</td><td><span class="node-const kind-name run" title="2x">BigDecimal</span><span class="node-send kind-dot run" title="2x">.</span><span class="node-send kind-selector_begin run" title="2x">prepend</span>(<span class="node-const kind-name run" title="2x">ActiveSupport</span><span class="node-const kind-double_colon run" title="2x">::</span><span class="node-const kind-name run" title="2x">BigDecimalWithDefaultFormat</span>)</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

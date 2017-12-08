@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">13</span>  / <span class="potentially_executable" title="potentially_executable">13</span></td><td class="per_char"><span class="executed" title="executed">57</span>  / <span class="potentially_executable" title="potentially_executable">57</span></td><td class="branch"><span class="executed" title="executed">1</span>  / <span class="potentially_executable" title="potentially_executable">1</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/integer/multiple.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Integer</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # Check whether the integer is evenly divisible by the argument.</td></tr><tr><td id="L5" class="nb">5</td><td>  #</td></tr><tr><td id="L6" class="nb">6</td><td>  #   0.multiple_of?(0)  # =&gt; true</td></tr><tr><td id="L7" class="nb">7</td><td>  #   6.multiple_of?(5)  # =&gt; false</td></tr><tr><td id="L8" class="nb">8</td><td>  #   10.multiple_of?(2) # =&gt; true</td></tr><tr><td id="L9" class="nb">9</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">multiple_of?</span>(number)</td></tr><tr><td id="L10" class="nb">10</td><td>    <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="13x"></i><span class="node-lvar kind-name run" title="13x">number</span> <span class="node-send kind-selector_begin run" title="13x">!=</span> <span class="node-int kind-expression run" title="13x">0</span> <span class="node-if kind-question run" title="13x">?</span> <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="11x"></i><span class="node-self kind-expression run" title="11x">self</span> <span class="node-send kind-selector_begin run" title="11x">%</span> <span class="node-lvar kind-name run" title="11x">number</span> <span class="node-send kind-selector_begin run" title="11x">==</span> <span class="node-int kind-expression run" title="11x">0</span></span> <span class="node-send kind-colon run" title="2x">:</span> <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="2x"></i><span class="node-send kind-selector_begin run" title="2x">zero?</span></span></span></td></tr><tr><td id="L11" class="nb">11</td><td>  end</td></tr><tr><td id="L12" class="nb">12</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>

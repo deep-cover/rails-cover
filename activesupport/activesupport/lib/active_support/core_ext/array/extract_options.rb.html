@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="../../../../.."/>
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="https://use.fontawesome.com/81e98abb93.js"></script>
+    <link rel="stylesheet" href="assets/deep_cover.css" type="text/css"/>
+  </head>
+  <body class="source">
+    <div class="overlay">
+      <div class="center">
+        <div class="stats"><table><tr><th class="node">Nodes</th><th class="per_char">Chars</th><th class="branch">Branches</th></tr><tr><td class="node"><span class="executed" title="executed">18</span>  / <span class="potentially_executable" title="potentially_executable">18</span></td><td class="per_char"><span class="executed" title="executed">129</span>  / <span class="potentially_executable" title="potentially_executable">129</span></td><td class="branch"><span class="executed" title="executed">2</span>  / <span class="potentially_executable" title="potentially_executable">2</span></td></tr></table></div>
+      </div>
+    </div>
+    <header>
+      <div class="content">
+        <div class="info"><span class="deep-cover"><span class="deep">Deep</span>Cover</span>
+          <span class="version">v0.1.16</span>
+        </div>
+        <div class="nav">
+          <a href="index.html" aria-label="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="path">activesupport/lib/active_support/core_ext/array/extract_options.rb<span>
+        </div>
+      </div>
+    </header>
+    <main class="source"><table class="source"><tr><td id="L1" class="nb">1</td><td># frozen_string_literal: true</td></tr><tr><td id="L2" class="nb">2</td><td></td></tr><tr><td id="L3" class="nb">3</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Hash</span></td></tr><tr><td id="L4" class="nb">4</td><td>  # By default, only instances of Hash itself are extractable.</td></tr><tr><td id="L5" class="nb">5</td><td>  # Subclasses of Hash may implement this method and return</td></tr><tr><td id="L6" class="nb">6</td><td>  # true to declare themselves as extractable. If a Hash</td></tr><tr><td id="L7" class="nb">7</td><td>  # is extractable, Array#extract_options! pops it from</td></tr><tr><td id="L8" class="nb">8</td><td>  # the Array when it is the last element of the Array.</td></tr><tr><td id="L9" class="nb">9</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">extractable_options?</span></td></tr><tr><td id="L10" class="nb">10</td><td>    <span class="node-send kind-selector_begin run" title="408x">instance_of?</span>(<span class="node-const kind-name run" title="408x">Hash</span>)</td></tr><tr><td id="L11" class="nb">11</td><td>  end</td></tr><tr><td id="L12" class="nb">12</td><td>end</td></tr><tr><td id="L13" class="nb">13</td><td></td></tr><tr><td id="L14" class="nb">14</td><td><span class="node-class kind-keyword run" title="2x">class</span> <span class="node-const kind-name run" title="2x">Array</span></td></tr><tr><td id="L15" class="nb">15</td><td>  # Extracts options from a set of arguments. Removes and returns the last</td></tr><tr><td id="L16" class="nb">16</td><td>  # element in the array if it's a hash, otherwise returns a blank hash.</td></tr><tr><td id="L17" class="nb">17</td><td>  #</td></tr><tr><td id="L18" class="nb">18</td><td>  #   def options(*args)</td></tr><tr><td id="L19" class="nb">19</td><td>  #     args.extract_options!</td></tr><tr><td id="L20" class="nb">20</td><td>  #   end</td></tr><tr><td id="L21" class="nb">21</td><td>  #</td></tr><tr><td id="L22" class="nb">22</td><td>  #   options(1, 2)        # =&gt; {}</td></tr><tr><td id="L23" class="nb">23</td><td>  #   options(1, 2, a: :b) # =&gt; {:a=&gt;:b}</td></tr><tr><td id="L24" class="nb">24</td><td>  <span class="node-def kind-keyword run" title="2x">def</span> <span class="node-def kind-name run" title="2x">extract_options!</span></td></tr><tr><td id="L25" class="nb">25</td><td>    <span class="fork fork-whole fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="952x"></i><span class="node-if kind-keyword run" title="952x">if</span> <span class="fork fork-whole fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="952x"></i><span class="node-send kind-selector_begin run" title="952x">last</span><span class="node-send kind-dot run" title="952x">.</span><span class="node-send kind-selector_begin run" title="952x">is_a?</span>(<span class="node-const kind-name run" title="952x">Hash</span>) <span class="node-and kind-operator run" title="952x">&amp;&amp;</span> <span class="fork fork-branch fork-run " data-fork-id="1"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="411x"></i><span class="node-send kind-selector_begin run" title="411x">last</span><span class="node-send kind-dot run" title="411x">.</span><span class="node-send kind-selector_begin run" title="411x">extractable_options?</span></span></span></span></td></tr><tr><td id="L26" class="nb">26</td><td>      <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="410x"></i><span class="node-send kind-selector_begin run" title="410x">pop</span></span></td></tr><tr><td id="L27" class="nb">27</td><td>    <span class="node-hash kind-else run" title="542x">else</span></td></tr><tr><td id="L28" class="nb">28</td><td>      <span class="fork fork-branch fork-run " data-fork-id="0"><i class="fork-icon fa fa-code-fork" aria-hidden="true" title="542x"></i><span class="node-hash kind-begin run" title="542x">{</span><span class="node-hash kind-end run" title="542x">}</span></span></td></tr><tr><td id="L29" class="nb">29</td><td>    end</td></tr><tr><td id="L30" class="nb">30</td><td>  end</td></tr><tr><td id="L31" class="nb">31</td><td>end</td></tr></table></main>
+    <script>
+      $(function() {
+        $('.stats .branch').click(function() {
+          $('body').toggleClass('show-forks')
+        });
+      });
+    </script>
+  </body>
+</html>
