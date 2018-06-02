@@ -168,8 +168,6 @@ body.source main {
       background-color: #d9d9d9;
       border-color: #a6a6a6; }
     body.source main table.source .icon, body.source main table.source .kind-empty > .empty-icon, body.source main table.source .fork-icon {
-      position: absolute;
-      left: -2.2ex;
       width: 2ex;
       height: 1.5em;
       line-height: 1.5em;
